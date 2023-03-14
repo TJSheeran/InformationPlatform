@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
     DioUtil.getInstance()?.openLog();
-
+    Get.toNamed(Routes.HOME);
     var result =
         await DioUtil().request("/login", method: DioMethod.post, data: {
       'username': name,
@@ -56,8 +56,9 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
+
     if (result['info'] == '登录成功') {
-      Get.toNamed(Routes.HOME);
+      //Get.toNamed(Routes.HOME);
     }
   }
 

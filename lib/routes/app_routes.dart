@@ -20,6 +20,7 @@ import '../pages/login/login_page_old.dart';
 import '../pages/login/login_binding.dart';
 import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';
+import 'package:demo711/pages/home/classify_page.dart';
 abstract class AppPages {
   static final pages = [
     //闪屏页
@@ -43,7 +44,10 @@ abstract class AppPages {
         name: Routes.PUBLISH,
         page: () => PublishPage(),
         binding: PublishBinding()),
-
+    GetPage(
+        name: Routes.CLASSIFY,
+        page: () => ClassifyPage(),
+       ),
     //评论弹窗
     GetPage(
         name: Routes.COMMENT,
@@ -105,4 +109,6 @@ abstract class Routes {
 
   //搜索页
   static const SEARCH = "/search";
+
+  static const CLASSIFY = "/classify";
 }
