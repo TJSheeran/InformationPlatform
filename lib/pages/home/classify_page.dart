@@ -1,11 +1,66 @@
 import 'package:demo711/routes/app_routes.dart';
+import 'package:demo711/dio_util/dio_method.dart';
+import 'package:demo711/dio_util/dio_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:convert';
 class ClassifyPage extends StatefulWidget {
   @override
   _ClassifyPageState createState() => _ClassifyPageState();
 }
+Future<List>?flist;
+Future<List> _ReadHandle() async {
+  //print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
+  var result = await DioUtil().request(
+    "/baike/Page",
+    method: DioMethod.get,
+    data: {'Category1':'生活服务',
+          'campus':'嘉定校区'}
+  );
+  return result;
+}
+Future<List> _ReadHandle2() async {
+  var result = await DioUtil().request(
+    "/baike/Page",
+    method: DioMethod.get,
+    data: {'Category1':'场馆活动',
+      'campus':'嘉定校区'}
+  );
+  return result;
+}
+
+
+List s=['1','2','3','Category1','Category1','Category1','Category1','Category1'];
+Widget HeaderWidget(List s) {
+  return ListView.builder(
+      itemCount: s.length, //告诉ListView总共有多少个cell
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          color: Colors.grey,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                s[index]["content"],
+                style: TextStyle(
+                  color:Colors.black,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18.0,
+                    fontStyle: FontStyle.values[1]
+                ),
+              ),
+              Container(height: 20,),
+            ],
+          ), //每人一辆跑车
+        );
+      } //使用_cellForRow回调返回每个cell
+  );
+}
+
 Widget _subHeaderWidget(int groupValue) {
   return Positioned(
     top: 0,
@@ -86,6 +141,7 @@ Widget _image({required Offset offset, required double angle}) {
       ),
     ),
   );}
+
 Widget _bartitle() {
   return Text(
     "  检索分类 " ,
@@ -99,21 +155,21 @@ class _ClassifyPageState extends State<ClassifyPage> {
   Widget build(BuildContext context) {
     // _getCategory();
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        body: Stack(
+      extendBodyBehindAppBar: true,
+      body: Stack(
           children:[
-          Container(
-            width: Get.width,
-            height: 80,
-            color: Colors.blueAccent,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                _image(offset: Offset(-Get.width * .10, -Get.width * .10), angle: -5),
-                _image(offset: Offset(Get.width * .10, Get.width * .10), angle: 4),
-              ],
+            Container(
+              width: Get.width,
+              height: 80,
+              color: Colors.blueAccent,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  _image(offset: Offset(-Get.width * .10, -Get.width * .10), angle: -5),
+                  _image(offset: Offset(Get.width * .10, Get.width * .10), angle: 4),
+                ],
+              ),
             ),
-          ),
             CategoryListNav(),
           ]  //CategoryListNav(), //左侧导航
       ),
@@ -129,12 +185,12 @@ class _CategoryListNavState extends State<CategoryListNav> {
 
   List menuList =[
     {
-      "title1": "菜单一",
+      "title1": "生活服务",
       "title2": "说明",
       "type":0,
     },
     {
-      "title1": "菜单二",
+      "title1": "场馆活动",
       "title2": "说明",
       "type":1
     },
@@ -144,36 +200,36 @@ class _CategoryListNavState extends State<CategoryListNav> {
       "type":2
     },
     {
-      "title1": "菜单一",
+      "title1": "菜单四",
       "title2": "说明",
       "type":3
     },
     {
-      "title1": "菜单四",
+      "title1": "菜单五",
       "title2": "说明",
       "type":4
     },
     {
-      "title1": "菜单五",
+      "title1": "菜单六",
       "title2": "说明",
       "type":5
     },
     {
-      "title1": "菜单六",
+      "title1": "菜单七",
       "title2": "说明",
       "type":6
     },
     {
-      "title1": "菜单七",
+      "title1": "菜单八",
       "title2": "说明",
       "type":7
     },
     {
-      "title1": "菜单巴",
+      "title1": "菜单九",
       "title2": "说明",
       "type":8
     },    {
-      "title1": "菜单九",
+      "title1": "菜单十",
       "title2": "说明",
       "type":9
     },
@@ -183,73 +239,103 @@ class _CategoryListNavState extends State<CategoryListNav> {
   @override
   void initState() {
     super.initState();
+    flist=_ReadHandle();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      // shrinkWrap: true,
-      // 内容
-      slivers: <Widget>[
-         SliverPadding(
-          padding: const EdgeInsets.all(0.0),
-          sliver:  SliverList(
-            delegate:  SliverChildListDelegate(
-              <Widget>[
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        //height: 120.0,
-                        width: double.maxFinite,
-                        margin: EdgeInsets.only(top: 20.0,
-                            left: 0.0,
-                            bottom: 0.0), //容器外填充//容器内填充
-                        child: Row(
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                SizedBox(height: 10),
-                                _bartitle(),
-                                SizedBox(height: 23),
-                                menuListItem(context,menuList[0]),
-                                menuListItem(context,menuList[1]),
-                                menuListItem(context,menuList[2]),
-                                menuListItem(context,menuList[3]),
-                                menuListItem(context,menuList[4]),
-                                menuListItem(context,menuList[5]),
-                                menuListItem(context,menuList[6]),
-                                menuListItem(context,menuList[7]),
-                              ],
-                            ),
-                            Column(
-                              children: <Widget>[
-                                _subHeaderWidget(groupValue),
-                                SizedBox(height: 480),
-                              ],
-                            ),
-                          ],
-                        ),
+    return Scaffold(
+      // floatingActionButton: floatButton,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        body: FutureBuilder(
+            future: flist,
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              return Stack(
+                  children:[
+                    Container(
+                      width: Get.width,
+                      height: 80,
+                      color: Colors.blueAccent,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          _image(offset: Offset(-Get.width * .10, -Get.width * .10), angle: -5),
+                          _image(offset: Offset(Get.width * .10, Get.width * .10), angle: 4),
+                        ],
                       ),
+                    ),
+                    CustomScrollView(
+                      slivers: <Widget>[
+                        SliverPadding(
+                          padding: const EdgeInsets.all(0.0),
+                          sliver:  SliverList(
+                            delegate:  SliverChildListDelegate(
+                              <Widget>[
+                                Container(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        //height: 120.0,
+                                        width: double.maxFinite,
+                                        margin: EdgeInsets.only(top: 20.0,
+                                            left: 0.0,
+                                            bottom: 0.0), //容器外填充//容器内填充
+                                        child: Row(
+                                          children: <Widget>[
+                                            Column(
+                                              children: <Widget>[
+                                                SizedBox(height: 10),
+                                                _bartitle(),
+                                                SizedBox(height: 23),
+                                                menuListItem(context,menuList[0]),
+                                                menuListItem(context,menuList[1]),
+                                                menuListItem(context,menuList[2]),
+                                                menuListItem(context,menuList[3]),
+                                                menuListItem(context,menuList[4]),
+                                                menuListItem(context,menuList[5]),
+                                                menuListItem(context,menuList[6]),
+                                                //menuListItem(context,menuList[7]),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: <Widget>[
+                                                if(snapshot.hasData)
+                                                   SizedBox(
+                                                     height: 520,
+                                                     width: 300,
+                                                     child:
+                                                          HeaderWidget(snapshot.data)
+                                                   ),
 
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                                                  //_subHeaderWidget(groupValue),
+              ]
+                                            )
+                                                ],
+                                              ),
+                                            )
+
+                                          ],
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                                    )
+                            ],
+                          )]
+                        );}
         ),
-      ],
-    );
-  }
+                    );}
+
   Widget menuListItem(context,value) {
-    print(value['type']);
+    // print(value['type']);
     return groupValue==value['type'] ?
     Container(
       height: 77.0,
       width: 80,
       child: TextButton(
-          onPressed: (){
+          onPressed: () {
             updateGroupValue(value['type']);
           },
           child:Text.rich(TextSpan(
@@ -280,6 +366,8 @@ class _CategoryListNavState extends State<CategoryListNav> {
       child: TextButton(
           onPressed: (){
             updateGroupValue(value['type']);
+            value['title1']=="场馆活动"?flist=_ReadHandle2():flist=_ReadHandle();
+            setState(() {});
           },
           child:Text.rich(TextSpan(
               children: [
