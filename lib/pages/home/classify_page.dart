@@ -13,19 +13,19 @@ Future<List>?flist;
 Future<List> _ReadHandle() async {
   //print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
   var result = await DioUtil().request(
-    "/baike/Page",
-    method: DioMethod.get,
-    data: {'Category1':'生活服务',
-          'campus':'嘉定校区'}
+    "/findbaikeFromDemo",
+    method: DioMethod.post,
+    data: {"category1":"生活服务",
+          "campus":"嘉定校区"}
   );
   return result;
 }
 Future<List> _ReadHandle2() async {
   var result = await DioUtil().request(
-    "/baike/Page",
-    method: DioMethod.get,
-    data: {'Category1':'场馆活动',
-      'campus':'嘉定校区'}
+    "/findbaikeFromDemo",
+    method: DioMethod.post,
+    data: {"category1":"场馆活动",
+      "campus":"嘉定校区"}
   );
   return result;
 }
@@ -299,6 +299,7 @@ class _CategoryListNavState extends State<CategoryListNav> {
                                             ),
                                             Column(
                                               children: <Widget>[
+                                                //_subHeaderWidget(groupValue),
                                                 if(snapshot.hasData)
                                                    SizedBox(
                                                      height: 520,
@@ -307,7 +308,7 @@ class _CategoryListNavState extends State<CategoryListNav> {
                                                           HeaderWidget(snapshot.data)
                                                    ),
 
-                                                  //_subHeaderWidget(groupValue),
+
               ]
                                             )
                                                 ],
