@@ -7,6 +7,8 @@ import 'package:demo711/pages/home/home_page.dart';
 import 'package:demo711/pages/login/login_page.dart';
 import 'package:demo711/pages/mine/mine_binding.dart';
 import 'package:demo711/pages/mine/mine_page.dart';
+import 'package:demo711/pages/mytest/test_binding.dart';
+import 'package:demo711/pages/mytest/test_page.dart';
 import 'package:demo711/pages/publish/publish_binding.dart';
 import 'package:demo711/pages/publish/publish_page.dart';
 import 'package:demo711/pages/register/register_binding.dart';
@@ -21,6 +23,7 @@ import '../pages/login/login_binding.dart';
 import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';
 import 'package:demo711/pages/home/classify_page.dart';
+
 abstract class AppPages {
   static final pages = [
     //闪屏页
@@ -45,9 +48,9 @@ abstract class AppPages {
         page: () => PublishPage(),
         binding: PublishBinding()),
     GetPage(
-        name: Routes.CLASSIFY,
-        page: () => ClassifyPage(),
-       ),
+      name: Routes.CLASSIFY,
+      page: () => ClassifyPage(),
+    ),
     //评论弹窗
     GetPage(
         name: Routes.COMMENT,
@@ -73,6 +76,8 @@ abstract class AppPages {
         name: Routes.SEARCH,
         page: () => SearchPage(),
         binding: SearchBinding()),
+
+    GetPage(name: Routes.TEST, page: () => TestPage(), binding: TestBinding()),
   ];
 }
 
@@ -111,4 +116,7 @@ abstract class Routes {
   static const SEARCH = "/search";
 
   static const CLASSIFY = "/classify";
+
+  //测试页
+  static const TEST = "/test";
 }

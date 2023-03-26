@@ -1,10 +1,10 @@
-import 'package:demo711/config/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'app_colors.dart';
 
 final ThemeData themeData = ThemeData(
   primaryColor: AppColor.primary, //主题色
   scaffoldBackgroundColor: AppColor.page, //页面背景色
-  indicatorColor: AppColor.purple,
+  indicatorColor: AppColor.bluegreen,
   splashColor: Colors.transparent, //取消水波纹
   highlightColor: Colors.transparent, //取消水波纹
   textTheme: TextTheme(
