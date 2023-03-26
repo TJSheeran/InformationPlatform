@@ -1,3 +1,4 @@
+import 'package:demo711/pages/encyclopedia/life_service/life_service.dart';
 import 'package:demo711/pages/mytest/test_demo.dart';
 import 'package:demo711/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         children: [
           // DemoPage(title: "主页"),
           // TestDemoPage(),
-          VerticalTabBar(),
+          LifeservicePage(),
           DemoPage(title: '推荐'),
           DemoPage(title: '猜你喜欢'),
           DemoPage(title: '上海'),

@@ -1,17 +1,18 @@
 import 'package:demo711/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class VerticalTabBar extends StatefulWidget {
-  VerticalTabBar({Key? key}) : super(key: key);
+class LifeservicePage extends StatefulWidget {
+  LifeservicePage({Key? key}) : super(key: key);
 
   @override
-  State<VerticalTabBar> createState() => _VerticalTabBarState();
+  State<LifeservicePage> createState() => _LifeservicePageState();
 }
 
-class _VerticalTabBarState extends State<VerticalTabBar> {
+class _LifeservicePageState extends State<LifeservicePage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
-  int pagesCount = 10;
+  int pagesCount = 5;
+  List<String> tabTitle = ['快 递', '空 调', '电 费', '医 保', '寝 室'];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,13 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 0, horizontal: 5),
-                                  child: Text('Tab title $index'),
+                                  child: Text(
+                                    tabTitle[index],
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w200,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -72,7 +79,7 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
                   for (var i = 0; i < pagesCount; i++)
                     Container(
                       color: AppColor.bluegreen,
-                      child: Center(child: Text("page $i")),
+                      child: Center(child: Text('$tabTitle[index]')),
                     ),
                 ],
               ),

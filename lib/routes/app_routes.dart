@@ -1,5 +1,3 @@
-import 'package:demo711/pages/comment/comment_binding.dart';
-import 'package:demo711/pages/comment/comment_page.dart';
 import 'package:demo711/pages/home/detail_binding.dart';
 import 'package:demo711/pages/home/detail_page.dart';
 import 'package:demo711/pages/home/home_binding.dart';
@@ -51,11 +49,6 @@ abstract class AppPages {
       name: Routes.CLASSIFY,
       page: () => ClassifyPage(),
     ),
-    //评论弹窗
-    GetPage(
-        name: Routes.COMMENT,
-        page: () => CommentPage(),
-        binding: CommentBinding()),
 
     //个人主页
     GetPage(name: Routes.MINE, page: () => MinePage(), binding: MineBinding()),
