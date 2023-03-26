@@ -1,3 +1,4 @@
+import 'package:demo711/pages/mytest/test_demo.dart';
 import 'package:demo711/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
 import 'demo.dart';
@@ -64,9 +65,10 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         ),
       ),
       body: TabBarView(
-        children: const [
-          DemoPage(title: "主页"),
-          // VerticalTabBar(),
+        children: [
+          // DemoPage(title: "主页"),
+          // TestDemoPage(),
+          VerticalTabBar(),
           DemoPage(title: '推荐'),
           DemoPage(title: '猜你喜欢'),
           DemoPage(title: '上海'),
