@@ -1,3 +1,4 @@
+import 'package:demo711/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:demo711/dio_util/dio_method.dart';
 import 'package:demo711/dio_util/dio_util.dart';
@@ -163,6 +164,7 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: FutureBuilder(
         future: flist=_ReadHandle(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -227,11 +229,13 @@ class _VerticalTabBarState extends State<VerticalTabBar> {
                                 HeaderWidget(snapshot.data)),
                         ],
                       ),
+
                     ))
               ],
             ),);
         }
       )
+
     );
   }
 }
