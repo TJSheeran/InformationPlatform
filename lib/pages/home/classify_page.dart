@@ -13,7 +13,6 @@ class ClassifyPage extends StatefulWidget {
 
 Future<List>? flist;
 Future<List> _ReadHandle() async {
-  //print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!11111");
   var result = await DioUtil().request("/findbaikeFromDemo",
       method: DioMethod.post, data: {"category1": "生活服务", "campus": "嘉定校区"});
   return result;
@@ -301,11 +300,139 @@ class _CategoryListNavState extends State<CategoryListNav> {
                         ],
                       ),
                     ),
+
                   )
                 ],
               )
             ]);
           }),
+
+//                     CustomScrollView(
+//                       slivers: <Widget>[
+//                         SliverPadding(
+//                           padding: const EdgeInsets.all(0.0),
+//                           sliver:  SliverList(
+//                             delegate:  SliverChildListDelegate(
+//                               <Widget>[
+//                                 Container(
+//                                   child: Column(
+//                                     children: <Widget>[
+//                                       Container(
+//                                         //height: 120.0,
+//                                         width: double.maxFinite,
+//                                         margin: EdgeInsets.only(top: 20.0,
+//                                             left: 0.0,
+//                                             bottom: 0.0), //容器外填充//容器内填充
+//                                         child: Row(
+//                                           children: <Widget>[
+//                                             Column(
+//                                               children: <Widget>[
+//                                                 SizedBox(height: 10),
+//                                                 _bartitle(),
+//                                                 SizedBox(height: 23),
+//                                                 menuListItem(context,menuList[0]),
+//                                                 menuListItem(context,menuList[1]),
+//                                                 menuListItem(context,menuList[2]),
+//                                                 menuListItem(context,menuList[3]),
+//                                                 menuListItem(context,menuList[4]),
+//                                                 menuListItem(context,menuList[5]),
+//                                                 menuListItem(context,menuList[6]),
+//                                                 //menuListItem(context,menuList[7]),
+//                                               ],
+//                                             ),
+//                                             Column(
+//                                               children: <Widget>[
+//                                                 _subHeaderWidget(groupValue),
+//                                                 if(snapshot.hasData)
+//                                                    SizedBox(
+//                                                      height: 520,
+//                                                      width: 300,
+//                                                      child:
+//                                                           HeaderWidget(snapshot.data)
+//                                                    ),
+//
+//
+//               ]
+//                                             )
+//                                                 ],
+//                                               ),
+//                                             )
+//
+//                                           ],
+//                                         ),
+//                                       ),
+//
+//                                     ],
+//                                   ),
+//                                 ),
+//                                     )
+//                             ],
+//                           )]
+//                         );}
+//         ),
+//                     );}
+//
+//   Widget menuListItem(context,value) {
+//     // print(value['type']);
+//     return groupValue==value['type'] ?
+//     Container(
+//       height: 77.0,
+//       width: 80,
+//       child: TextButton(
+//           onPressed: () {
+//             updateGroupValue(value['type']);
+//           },
+//           child:Text.rich(TextSpan(
+//               children: [
+//                 TextSpan(
+//                   text: value['title1'],
+//                   style: TextStyle(
+//                     color: Color(0xFFFA3F3F),
+//                     fontSize: 14,
+//                   ),
+//                 ),
+//                 TextSpan(
+//                   text: "\n"+value['title2'],
+//                   style: TextStyle(
+//                     color: Color(0xFF999999),
+//                     fontSize: 12,
+//                   ),
+//                 ),
+//               ]
+//           ))
+//         /*Text(value['title1'],style: TextStyle(color: Colors.red),),*/
+//       ),
+//     )
+//         :
+//     Container(
+//       height: 77.0,
+//       width: 80,
+//       child: TextButton(
+//           onPressed: (){
+//             updateGroupValue(value['type']);
+//             value['title1']=="场馆活动"?flist=_ReadHandle2():flist=_ReadHandle();
+//             setState(() {});
+//           },
+//           child:Text.rich(TextSpan(
+//               children: [
+//                 TextSpan(
+//                   text: value['title1'],
+//                   style: TextStyle(
+//                     fontSize: 14,
+//                   ),
+//                 ),
+//                 TextSpan(
+//                   text: "\n"+value['title2'],
+//                   style: TextStyle(
+//                     color: Color(0xFF999999),
+//                     fontSize: 12,
+//                   ),
+//                 ),
+//               ]
+//           ))
+//         /*Text(value['title1'],style: TextStyle(color: Colors.red),),*/
+//       ),
+// >>>>>>> Stashed changes
     );
   }
 

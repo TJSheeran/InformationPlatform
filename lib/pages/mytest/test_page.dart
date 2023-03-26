@@ -64,11 +64,11 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         ),
       ),
       body: TabBarView(
-        children: const [
+        children:  [
           DemoPage(title: "主页"),
-          // VerticalTabBar(),
           DemoPage(title: '推荐'),
-          DemoPage(title: '猜你喜欢'),
+          VerticalTabBar(),
+          //DemoPage(title: '猜你喜欢'),
           DemoPage(title: '上海'),
           DemoPage(title: '校园'),
           DemoPage(title: '附近'),

@@ -10,37 +10,37 @@ class HomeButtons extends StatelessWidget {
     CustomIconButton(
       icon: FontAwesomeIcons.skiing,
       label: "运动",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.green[300],
     ),
     CustomIconButton(
       icon: FontAwesomeIcons.chess,
       label: "聚会",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.blue,
     ),
     CustomIconButton(
       icon: FontAwesomeIcons.meteor,
       label: "娱乐",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.redAccent,
     ),
     CustomIconButton(
       icon: FontAwesomeIcons.guitar,
       label: "音乐",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.brown[400],
     ),
     CustomIconButton(
       icon: FontAwesomeIcons.car,
       label: "出行",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.blue,
     ),
     CustomIconButton(
       icon: Icons.more_horiz,
       label: "更多",
-      onPressed: () {Get.toNamed(Routes.CLASSIFY);},
+      onPressed: () {Get.toNamed(Routes.TEST);},
       primary: Colors.indigoAccent,
     ),
   ];
