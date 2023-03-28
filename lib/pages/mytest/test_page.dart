@@ -2,6 +2,11 @@ import 'package:demo711/pages/encyclopedia/life_service/life_service.dart';
 import 'package:demo711/pages/mytest/test_demo.dart';
 import 'package:demo711/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
+import '../encyclopedia/faculty/faculty.dart';
+import '../encyclopedia/food_play/food_play.dart';
+import '../encyclopedia/medical/medical.dart';
+import '../encyclopedia/transportation/transportation.dart';
+import '../encyclopedia/venue/venue.dart';
 import 'demo.dart';
 import 'head.dart';
 
@@ -66,17 +71,16 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         ),
       ),
       body: TabBarView(
-
         children: [
           // DemoPage(title: "主页"),
           // TestDemoPage(),
           LifeservicePage(),
-          DemoPage(title: '推荐'),
-          VerticalTabBar(),
+          TransportationPage(),
+          VenuePage(),
           //DemoPage(title: '猜你喜欢'),
-          DemoPage(title: '上海'),
-          DemoPage(title: '校园'),
-          DemoPage(title: '附近'),
+          FoodPlayPage(),
+          MedicalPage(),
+          FacultyPage(),
         ],
         controller: _tabController,
       ),

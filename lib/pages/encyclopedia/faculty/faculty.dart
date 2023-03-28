@@ -3,23 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:demo711/dio_util/dio_method.dart';
 import 'package:demo711/dio_util/dio_util.dart';
 
-class LifeservicePage extends StatefulWidget {
-  LifeservicePage({Key? key}) : super(key: key);
+class FacultyPage extends StatefulWidget {
+  FacultyPage({Key? key}) : super(key: key);
 
   @override
-  State<LifeservicePage> createState() => _LifeservicePageState();
+  State<FacultyPage> createState() => _FacultyPageState();
 }
 
-class _LifeservicePageState extends State<LifeservicePage> {
+class _FacultyPageState extends State<FacultyPage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
-  int pagesCount = 5;
-  List<String> tabTitle = ['快递服务', '空调租赁', '电费缴纳', '医保相关', '寝室相关'];
+  int pagesCount = 8;
+  List<String> tabTitle = [
+    '电信学院',
+    '经管学院',
+    '艺传学院',
+    '交运学院',
+    '材料学院',
+    '软件学院',
+    '汽车学院',
+    '机械学院'
+  ];
   Future<List>? flist;
 
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "生活服务", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "场馆服务", "campus": "嘉定校区"});
     return result;
   }
 

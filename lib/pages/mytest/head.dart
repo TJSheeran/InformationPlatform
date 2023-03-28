@@ -31,7 +31,7 @@ class RootPageHead extends StatelessWidget {
                   },
                   color: AppColor.bluegreen,
                   child: const Text(
-                    ' 搜  索 ',
+                    ' 搜   索 ',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 15,
