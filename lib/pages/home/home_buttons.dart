@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'custom_icon_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 class HomeButtons extends StatelessWidget {
   HomeButtons({Key? key}) : super(key: key);
 

@@ -1,12 +1,12 @@
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/view/home_pages/comm.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/view/home_pages/comm.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/news.dart';
-import 'package:demo711/dio_util/dio_util.dart';
-import 'package:demo711/view/card/pet_card.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/news.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
+import 'package:tongxinbaike/view/card/pet_card.dart';
 import 'package:get/get.dart';
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 
 class MinePage extends StatelessWidget {
   const MinePage({Key? key}) : super(key: key);
@@ -198,7 +198,7 @@ class MinePage extends StatelessWidget {
                           //         ),
                           //         Text(
                           //           'My name is Alice and I am  a freelance mobile app developper.\n'
-                          //           'if you need any mobile app for your company then contact me for more informations',
+                          //           'if you need any mobile app for your company then contact me for more tongxinbaikes',
                           //           style: TextStyle(
                           //             fontSize: 22.0,
                           //             fontStyle: FontStyle.italic,

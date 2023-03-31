@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:dio/dio.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CacheObject {

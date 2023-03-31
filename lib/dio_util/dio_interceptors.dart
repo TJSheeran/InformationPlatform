@@ -1,6 +1,6 @@
 
 import 'package:dio/dio.dart';
-import 'package:demo711/dio_util/dio_response.dart';
+import 'package:tongxinbaike/dio_util/dio_response.dart';
 
 class DioInterceptors extends Interceptor {
   @override

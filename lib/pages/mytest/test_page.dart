@@ -1,6 +1,6 @@
-import 'package:demo711/pages/encyclopedia/life_service/life_service.dart';
-import 'package:demo711/pages/mytest/test_demo.dart';
-import 'package:demo711/pages/mytest/vertical_tab_bar.dart';
+import 'package:tongxinbaike/pages/encyclopedia/life_service/life_service.dart';
+import 'package:tongxinbaike/pages/mytest/test_demo.dart';
+import 'package:tongxinbaike/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
 import '../encyclopedia/faculty/faculty.dart';
 import '../encyclopedia/food_play/food_play.dart';

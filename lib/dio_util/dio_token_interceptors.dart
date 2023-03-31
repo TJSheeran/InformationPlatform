@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 
 class DioTokenInterceptors extends Interceptor {
   @override

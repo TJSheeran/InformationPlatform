@@ -1,11 +1,11 @@
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:get/get.dart';
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/pages/search/search_controller.dart';
+import 'package:tongxinbaike/pages/search/search_controller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 class RootPageHead extends StatelessWidget {
   RootPageHead({Key? key}) : super(key: key);
 

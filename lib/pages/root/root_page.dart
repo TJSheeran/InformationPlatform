@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/pages/publish/publish_page.dart';
-import 'package:demo711/view/root_pages/message_page.dart';
-import 'package:demo711/pages/mine/mine_page.dart';
-import 'package:demo711/view/root_pages/niceplay_page.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/pages/publish/publish_page.dart';
+import 'package:tongxinbaike/view/root_pages/message_page.dart';
+import 'package:tongxinbaike/pages/mine/mine_page.dart';
+import 'package:tongxinbaike/view/root_pages/niceplay_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/pages/home/home_page.dart';
+import 'package:tongxinbaike/pages/home/home_page.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

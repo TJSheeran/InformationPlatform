@@ -1,5 +1,5 @@
-import 'package:demo711/config/app_theme.dart';
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/config/app_theme.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

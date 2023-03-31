@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/dio_util/news.dart';
-import 'package:demo711/pages/home/detail_controller.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/dio_util/news.dart';
+import 'package:tongxinbaike/pages/home/detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

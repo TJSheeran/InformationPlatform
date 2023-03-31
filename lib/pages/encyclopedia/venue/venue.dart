@@ -1,7 +1,7 @@
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 
 class VenuePage extends StatefulWidget {
   VenuePage({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _VenuePageState extends State<VenuePage> {
 
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "场馆服务", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "场馆活动", "campus": "嘉定校区"});
     return result;
   }
 

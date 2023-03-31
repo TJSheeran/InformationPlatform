@@ -1,4 +1,4 @@
-import 'package:demo711/models/illustration.dart';
+import 'package:tongxinbaike/models/illustration.dart';
 
 final List splashIllustrations = [
   //'assets/icons/create_media.png',

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
