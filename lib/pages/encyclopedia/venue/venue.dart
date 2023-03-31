@@ -19,7 +19,7 @@ class _VenuePageState extends State<VenuePage> {
 
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "场馆服务", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "场馆活动", "campus": "嘉定校区"});
     return result;
   }
 

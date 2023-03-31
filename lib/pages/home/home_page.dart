@@ -14,7 +14,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'home_buttons.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
-
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -32,15 +31,18 @@ Widget _image({required Offset offset, required double angle}) {
         width: Get.width * .55,
       ),
     ),
-  );}
-Widget _title() {
-  return Text(
-    "  欢迎使用 " ,
-    style: Theme.of(Get.context!).textTheme.headline5?.copyWith(
-      color: Colors.white,
-    ),
   );
 }
+
+Widget _title() {
+  return Text(
+    "  欢迎使用 ",
+    style: Theme.of(Get.context!).textTheme.headline5?.copyWith(
+          color: Colors.white,
+        ),
+  );
+}
+
 Widget _subtitle() {
   return Text(
     "    您今天想要干点什么？ ",
@@ -61,7 +63,8 @@ Widget _imageProfile() {
     backgroundImage: AssetImage("assets/icons/logo-gia-developer.png"),
   );
 }
-class _HomePageState extends State<HomePage>  {
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,12 +74,15 @@ class _HomePageState extends State<HomePage>  {
           Container(
             width: Get.width,
             height: 250,
-            color: Colors.blueAccent,
+            color: AppColor.bluegreen,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                _image(offset: Offset(-Get.width * .35, -Get.width * .25), angle: -5),
-                _image(offset: Offset(Get.width * .35, Get.width * .25), angle: 4),
+                _image(
+                    offset: Offset(-Get.width * .35, -Get.width * .25),
+                    angle: -5),
+                _image(
+                    offset: Offset(Get.width * .35, Get.width * .25), angle: 4),
               ],
             ),
           ),
@@ -86,7 +92,7 @@ class _HomePageState extends State<HomePage>  {
               children: [
                 SizedBox(height: 50),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal:8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -103,7 +109,7 @@ class _HomePageState extends State<HomePage>  {
                 ),
                 SizedBox(height: 30),
                 Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
                       autofocus: false,
                       decoration: InputDecoration(
@@ -112,15 +118,17 @@ class _HomePageState extends State<HomePage>  {
                           prefixIcon: Icon(
                             Icons.search,
                             size: 30,
-                            color: Colors.blueAccent,
+                            color: AppColor.bluegreen,
                           ),
                           hintText: "发现新知",
-                          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32.0),
-                              borderSide: const BorderSide(color: Colors.lightBlueAccent, width: 2)),
-                          border:
-                          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+                              borderSide: const BorderSide(
+                                  color: AppColor.bluegreen, width: 2)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0))),
                     )),
                 SizedBox(height: 30),
                 Container(
@@ -133,23 +141,40 @@ class _HomePageState extends State<HomePage>  {
                       Container(
                         width: double.infinity,
                         height: 250,
-                        child:Swiper(
+                        child: Swiper(
                           autoplay: true,
-                          itemBuilder: (BuildContext context,int index){
+                          itemBuilder: (BuildContext context, int index) {
                             return Stack(
                               children: <Widget>[
                                 Container(
                                   margin: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
                                       boxShadow: [
-                                        BoxShadow(offset: Offset(1, 1), color: Colors.black12, spreadRadius: 3.0, blurRadius: 7.0),
-                                        BoxShadow(offset: Offset(-1, -1), color: Colors.black12, spreadRadius: 3.0, blurRadius: 7.0),
-                                        BoxShadow(offset: Offset(-1, 1), color: Colors.black12, spreadRadius: 3.0, blurRadius: 7.0),
-                                        BoxShadow(offset: Offset(1, -1), color: Colors.black12, spreadRadius: 3.0, blurRadius: 7.0),
+                                        BoxShadow(
+                                            offset: Offset(1, 1),
+                                            color: Colors.black12,
+                                            spreadRadius: 3.0,
+                                            blurRadius: 7.0),
+                                        BoxShadow(
+                                            offset: Offset(-1, -1),
+                                            color: Colors.black12,
+                                            spreadRadius: 3.0,
+                                            blurRadius: 7.0),
+                                        BoxShadow(
+                                            offset: Offset(-1, 1),
+                                            color: Colors.black12,
+                                            spreadRadius: 3.0,
+                                            blurRadius: 7.0),
+                                        BoxShadow(
+                                            offset: Offset(1, -1),
+                                            color: Colors.black12,
+                                            spreadRadius: 3.0,
+                                            blurRadius: 7.0),
                                       ],
                                       borderRadius: BorderRadius.circular(15.0),
-                                      image: DecorationImage(image: list[index],fit: BoxFit.cover)
-                                  ),
+                                      image: DecorationImage(
+                                          image: list[index],
+                                          fit: BoxFit.cover)),
                                 ),
                               ],
                             );
@@ -161,8 +186,8 @@ class _HomePageState extends State<HomePage>  {
                           duration: 600,
                           autoplayDelay: 5000,
                           pagination: SwiperPagination(
-                              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30)
-                          ),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 30)),
                         ),
                       ),
                       SizedBox(height: 15),

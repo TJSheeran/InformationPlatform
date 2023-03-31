@@ -16,7 +16,6 @@ import 'package:demo711/pages/root/root_page.dart';
 import 'package:demo711/pages/splash/splash_binding.dart';
 import 'package:demo711/pages/splash/splash_page.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import '../pages/login/login_page_old.dart';
 import '../pages/login/login_binding.dart';
 import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';

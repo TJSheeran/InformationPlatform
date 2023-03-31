@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
     DioUtil.getInstance()?.openLog();
-    Get.toNamed(Routes.HOME);
+
     var result =
         await DioUtil().request("/login", method: DioMethod.post, data: {
       'username': name,
@@ -54,9 +54,8 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
-
     if (result['info'] == '登录成功') {
-      //Get.toNamed(Routes.HOME);
+      Get.toNamed(Routes.ROOT);
     }
   }
 
@@ -78,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-          hintText: '账 号',
+          hintText: '账号',
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -94,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
-          hintText: '密 码',
+          hintText: '密码',
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -131,13 +130,13 @@ class _LoginPageState extends State<LoginPage> {
         Get.toNamed(Routes.REGISTER);
       },
       child: const Text(
-        '注 册',
+        '注册',
         style: TextStyle(color: AppColor.bluegreen, fontSize: 18),
       ),
     );
 
     return Scaffold(
-      backgroundColor: AppColor.page,
+      backgroundColor: Colors.white,
       //禁止软键盘弹出上顶页面布局
       resizeToAvoidBottomInset: false,
       body: Center(

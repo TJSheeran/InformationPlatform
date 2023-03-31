@@ -23,9 +23,8 @@ class PublishPage extends StatefulWidget {
 }
 
 class _PublishPageState extends State<PublishPage> {
-  int? targetDays;
-  String? targetLabel;
-  int? intOfTargetPersonNumber;
+  String? firstLevelLabel;
+  String? secondLevelLabel;
 
   var targetDate = DateTime(2022, 01, 01);
   var targetTime = DateTime(2022, 01, 01);
@@ -39,7 +38,9 @@ class _PublishPageState extends State<PublishPage> {
   TextEditingController labelController = TextEditingController()
     ..addListener(() {});
   FocusNode personFocusNode = FocusNode();
-  FocusNode textFocusNode = FocusNode();
+  FocusNode titleFocusNode = FocusNode();
+  FocusNode contentFocusNode = FocusNode();
+
   OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
     gapPadding: 0,
     borderSide: BorderSide(
@@ -89,19 +90,19 @@ class _PublishPageState extends State<PublishPage> {
   //           .toList());
   // }
 
-  Widget? _renderTargetLabels() {
+  Widget? _renderFirstLevel() {
     return Wrap(
         direction: Axis.horizontal,
         alignment: WrapAlignment.start,
         spacing: 16.0,
         runAlignment: WrapAlignment.start,
         runSpacing: 16.0,
-        children: defaultTargetLabels
+        children: defaultFirstLevel
             .map(
               (e) => InkWell(
                   onTap: () {
                     setState(() {
-                      targetLabel = e;
+                      firstLevelLabel = e;
                     });
 
                     if (personFocusNode.hasFocus) {
@@ -114,7 +115,7 @@ class _PublishPageState extends State<PublishPage> {
                       width: 80,
                       height: 35,
                       decoration: BoxDecoration(
-                          color: targetLabel == e
+                          color: firstLevelLabel == e
                               ? AppColor.green
                               : Color.fromRGBO(240, 240, 240, 1),
                           borderRadius:
@@ -122,7 +123,49 @@ class _PublishPageState extends State<PublishPage> {
                       alignment: Alignment.center,
                       child: Text(e.toString(),
                           style: TextStyle(
-                              color: targetLabel == e
+                              color: firstLevelLabel == e
+                                  ? Colors.white
+                                  : AppColor.active,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500)))),
+            )
+            .toList());
+  }
+
+  Widget? _renderSecondLevel() {
+    return Wrap(
+        direction: Axis.horizontal,
+        alignment: WrapAlignment.start,
+        spacing: 16.0,
+        runAlignment: WrapAlignment.start,
+        runSpacing: 16.0,
+        children: defaultSecondLevel
+            .map(
+              (e) => InkWell(
+                  onTap: () {
+                    setState(() {
+                      secondLevelLabel = e;
+                    });
+
+                    if (personFocusNode.hasFocus) {
+                      personFocusNode.unfocus();
+                    }
+
+                    labelController.text = "";
+                  },
+                  child: Container(
+                      width: 80,
+                      height: 35,
+                      decoration: BoxDecoration(
+                          color: secondLevelLabel == e
+                              ? AppColor.yellow
+                              : Color.fromRGBO(240, 240, 240, 1),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      alignment: Alignment.center,
+                      child: Text(e.toString(),
+                          style: TextStyle(
+                              color: secondLevelLabel == e
                                   ? Colors.white
                                   : AppColor.active,
                               fontSize: 16.0,
@@ -323,7 +366,7 @@ class _PublishPageState extends State<PublishPage> {
                                             },
                                             child: Text('取消'.tr,
                                                 style: TextStyle(
-                                                    color: AppColor.purple,
+                                                    color: AppColor.bluegreen,
                                                     fontSize: 18)),
                                           )),
                                       Positioned(
@@ -336,19 +379,12 @@ class _PublishPageState extends State<PublishPage> {
                                               String nowtimestamp =
                                                   "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
                                               print(nowtimestamp);
-                                              print(targetLabel);
-                                              intOfTargetPersonNumber = int.parse(
-                                                  targetPersonNumberController
-                                                      .text);
-                                              print(intOfTargetPersonNumber);
+
                                               String targettimestamp =
                                                   "${targetDate.year.toString()}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')} ${targetDate.hour.toString().padLeft(2, '0')}:${targetDate.minute.toString().padLeft(2, '0')}:${targetDate.second.toString().padLeft(2, '0')}";
                                               print(targettimestamp);
                                               print(textController.text);
-                                              if (targetLabel != '' &&
-                                                  intOfTargetPersonNumber !=
-                                                      '' &&
-                                                  targettimestamp != '' &&
+                                              if (targettimestamp != '' &&
                                                   textController.text != '') {
                                                 DioUtil().request(
                                                   "/add",
@@ -360,11 +396,8 @@ class _PublishPageState extends State<PublishPage> {
                                                     'likeCount': 0,
                                                     'commentCount': 0,
                                                     'userid': '11',
-                                                    'label': targetLabel,
                                                     'activityDate':
                                                         targettimestamp,
-                                                    'userNumber':
-                                                        intOfTargetPersonNumber,
                                                     'isLiked': false,
                                                     'isFollowed': false
                                                   },
@@ -388,7 +421,7 @@ class _PublishPageState extends State<PublishPage> {
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(5)),
-                                                  color: AppColor.purple),
+                                                  color: AppColor.bluegreen),
                                               width: 60,
                                               height: 30,
                                               alignment: Alignment.center,
@@ -441,7 +474,7 @@ class _PublishPageState extends State<PublishPage> {
                                                         right: 10.0,
                                                         top: 15.0,
                                                         bottom: 0.0),
-                                                    child: Text('活动标签'.tr,
+                                                    child: Text('一级目录'.tr,
                                                         style: TextStyle(
                                                           color:
                                                               AppColor.active,
@@ -468,7 +501,7 @@ class _PublishPageState extends State<PublishPage> {
                                                           right: 0.0),
                                                       // color: Colors.red,
                                                       child:
-                                                          _renderTargetLabels()),
+                                                          _renderFirstLevel()),
                                                   // Offstage(
                                                   //     offstage: widget
                                                   //             .taskEditMode ==
@@ -480,9 +513,9 @@ class _PublishPageState extends State<PublishPage> {
                                                     margin: EdgeInsets.only(
                                                         left: 10.0,
                                                         right: 10.0,
-                                                        top: 30.0,
-                                                        bottom: 15.0),
-                                                    child: Text('活动人数'.tr,
+                                                        top: 25.0,
+                                                        bottom: 0.0),
+                                                    child: Text('二级目录'.tr,
                                                         style: TextStyle(
                                                           color:
                                                               AppColor.active,
@@ -491,7 +524,10 @@ class _PublishPageState extends State<PublishPage> {
                                                               FontWeight.w600,
                                                         )),
                                                   ),
-
+                                                  // Container(
+                                                  //   height: 0.5,
+                                                  //   color: Color.fromRGBO(250, 250, 250, 1),
+                                                  // ),
                                                   // Offstage(
                                                   //     offstage: widget
                                                   //             .taskEditMode ==
@@ -499,143 +535,53 @@ class _PublishPageState extends State<PublishPage> {
                                                   //             .TaskEditMode_Edit,
                                                   //     child:
                                                   Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0),
-                                                    child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                            width: 80,
-                                                            height: 35,
-                                                            decoration: BoxDecoration(
-                                                                color: Color.fromRGBO(
-                                                                    240, 240, 240, 1),
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            10.0))),
-                                                            alignment:
-                                                                Alignment
-                                                                    .center,
-                                                            child: TextField(
-                                                                focusNode:
-                                                                    personFocusNode,
-                                                                inputFormatters: [
-                                                                  // FilteringTextInputFormatter(
-                                                                  //     _inputReg(),
-                                                                  //     allow:
-                                                                  //         true)
-                                                                  // LengthLimitingTextInputFormatter(3)
-                                                                  InputDaysFormatter()
-                                                                ],
-                                                                onChanged:
-                                                                    (String
-                                                                        str) {
-                                                                  print(
-                                                                      targetPersonNumberController
-                                                                          .text);
-                                                                  print(str);
+                                                      width: double.infinity,
+                                                      margin: EdgeInsets.only(
+                                                          top: 15.0,
+                                                          left: 10.0,
+                                                          right: 0.0),
+                                                      // color: Colors.red,
+                                                      child:
+                                                          _renderSecondLevel()),
 
-                                                                  // targetDays = ObjectUtil.isEmptyString(
-                                                                  //         str)
-                                                                  //     ? null
-                                                                  //     : int.parse(
-                                                                  //         str);
-                                                                },
-                                                                controller:
-                                                                    targetPersonNumberController,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                textAlignVertical:
-                                                                    TextAlignVertical
-                                                                        .center,
-                                                                cursorColor:
-                                                                    AppColor
+                                                  // Offstage(
+                                                  //     offstage: widget
+                                                  //             .taskEditMode ==
+                                                  //         TaskEditMode
+                                                  //             .TaskEditMode_Edit,
+                                                  //     child:
+
+                                                  Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 10, top: 15),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                              height: 60,
+                                                              // color: Colors.orange,
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Text(
+                                                                  '标 题'.tr,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: AppColor
                                                                         .active,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: AppColor
-                                                                      .active,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  // border:
-                                                                  //     InputBorder
-                                                                  //         .none,
-
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          right:
-                                                                              15),
-                                                                  border: OutlineInputBorder(
-
-                                                                      ///设置边框四个角的弧度
-                                                                      // borderRadius: BorderRadius.all(Radius.circular(0)),
-
-                                                                      ///用来配置边框的样式
-                                                                      borderSide: BorderSide.none),
-                                                                  // hintText: "请输入邮箱",
-                                                                  // hintStyle: TextStyle(color: Colors.black, fontSize: 10)
-                                                                ))),
-                                                        SizedBox(width: 10),
-                                                        Text(" <= 20",
-                                                            style: TextStyle(
-                                                              color: AppColor
-                                                                  .un3active,
-                                                              fontSize: 16.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        top: 15, left: 10),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                            height: 60,
-                                                            // color: Colors.orange,
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Text(
-                                                                '活动时间'.tr,
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: AppColor
-                                                                      .active,
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ))),
-                                                      ],
-                                                    ),
-                                                  ),
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ))),
+                                                        ],
+                                                      )),
 
                                                   Container(
-                                                    width: 200,
-                                                    height: 35,
+                                                    width: 368,
+                                                    height: 45,
                                                     margin: EdgeInsets.only(
                                                         left: 10),
                                                     decoration: BoxDecoration(
@@ -644,56 +590,50 @@ class _PublishPageState extends State<PublishPage> {
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
-                                                                    10.0))),
-                                                    alignment: Alignment.center,
-                                                    child: TextButton(
-                                                        onPressed: () {
-                                                          DatePicker.showDateTimePicker(
-                                                              context,
-                                                              showTitleActions:
-                                                                  true,
-                                                              minTime: DateTime(
-                                                                  2022, 11, 16),
-                                                              maxTime: DateTime(
-                                                                  2050, 6, 6),
-                                                              theme: DatePickerTheme(
-                                                                  headerColor:
-                                                                      AppColor
-                                                                          .nav,
-                                                                  backgroundColor:
-                                                                      AppColor
-                                                                          .nav,
-                                                                  itemStyle: TextStyle(
-                                                                      color: AppColor
-                                                                          .active,
-                                                                      fontWeight: FontWeight
-                                                                          .w400,
-                                                                      fontSize:
-                                                                          18),
-                                                                  doneStyle: TextStyle(
-                                                                      color: AppColor.purple,
-                                                                      fontSize: 16)),
-                                                              //         onChanged: (date) {
-                                                              //   print('change $date in time zone ' +
-                                                              //       date.timeZoneOffset
-                                                              //           .inHours
-                                                              //           .toString());
-                                                              // },
-                                                              onConfirm: (date) {
-                                                            setState(() {
-                                                              targetDate = date;
-                                                            });
-                                                            // print(targetDate);
-                                                          }, currentTime: DateTime.now(), locale: LocaleType.zh);
-                                                        },
-                                                        child: Text(
-                                                          "${targetDate.year.toString()}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')}  ${targetDate.hour.toString().padLeft(2, '0')}:${targetDate.minute.toString().padLeft(2, '0')}",
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColor.purple,
-                                                            fontSize: 18,
-                                                          ),
-                                                        )),
+                                                                    5.0))),
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: TextField(
+                                                      controller:
+                                                          textController,
+                                                      focusNode: titleFocusNode,
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: AppColor.active,
+                                                      ),
+                                                      maxLines: 6,
+                                                      minLines: 1,
+                                                      onChanged: (text) {
+                                                        setState(() {});
+                                                      },
+                                                      decoration:
+                                                          InputDecoration(
+                                                        fillColor:
+                                                            Color.fromRGBO(240,
+                                                                240, 240, 1),
+                                                        filled: true,
+                                                        isCollapsed: true,
+                                                        contentPadding:
+                                                            EdgeInsets
+                                                                .symmetric(
+                                                                    horizontal:
+                                                                        10,
+                                                                    vertical:
+                                                                        8),
+                                                        border:
+                                                            _outlineInputBorder,
+                                                        focusedBorder:
+                                                            _outlineInputBorder,
+                                                        enabledBorder:
+                                                            _outlineInputBorder,
+                                                        disabledBorder:
+                                                            _outlineInputBorder,
+                                                        focusedErrorBorder:
+                                                            _outlineInputBorder,
+                                                        errorBorder:
+                                                            _outlineInputBorder,
+                                                      ),
+                                                    ),
                                                   ),
 
                                                   Container(
@@ -710,7 +650,7 @@ class _PublishPageState extends State<PublishPage> {
                                                               alignment: Alignment
                                                                   .centerLeft,
                                                               child: Text(
-                                                                  '内容详情'.tr,
+                                                                  '详细内容'.tr,
                                                                   style:
                                                                       TextStyle(
                                                                     color: AppColor
@@ -741,7 +681,8 @@ class _PublishPageState extends State<PublishPage> {
                                                     child: TextField(
                                                       controller:
                                                           textController,
-                                                      focusNode: textFocusNode,
+                                                      focusNode:
+                                                          contentFocusNode,
                                                       style: TextStyle(
                                                         fontSize: 18,
                                                         color: AppColor.active,
@@ -874,7 +815,7 @@ class _GridViewItemWidgetState extends State<GridViewItemWidget> {
               right: 10,
               child: Container(
                 decoration: BoxDecoration(
-                    color: AppColor.purple,
+                    color: AppColor.bluegreen,
                     borderRadius: BorderRadius.all(Radius.circular(22))),
               )),
         ],

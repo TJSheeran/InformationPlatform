@@ -1,15 +1,18 @@
 import 'dart:ui';
 
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/pages/publish/publish_page.dart';
-import 'package:demo711/view/root_pages/message_page.dart';
-import 'package:demo711/pages/mine/mine_page.dart';
-import 'package:demo711/view/root_pages/niceplay_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/pages/home/home_page.dart';
+
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../config/app_colors.dart';
+import '../../view/root_pages/message_page.dart';
+import '../../view/root_pages/niceplay_page.dart';
+import '../home/home_page.dart';
+import '../mine/mine_page.dart';
+import '../mytest/test_page.dart';
+import '../publish/publish_page.dart';
 
 class RootPage extends StatefulWidget {
   RootPage({Key? key}) : super(key: key);
@@ -32,7 +35,7 @@ class _RootPageState extends State<RootPage> {
 
   //页面集合
   final List<Widget> _pages = [
-    HomePage(),
+    TestPage(),
     NiceplayPage(),
     Container(),
     MessagePage(),
@@ -122,30 +125,30 @@ class _RootPageState extends State<RootPage> {
         onTap: _onTabClick,
         type: BottomNavigationBarType.fixed,
       ),
-      //floatingActionButton: _creatMediaButton(),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _creatMediaButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
   //发布按钮
-  // Widget _creatMediaButton() {
-  //   return Container(
-  //     width: 70,
-  //     height: 70,
-  //     margin: EdgeInsets.only(top: 45),
-  //     child: FloatingActionButton(
-  //       heroTag: "btnsecond",
-  //       backgroundColor: AppColor.nav,
-  //       child: Image.asset(
-  //         // 'assets/icons/tabbar_post_idle@2x.png',
-  //         'assets/icons/create_media.png',
-  //       ),
-  //       onPressed: _onCreateMedia,
-  //       elevation: 0, //未点击时的阴影
-  //       highlightElevation: 0, //点击时的阴影
-  //     ),
-  //   );
-  // }
+  Widget _creatMediaButton() {
+    return Container(
+      width: 70,
+      height: 70,
+      margin: EdgeInsets.only(top: 45),
+      child: FloatingActionButton(
+        heroTag: "btnsecond",
+        backgroundColor: AppColor.nav,
+        child: Image.asset(
+          // 'assets/icons/tabbar_post_idle@2x.png',
+          'assets/icons/create_media.png',
+        ),
+        onPressed: _onCreateMedia,
+        elevation: 0, //未点击时的阴影
+        highlightElevation: 0, //点击时的阴影
+      ),
+    );
+  }
 
   //底部导航每一项的组件
   BottomNavigationBarItem _bottomNavigationBarItem(String key, String value) {

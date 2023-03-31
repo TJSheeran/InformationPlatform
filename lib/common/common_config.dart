@@ -1,4 +1,6 @@
-import 'package:demo711/models/illustration.dart';
+// import 'package:demo711/models/illustration.dart';
+
+import '../models/illustration.dart';
 
 final List splashIllustrations = [
   //'assets/icons/create_media.png',
@@ -10,13 +12,15 @@ final List splashIllustrations = [
 
 final List<int> defaultTargetPersonNumber = [2, 3, 5, 10, 15, 20];
 
-final List<String> defaultTargetLabels = [
-  "学 习",
-  "运 动",
-  "约 饭",
-  "唱 K",
-  "桌 游",
-  "约 拍",
-  "酒 吧",
-  "取快递",
+final List<String> defaultFirstLevel = [
+  "生活服务",
+  "交通出行",
+  "场馆服务",
+  "美食休闲",
+  "医 疗",
+  "学院直通"
 ];
+
+//defaultTargetLabels
+
+final List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室"];
