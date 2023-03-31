@@ -52,6 +52,10 @@ class AppColor {
 
   static const Color shallowgreen = Color.fromRGBO(246, 247, 239, 1);
 
+  static const Color googleblack = Color.fromRGBO(47, 47, 47, 1); //53, 54, 58
+
+  static const Color vuegreen = Color.fromRGBO(112, 208, 151, 1);
+
   // 颜色值转换
   static Color string2Color(String colorString) {
     int value = 0x00000000;

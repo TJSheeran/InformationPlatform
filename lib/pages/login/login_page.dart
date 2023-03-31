@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     //登录标题
     final logintext = Text(
-      "登录",
+      "登  录",
       style: TextStyle(
           fontStyle: FontStyle.normal,
           fontSize: 35,
@@ -80,11 +80,12 @@ class _LoginPageState extends State<LoginPage> {
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-          hintText: '账号',
+          hintText: '账 号',
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: const BorderSide(color: Colors.blueAccent, width: 2)),
+              borderSide:
+                  const BorderSide(color: AppColor.bluegreen, width: 2)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
@@ -95,11 +96,12 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: false,
       obscureText: true,
       decoration: InputDecoration(
-          hintText: '密码',
+          hintText: '密 码',
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: const BorderSide(color: Colors.blueAccent, width: 2)),
+              borderSide:
+                  const BorderSide(color: AppColor.bluegreen, width: 2)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
@@ -112,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
       onPressed: () {
         _loginHandle();
       },
-      color: Colors.blueAccent,
+      color: AppColor.bluegreen,
       child: const Text(
         '登 录',
         style: TextStyle(
@@ -131,13 +133,13 @@ class _LoginPageState extends State<LoginPage> {
         Get.toNamed(Routes.REGISTER);
       },
       child: const Text(
-        '注册',
-        style: TextStyle(color: Colors.blueAccent, fontSize: 18),
+        '注 册',
+        style: TextStyle(color: AppColor.bluegreen, fontSize: 18),
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.page,
       //禁止软键盘弹出上顶页面布局
       resizeToAvoidBottomInset: false,
       body: Center(

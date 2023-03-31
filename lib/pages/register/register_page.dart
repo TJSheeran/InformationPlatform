@@ -81,7 +81,8 @@ class _RegisterPageState extends State<RegisterPage> {
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: const BorderSide(color: Colors.blueAccent, width: 2)),
+              borderSide:
+                  const BorderSide(color: AppColor.bluegreen, width: 2)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
@@ -96,7 +97,8 @@ class _RegisterPageState extends State<RegisterPage> {
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: const BorderSide(color: Colors.blueAccent, width: 2)),
+              borderSide:
+                  const BorderSide(color: AppColor.bluegreen, width: 2)),
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
     );
@@ -109,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
       onPressed: () {
         _registerHandle();
       },
-      color: Colors.blueAccent,
+      color: AppColor.bluegreen,
       child: const Text(
         '注 册',
         style: TextStyle(
@@ -127,12 +129,12 @@ class _RegisterPageState extends State<RegisterPage> {
       onPressed: () {},
       child: const Text(
         '用户条例政策',
-        style: TextStyle(color:Colors.blueAccent, fontSize: 18),
+        style: TextStyle(color: AppColor.bluegreen, fontSize: 18),
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColor.page,
       //禁止软键盘弹出上顶页面布局
       resizeToAvoidBottomInset: false,
       body: Center(
