@@ -1,18 +1,16 @@
 import 'dart:convert';
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/pages/login/login_controller.dart';
-import 'package:demo711/pages/register/register_page.dart';
 
-import 'package:demo711/pages/root/root_page.dart';
-import 'package:demo711/routes/app_routes.dart';
-import 'package:demo711/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/dio_util/news.dart';
 import 'package:dio/dio.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../config/app_colors.dart';
+import '../../dio_util/dio_method.dart';
+import '../../dio_util/dio_util.dart';
+import '../../routes/app_routes.dart';
+import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
