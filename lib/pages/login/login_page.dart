@@ -47,14 +47,14 @@ class _LoginPageState extends State<LoginPage> {
       'password': password,
     });
     Fluttertoast.showToast(
-        msg: result['info'],
+        msg: result['msg'],
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
-    if (result['info'] == '登录成功') {
+    if (result['msg'] == '登录成功') {
       Get.toNamed(Routes.ROOT);
     }
   }

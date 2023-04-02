@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:tongxinbaike/common/common_config.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/pages/publish/object_util.dart';
@@ -25,19 +24,17 @@ class PublishPage extends StatefulWidget {
 class _PublishPageState extends State<PublishPage> {
   String? firstLevelLabel;
   String? secondLevelLabel;
+  List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
 
-  var targetDate = DateTime(2022, 01, 01);
-  var targetTime = DateTime(2022, 01, 01);
+  TextEditingController titleController = TextEditingController()
+    ..addListener(() {});
+  TextEditingController contentController = TextEditingController()
+    ..addListener(() {});
+  TextEditingController firstLevelController = TextEditingController()
+    ..addListener(() {});
+  TextEditingController secondLevelController = TextEditingController()
+    ..addListener(() {});
 
-  TextEditingController nameController = TextEditingController()
-    ..addListener(() {});
-  TextEditingController targetPersonNumberController = TextEditingController()
-    ..addListener(() {});
-  TextEditingController textController = TextEditingController()
-    ..addListener(() {});
-  TextEditingController labelController = TextEditingController()
-    ..addListener(() {});
-  FocusNode personFocusNode = FocusNode();
   FocusNode titleFocusNode = FocusNode();
   FocusNode contentFocusNode = FocusNode();
 
@@ -47,48 +44,6 @@ class _PublishPageState extends State<PublishPage> {
       color: Color.fromRGBO(240, 240, 240, 1),
     ),
   );
-
-  // Widget? _renderTargetPersonNumber() {
-  //   return Wrap(
-  //       direction: Axis.horizontal,
-  //       alignment: WrapAlignment.start,
-  //       spacing: 16.0,
-  //       runAlignment: WrapAlignment.start,
-  //       runSpacing: 16.0,
-  //       children: defaultTargetPersonNumber
-  //           .map(
-  //             (e) => InkWell(
-  //                 onTap: () {
-  //                   setState(() {
-  //                     targetDays = e;
-  //                   });
-
-  //                   if (focusNode.hasFocus) {
-  //                     focusNode.unfocus();
-  //                   }
-
-  //                   targetPersonNumberController.text = "";
-  //                 },
-  //                 child: Container(
-  //                     width: 90,
-  //                     height: 35,
-  //                     decoration: BoxDecoration(
-  //                         color: targetDays == e
-  //                             ? AppColor.green
-  //                             : Color.fromRGBO(240, 240, 240, 1),
-  //                         borderRadius:
-  //                             BorderRadius.all(Radius.circular(10.0))),
-  //                     alignment: Alignment.center,
-  //                     child: Text(e.toString(),
-  //                         style: TextStyle(
-  //                             color: targetDays == e
-  //                                 ? Colors.white
-  //                                 : AppColor.purple,
-  //                             fontSize: 16.0,
-  //                             fontWeight: FontWeight.w400)))),
-  //           )
-  //           .toList());
-  // }
 
   Widget? _renderFirstLevel() {
     return Wrap(
@@ -103,13 +58,14 @@ class _PublishPageState extends State<PublishPage> {
                   onTap: () {
                     setState(() {
                       firstLevelLabel = e;
+                      defaultSecondLevel = levelMap[e]!;
                     });
 
-                    if (personFocusNode.hasFocus) {
-                      personFocusNode.unfocus();
-                    }
+                    // if (personFocusNode.hasFocus) {
+                    //   personFocusNode.unfocus();
+                    // }
 
-                    labelController.text = "";
+                    firstLevelController.text = "";
                   },
                   child: Container(
                       width: 80,
@@ -147,11 +103,11 @@ class _PublishPageState extends State<PublishPage> {
                       secondLevelLabel = e;
                     });
 
-                    if (personFocusNode.hasFocus) {
-                      personFocusNode.unfocus();
-                    }
+                    // if (personFocusNode.hasFocus) {
+                    //   personFocusNode.unfocus();
+                    // }
 
-                    labelController.text = "";
+                    secondLevelController.text = "";
                   },
                   child: Container(
                       width: 80,
@@ -173,139 +129,6 @@ class _PublishPageState extends State<PublishPage> {
             )
             .toList());
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     // appBar: AppBar(
-  //     //   title: Text('活动发布页'),
-  //     // ),
-  //     body: Padding(
-  //       padding: EdgeInsets.all(10),
-  //       child: ListView(
-  //         children: <Widget>[
-  //           Container(
-  //               alignment: Alignment.center,
-  //               padding: EdgeInsets.all(10),
-  //               child: Text(
-  //                 '发布活动',
-  //                 style: TextStyle(
-  //                     color: AppColor.purple,
-  //                     fontWeight: FontWeight.w600,
-  //                     fontSize: 20),
-  //               )),
-  //           Container(
-  //             padding: EdgeInsets.all(10),
-  //             child: TextField(
-  //               controller: nameController,
-  //               decoration: InputDecoration(
-  //                 border: OutlineInputBorder(),
-  //                 labelText: 'username',
-  //               ),
-  //             ),
-  //           ),
-  //           // Container(
-  //           //   padding: EdgeInsets.all(10),
-  //           //   child: TextField(
-  //           //     controller: dateController,
-  //           //     decoration: InputDecoration(
-  //           //       border: OutlineInputBorder(),
-  //           //       labelText: 'date',
-  //           //     ),
-  //           //   ),
-  //           // ),
-
-  //           Container(
-  //             padding: EdgeInsets.all(10),
-  //             child: TextField(
-  //               controller: textController,
-  //               decoration: InputDecoration(
-  //                 border: OutlineInputBorder(),
-  //                 labelText: 'text',
-  //               ),
-  //             ),
-  //           ),
-  //           const SizedBox(
-  //             height: 10.0,
-  //           ),
-  //           Container(
-  //             height: 50,
-  //             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-  //             child: MaterialButton(
-  //               minWidth: 10.0,
-  //               height: 60.0,
-  //               shape: const StadiumBorder(),
-  //               onPressed: () {
-  //                 print(nameController.text);
-  //                 print(textController.text);
-  //                 //获取当前的时间
-  //                 DateTime date = DateTime.now();
-  //                 //组合
-  //                 String timestamp =
-  //                     "${date.year.toString()}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}:${date.second.toString().padLeft(2, '0')}";
-  //                 print(timestamp); //2021-12-05 21:52
-  //                 //print(DateTime.now());
-  //                 if (nameController.text != '' && textController.text != '') {
-  //                   DioUtil().request(
-  //                     "/add",
-  //                     method: DioMethod.post,
-  //                     data: {
-  //                       'name': nameController.text,
-  //                       'text': textController.text,
-  //                       'date': timestamp,
-  //                       'likeCount': 0,
-  //                       'commentCount': 0,
-  //                     },
-  //                   );
-  //                   Fluttertoast.showToast(
-  //                       msg: "发布成功",
-  //                       toastLength: Toast.LENGTH_SHORT,
-  //                       gravity: ToastGravity.BOTTOM,
-  //                       timeInSecForIosWeb: 1,
-  //                       backgroundColor: Colors.black45,
-  //                       textColor: Colors.white,
-  //                       fontSize: 16.0);
-  //                   Get.toNamed(Routes.ROOT);
-  //                 }
-  //               },
-  //               color: AppColor.purple,
-  //               child: const Text(
-  //                 '发 布',
-  //                 style: TextStyle(
-  //                     color: Colors.white,
-  //                     fontSize: 20,
-  //                     fontWeight: FontWeight.bold),
-  //               ),
-  //             ),
-  //           ),
-  //           const SizedBox(
-  //             height: 20.0,
-  //           ),
-  //           Container(
-  //             height: 50,
-  //             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-  //             child: MaterialButton(
-  //               minWidth: 10.0,
-  //               height: 60.0,
-  //               shape: const StadiumBorder(),
-  //               onPressed: () {
-  //                 Get.toNamed(Routes.ROOT);
-  //               },
-  //               color: AppColor.purple,
-  //               child: const Text(
-  //                 '返 回',
-  //                 style: TextStyle(
-  //                     color: Colors.white,
-  //                     fontSize: 20,
-  //                     fontWeight: FontWeight.bold),
-  //               ),
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -336,27 +159,6 @@ class _PublishPageState extends State<PublishPage> {
                                     height: 60,
                                     color: Colors.transparent,
                                     child: Stack(children: [
-                                      // Container(
-                                      //     alignment: Alignment.center,
-                                      //     child: Text('发布活动',
-                                      //         style: TextStyle(
-                                      //             color: AppColor.purple,
-                                      //             fontSize: 20,
-                                      //             fontWeight:
-                                      //                 FontWeight.w500))),
-
-                                      // Positioned(
-                                      //     top: 20,
-                                      //     left: 178,
-                                      //     child: InkWell(
-                                      //       onTap: () {
-                                      //         Navigator.of(context).pop();
-                                      //       },
-                                      //       child: Text('发布活动'.tr,
-                                      //           style: TextStyle(
-                                      //               color: Colors.black,
-                                      //               fontSize: 20)),
-                                      //     )),
                                       Positioned(
                                           top: 20,
                                           left: 20,
@@ -379,42 +181,38 @@ class _PublishPageState extends State<PublishPage> {
                                               String nowtimestamp =
                                                   "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
                                               print(nowtimestamp);
-
-                                              String targettimestamp =
-                                                  "${targetDate.year.toString()}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')} ${targetDate.hour.toString().padLeft(2, '0')}:${targetDate.minute.toString().padLeft(2, '0')}:${targetDate.second.toString().padLeft(2, '0')}";
-                                              print(targettimestamp);
-                                              print(textController.text);
-                                              if (targettimestamp != '' &&
-                                                  textController.text != '') {
-                                                DioUtil().request(
-                                                  "/add",
-                                                  method: DioMethod.post,
-                                                  data: {
-                                                    'name': 'New',
-                                                    'date': nowtimestamp,
-                                                    'text': textController.text,
-                                                    'likeCount': 0,
-                                                    'commentCount': 0,
-                                                    'userid': '11',
-                                                    'activityDate':
-                                                        targettimestamp,
-                                                    'isLiked': false,
-                                                    'isFollowed': false
-                                                  },
-                                                );
-                                                Fluttertoast.showToast(
-                                                    msg: "发布成功",
-                                                    toastLength:
-                                                        Toast.LENGTH_SHORT,
-                                                    gravity:
-                                                        ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
-                                                    backgroundColor:
-                                                        Colors.black45,
-                                                    textColor: Colors.white,
-                                                    fontSize: 16.0);
-                                                Navigator.of(context).pop();
-                                              }
+                                              print(firstLevelLabel);
+                                              print(secondLevelLabel);
+                                              print(titleController.text);
+                                              print(contentController.text);
+                                              // if (nowtimestamp != '' &&
+                                              //     titleController.text != '') {
+                                              //   DioUtil().request(
+                                              //     "/add",
+                                              //     method: DioMethod.post,
+                                              //     data: {
+                                              //       'name': 'New',
+                                              //       'date': nowtimestamp,
+                                              //       // 'text': textController.text,
+                                              //       'likeCount': 0,
+                                              //       'commentCount': 0,
+                                              //       'userid': '11',
+                                              //       'publishTime': nowtimestamp,
+                                              //     },
+                                              //   );
+                                              //   Fluttertoast.showToast(
+                                              //       msg: "发布成功",
+                                              //       toastLength:
+                                              //           Toast.LENGTH_SHORT,
+                                              //       gravity:
+                                              //           ToastGravity.BOTTOM,
+                                              //       timeInSecForIosWeb: 1,
+                                              //       backgroundColor:
+                                              //           Colors.black45,
+                                              //       textColor: Colors.white,
+                                              //       fontSize: 16.0);
+                                              //   Navigator.of(context).pop();
+                                              // }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -595,7 +393,7 @@ class _PublishPageState extends State<PublishPage> {
                                                         Alignment.topLeft,
                                                     child: TextField(
                                                       controller:
-                                                          textController,
+                                                          titleController,
                                                       focusNode: titleFocusNode,
                                                       style: TextStyle(
                                                         fontSize: 18,
@@ -680,7 +478,7 @@ class _PublishPageState extends State<PublishPage> {
                                                         Alignment.topLeft,
                                                     child: TextField(
                                                       controller:
-                                                          textController,
+                                                          contentController,
                                                       focusNode:
                                                           contentFocusNode,
                                                       style: TextStyle(
