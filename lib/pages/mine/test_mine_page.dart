@@ -1,6 +1,6 @@
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/pages/login/login_page.dart';
-import 'package:demo711/pages/root/root_page.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/pages/login/login_page.dart';
+import 'package:tongxinbaike/pages/root/root_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

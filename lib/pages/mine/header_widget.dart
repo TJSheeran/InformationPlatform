@@ -1,6 +1,6 @@
 // This widget will draw header section of all page. Wich you will get with the project source code.
 
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class HeaderWidget extends StatefulWidget {
