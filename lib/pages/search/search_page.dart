@@ -4,16 +4,16 @@
 ///还没写上拉刷新，目前还是刷新按钮
 ///已经实现了CustomScrollView的滑动拖取和接收帖子显示
 ///刚刚Debug解决了不同帖子的显示出界问题
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-//import 'package:demo711/utils/dio_http.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/news.dart';
-import 'package:demo711/dio_util/dio_util.dart';
-import 'package:demo711/view/card/pet_card.dart';
+//import 'package:tongxinbaike/utils/dio_http.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/news.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
+import 'package:tongxinbaike/view/card/pet_card.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 
 class SearchPage extends StatefulWidget {
   static String tag = 'Searchpage';

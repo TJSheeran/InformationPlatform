@@ -1,7 +1,7 @@
-// import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/models/illustration.dart';
-import 'package:demo711/pages/splash/splash_controller.dart';
-import 'package:demo711/routes/app_routes.dart';
+// import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/models/illustration.dart';
+import 'package:tongxinbaike/pages/splash/splash_controller.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';

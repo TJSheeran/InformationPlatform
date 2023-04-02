@@ -1,25 +1,26 @@
-import 'package:demo711/pages/home/detail_binding.dart';
-import 'package:demo711/pages/home/detail_page.dart';
-import 'package:demo711/pages/home/home_binding.dart';
-import 'package:demo711/pages/home/home_page.dart';
-import 'package:demo711/pages/login/login_page.dart';
-import 'package:demo711/pages/mine/mine_binding.dart';
-import 'package:demo711/pages/mine/mine_page.dart';
-import 'package:demo711/pages/mytest/test_binding.dart';
-import 'package:demo711/pages/mytest/test_page.dart';
-import 'package:demo711/pages/publish/publish_binding.dart';
-import 'package:demo711/pages/publish/publish_page.dart';
-import 'package:demo711/pages/register/register_binding.dart';
-import 'package:demo711/pages/register/register_page.dart';
-import 'package:demo711/pages/root/root_binding.dart';
-import 'package:demo711/pages/root/root_page.dart';
-import 'package:demo711/pages/splash/splash_binding.dart';
-import 'package:demo711/pages/splash/splash_page.dart';
+import 'package:tongxinbaike/pages/home/detail_binding.dart';
+import 'package:tongxinbaike/pages/home/detail_page.dart';
+import 'package:tongxinbaike/pages/home/home_binding.dart';
+import 'package:tongxinbaike/pages/home/home_page.dart';
+import 'package:tongxinbaike/pages/login/login_page.dart';
+import 'package:tongxinbaike/pages/mine/mine_binding.dart';
+import 'package:tongxinbaike/pages/mine/mine_page.dart';
+import 'package:tongxinbaike/pages/mytest/test_binding.dart';
+import 'package:tongxinbaike/pages/mytest/test_page.dart';
+import 'package:tongxinbaike/pages/publish/publish_binding.dart';
+import 'package:tongxinbaike/pages/publish/publish_page.dart';
+import 'package:tongxinbaike/pages/register/register_binding.dart';
+import 'package:tongxinbaike/pages/register/register_page.dart';
+import 'package:tongxinbaike/pages/root/root_binding.dart';
+import 'package:tongxinbaike/pages/root/root_page.dart';
+import 'package:tongxinbaike/pages/splash/splash_binding.dart';
+import 'package:tongxinbaike/pages/splash/splash_page.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+//import '../pages/login/login_page_old.dart';
 import '../pages/login/login_binding.dart';
 import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';
-import 'package:demo711/pages/home/classify_page.dart';
+import 'package:tongxinbaike/pages/home/classify_page.dart';
 
 abstract class AppPages {
   static final pages = [

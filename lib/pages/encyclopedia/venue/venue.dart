@@ -1,7 +1,7 @@
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 
 class VenuePage extends StatefulWidget {
   VenuePage({Key? key}) : super(key: key);

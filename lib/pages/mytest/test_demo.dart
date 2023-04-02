@@ -1,4 +1,4 @@
-import 'package:demo711/pages/mytest/vertical_tab_bar.dart';
+import 'package:tongxinbaike/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
 
 class TestDemoPage extends StatelessWidget {

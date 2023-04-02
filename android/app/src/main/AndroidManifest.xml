@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.demo711">
    <application
-        android:label="同心社区"
+        android:label="同心百科"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

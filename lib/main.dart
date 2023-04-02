@@ -1,4 +1,4 @@
-import 'package:demo711/app.dart';
+import 'package:tongxinbaike/app.dart';
 import 'package:flutter/material.dart';
 
 import 'config/app_theme.dart';

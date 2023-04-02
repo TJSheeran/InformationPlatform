@@ -1,4 +1,4 @@
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DemoPage extends StatelessWidget {

@@ -1,17 +1,18 @@
 import 'dart:ui';
-import 'package:demo711/common/common_config.dart';
-import 'package:demo711/config/app_colors.dart';
-import 'package:demo711/pages/publish/object_util.dart';
+
+import 'package:tongxinbaike/common/common_config.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/pages/publish/object_util.dart';
 import 'package:flutter/material.dart';
-import 'package:demo711/pages/root/root_page.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/news.dart';
-import 'package:demo711/dio_util/dio_util.dart';
+import 'package:tongxinbaike/pages/root/root_page.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/news.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:demo711/routes/app_routes.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:intl/intl.dart';
 
 class PublishPage extends StatefulWidget {

@@ -1,6 +1,12 @@
-import 'package:demo711/config/app_colors.dart';
+import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:tongxinbaike/view/home_pages/comm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/news.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
+import 'package:tongxinbaike/view/card/pet_card.dart';
+import 'package:get/get.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 
 class MinePage extends StatefulWidget {
   MinePage({Key? key}) : super(key: key);

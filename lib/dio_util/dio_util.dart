@@ -6,11 +6,11 @@ import 'package:dio/dio.dart';
 import 'dart:convert';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:dio_http2_adapter/dio_http2_adapter.dart';
-import 'package:demo711/dio_util/dio_cache_interceptors.dart';
-import 'package:demo711/dio_util/dio_interceptors.dart';
-import 'package:demo711/dio_util/dio_method.dart';
-import 'package:demo711/dio_util/dio_token_interceptors.dart';
-import 'package:demo711/dio_util/dio_transformer.dart';
+import 'package:tongxinbaike/dio_util/dio_cache_interceptors.dart';
+import 'package:tongxinbaike/dio_util/dio_interceptors.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_token_interceptors.dart';
+import 'package:tongxinbaike/dio_util/dio_transformer.dart';
 
 class DioUtil {
 

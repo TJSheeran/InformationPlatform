@@ -1,7 +1,7 @@
 // GetX一个页面的标准文件分布：page / controller（生命周期） / binding（把controller注入整个项目中）
 
-import 'package:demo711/common/common_config.dart';
-import 'package:demo711/models/illustration.dart';
+import 'package:tongxinbaike/common/common_config.dart';
+import 'package:tongxinbaike/models/illustration.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
