@@ -11,6 +11,7 @@ import '../../view/root_pages/message_page.dart';
 import '../../view/root_pages/niceplay_page.dart';
 import '../home/home_page.dart';
 import '../mine/mine_page.dart';
+import '../mine/test_mine_page.dart';
 import '../mytest/test_page.dart';
 import '../publish/publish_page.dart';
 
@@ -39,7 +40,7 @@ class _RootPageState extends State<RootPage> {
     NiceplayPage(),
     Container(),
     MessagePage(),
-    MinePage(),
+    ProfilePage(),
   ];
 
   //底部导航数组

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:demo711/common/common_config.dart';
 import 'package:demo711/config/app_colors.dart';
 import 'package:demo711/pages/publish/object_util.dart';
