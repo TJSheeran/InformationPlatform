@@ -17,9 +17,9 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
   List<String> tabTitle = ['商圈', '电影院', '美食', '超市'];
   Future<List>? flist;
 
-  Future<List> _ReadHandle() async {
+  Future<List> _ReadHandle(Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "美食休闲", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "美食休闲","category2": Tabtitle, "campus": "嘉定校区"});
     return result;
   }
 
@@ -179,12 +179,17 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    flist=_ReadHandle(tabTitle[0]);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder(
-            future: flist = _ReadHandle(),
+            future: flist,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return SafeArea(
                 child: Row(
@@ -198,6 +203,7 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
                                 setState(() {
                                   selectedIndex = index;
                                   _pageController.jumpToPage(index);
+                                  flist=_ReadHandle(tabTitle[index]);
                                 });
                               },
                               child: Container(

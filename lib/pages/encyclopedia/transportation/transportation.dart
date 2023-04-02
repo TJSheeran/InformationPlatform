@@ -14,15 +14,14 @@ class _TransportationPageState extends State<TransportationPage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   int pagesCount = 6;
-  List<String> tabTitle = ['短驳车', '定班车', '北安跨线', '地铁出行', '交通枢纽', '火车票'];
+  List<String> tabTitle = ['短驳车', '定班车', '北安跨线', '地铁出行', '交通枢纽通勤', '火车票'];
   Future<List>? flist;
 
-  Future<List> _ReadHandle() async {
+  Future<List> _ReadHandle(String Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "交通出行", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "交通出行","category2": Tabtitle, "campus": "嘉定校区"});
     return result;
   }
-
   Widget renderCover() {
     return Stack(
       fit: StackFit.passthrough,
@@ -179,12 +178,17 @@ class _TransportationPageState extends State<TransportationPage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    flist=_ReadHandle(tabTitle[0]);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder(
-            future: flist = _ReadHandle(),
+            future: flist,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return SafeArea(
                 child: Row(
@@ -198,6 +202,7 @@ class _TransportationPageState extends State<TransportationPage> {
                                 setState(() {
                                   selectedIndex = index;
                                   _pageController.jumpToPage(index);
+                                  flist=_ReadHandle(tabTitle[index]);
                                 });
                               },
                               child: Container(

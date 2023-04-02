@@ -14,12 +14,12 @@ class _LifeservicePageState extends State<LifeservicePage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   int pagesCount = 5;
-  List<String> tabTitle = ['快递服务', '空调租赁', '电费缴纳', '医保相关', '寝室相关'];
+  List<String> tabTitle = ['快递', '空调', '电费', '医保', '寝室'];
   Future<List>? flist;
 
-  Future<List> _ReadHandle() async {
+  Future<List> _ReadHandle(String Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "生活服务", "campus": "嘉定校区"});
+        method: DioMethod.post, data: {"category1": "生活服务","category2": Tabtitle, "campus": "嘉定校区"});
     return result;
   }
   // Future<List> _ReadHandle() async {
@@ -183,12 +183,17 @@ class _LifeservicePageState extends State<LifeservicePage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
-
+@override
+  void initState() {
+    // TODO: implement initState
+    flist=_ReadHandle(tabTitle[0]);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: FutureBuilder(
-            future: flist = _ReadHandle(),
+            future: flist,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return SafeArea(
                 child: Row(
@@ -202,6 +207,7 @@ class _LifeservicePageState extends State<LifeservicePage> {
                                 setState(() {
                                   selectedIndex = index;
                                   _pageController.jumpToPage(index);
+                                  flist=_ReadHandle(tabTitle[index]);
                                 });
                               },
                               child: Container(

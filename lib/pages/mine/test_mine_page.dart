@@ -4,7 +4,8 @@ import 'package:tongxinbaike/pages/root/root_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
 import '../home/home_page.dart';
 import 'header_widget.dart';
 // import 'package:flutter_login_ui/pages/goals_page.dart';
@@ -25,6 +26,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
+
+  Future<List> _ReadHandle() async {
+    var result = await DioUtil().request("/userInfo",
+        method: DioMethod.post, data: {"username": "111","password": "111"});
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -240,155 +247,164 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            Container(
-              height: 100,
-              child: HeaderWidget(100, false, Icons.house_rounded),
-            ),
-            Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: Column(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        image: const DecorationImage(
-                            image: NetworkImage(
-                                "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
-                    // BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(100),
-                    //   border: Border.all(width: 5, color: Colors.white),
-                    //   color: Colors.white,
-                    //   boxShadow: [
-                    //     BoxShadow(
-                    //       color: Colors.black12,
-                    //       blurRadius: 100,
-                    //       offset: const Offset(5, 5),
-                    //     ),
-                    //   ],
-                    // ),
-                    // child: Image(
-                    //   image: NetworkImage(
-                    //       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"),
-                    //   width: 80,
-                    //   height: 80,
-                    // )
-                    // Icon(
-                    //   Icons.person,
-                    //   size: 80,
-                    //   color: Colors.grey.shade300,
-                    // ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Sheeran',
-                    style: TextStyle(
-                        color: AppColor.active,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    '研二  在校',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding:
-                              const EdgeInsets.only(left: 8.0, bottom: 4.0),
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "基本信息",
-                            style: TextStyle(
-                              color: AppColor.active,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 25,
+      body: FutureBuilder(
+            future: _ReadHandle(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if(snapshot.hasData)
+                return SingleChildScrollView(
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 100,
+                        child: HeaderWidget(100, false, Icons.house_rounded),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  image: const DecorationImage(
+                                      image: NetworkImage(
+                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
+                              // BoxDecoration(
+                              //   borderRadius: BorderRadius.circular(100),
+                              //   border: Border.all(width: 5, color: Colors.white),
+                              //   color: Colors.white,
+                              //   boxShadow: [
+                              //     BoxShadow(
+                              //       color: Colors.black12,
+                              //       blurRadius: 100,
+                              //       offset: const Offset(5, 5),
+                              //     ),
+                              //   ],
+                              // ),
+                              // child: Image(
+                              //   image: NetworkImage(
+                              //       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"),
+                              //   width: 80,
+                              //   height: 80,
+                              // )
+                              // Icon(
+                              //   Icons.person,
+                              //   size: 80,
+                              //   color: Colors.grey.shade300,
+                              // ),
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            alignment: Alignment.topLeft,
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    ...ListTile.divideTiles(
-                                      color: Colors.grey,
-                                      tiles: [
-                                        ListTile(
-                                          // contentPadding: EdgeInsets.symmetric(
-                                          //     horizontal: 14, vertical: 2),
-                                          leading: Icon(Icons.my_location),
-                                          title: Text(
-                                            "学 院",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          subtitle: Text("电子与信息工程学院"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.email),
-                                          title: Text(
-                                            "邮 箱",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          subtitle: Text("sheeran@163.com"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.phone),
-                                          title: Text(
-                                            "电 话",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          subtitle: Text("17718216666"),
-                                        ),
-                                        ListTile(
-                                          leading: Icon(Icons.person),
-                                          title: Text(
-                                            "生 日",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          subtitle: Text("1998/03/04"),
-                                        ),
-                                      ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              snapshot.data[0]["username"],
+                              style: TextStyle(
+                                  color: AppColor.active,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              '研二  在校',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding:
+                                    const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "基本信息",
+                                      style: TextStyle(
+                                        color: AppColor.active,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 25,
+                                      ),
+                                      textAlign: TextAlign.left,
                                     ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                                  ),
+                                  Card(
+                                    child: Container(
+                                      alignment: Alignment.topLeft,
+                                      padding: EdgeInsets.all(15),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Column(
+                                            children: <Widget>[
+                                              ...ListTile.divideTiles(
+                                                color: Colors.grey,
+                                                tiles: [
+                                                  ListTile(
+                                                    // contentPadding: EdgeInsets.symmetric(
+                                                    //     horizontal: 14, vertical: 2),
+                                                    leading: Icon(Icons.my_location),
+                                                    title: Text(
+                                                      "学 院",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600),
+                                                    ),
+                                                    subtitle: Text(snapshot.data[0]["campus"].toString()),
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.email),
+                                                    title: Text(
+                                                      "邮 箱",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600),
+                                                    ),
+                                                    subtitle: Text(snapshot.data[0]["email"].toString()),
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.phone),
+                                                    title: Text(
+                                                      "电 话",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600),
+                                                    ),
+                                                    subtitle: Text(snapshot.data[0]["phone"].toString()),
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.person),
+                                                    title: Text(
+                                                      "生 日",
+                                                      style: TextStyle(
+                                                          fontWeight: FontWeight.w600),
+                                                    ),
+                                                    subtitle: Text(snapshot.data[0]["birthday"].toString()),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              else
+                return Container();
+
+            }
+      )
     );
   }
 }
