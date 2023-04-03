@@ -14,12 +14,13 @@ class _MedicalPageState extends State<MedicalPage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   int pagesCount = 4;
-  List<String> tabTitle = ['医院', '药店', '报销流程', '校医院支持的服务'];
+  List<String> tabTitle = ['医院', '药店', '报销流程', '校医院'];
   Future<List>? flist;
 
   Future<List> _ReadHandle(Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post, data: {"category1": "医疗","category2": Tabtitle, "campus": "嘉定校区"});
+        method: DioMethod.post,
+        data: {"category1": "医疗", "category2": Tabtitle, "campus": "嘉定校区"});
     return result;
   }
 
@@ -179,12 +180,14 @@ class _MedicalPageState extends State<MedicalPage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
+
   @override
   void initState() {
     // TODO: implement initState
-    flist=_ReadHandle(tabTitle[0]);
+    flist = _ReadHandle(tabTitle[0]);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,7 +206,7 @@ class _MedicalPageState extends State<MedicalPage> {
                                 setState(() {
                                   selectedIndex = index;
                                   _pageController.jumpToPage(index);
-                                  flist=_ReadHandle(tabTitle[index]);
+                                  flist = _ReadHandle(tabTitle[index]);
                                 });
                               },
                               child: Container(
