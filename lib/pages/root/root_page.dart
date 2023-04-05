@@ -88,37 +88,6 @@ class _RootPageState extends State<RootPage> {
         expand: true,
         duration: const Duration(milliseconds: 400),
         backgroundColor: Colors.transparent);
-
-    // showModalBottomSheet(
-    //     context: context,
-    //     isScrollControlled: true,
-    //     builder: (context) {
-    //       return Column(
-    //         mainAxisSize: MainAxisSize.min,
-    //         children: [
-    //           FlutterLogo(
-    //             size: 64,
-    //           ),
-    //           Padding(
-    //             padding: const EdgeInsets.all(24),
-    //             child: Text(
-    //               '这是一大段测试文字，就问你看到了怕不怕',
-    //               style: TextStyle(fontSize: 22),
-    //             ),
-    //           ),
-    //           Container(
-    //             height: MediaQuery.of(context).size.height * 0.7,
-    //             child: ListView.builder(
-    //               itemCount: 200,
-    //               itemBuilder: (context, index) => Container(
-    //                 height: 48,
-    //                 color: Colors.cyan[(index % 9 + 1) * 100],
-    //               ),
-    //             ),
-    //           )
-    //         ],
-    //       );
-    //     });
   }
 
   @override

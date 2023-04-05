@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'dart:ui';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tongxinbaike/common/common_config.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/pages/publish/object_util.dart';
@@ -13,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
@@ -25,6 +28,9 @@ class _PublishPageState extends State<PublishPage> {
   String? firstLevelLabel;
   String? secondLevelLabel;
   List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
+
+  //图片
+  File? image;
 
   TextEditingController titleController = TextEditingController()
     ..addListener(() {});
@@ -128,6 +134,40 @@ class _PublishPageState extends State<PublishPage> {
                               fontWeight: FontWeight.w500)))),
             )
             .toList());
+  }
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('加载失败: $e');
+    }
+  }
+
+  Future pickImagefromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('加载失败: $e');
+    }
+  }
+
+  Future cleanImage() async {
+    setState(() {
+      this.image = null;
+    });
   }
 
   @override
@@ -270,7 +310,7 @@ class _PublishPageState extends State<PublishPage> {
                                                     margin: EdgeInsets.only(
                                                         left: 10.0,
                                                         right: 10.0,
-                                                        top: 15.0,
+                                                        top: 5.0,
                                                         bottom: 0.0),
                                                     child: Text('一级目录'.tr,
                                                         style: TextStyle(
@@ -311,7 +351,7 @@ class _PublishPageState extends State<PublishPage> {
                                                     margin: EdgeInsets.only(
                                                         left: 10.0,
                                                         right: 10.0,
-                                                        top: 25.0,
+                                                        top: 15.0,
                                                         bottom: 0.0),
                                                     child: Text('二级目录'.tr,
                                                         style: TextStyle(
@@ -351,7 +391,8 @@ class _PublishPageState extends State<PublishPage> {
 
                                                   Container(
                                                       margin: EdgeInsets.only(
-                                                          left: 10, top: 15),
+                                                        left: 10,
+                                                      ),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -436,7 +477,8 @@ class _PublishPageState extends State<PublishPage> {
 
                                                   Container(
                                                       margin: EdgeInsets.only(
-                                                          left: 10, top: 15),
+                                                        left: 10,
+                                                      ),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -519,6 +561,145 @@ class _PublishPageState extends State<PublishPage> {
                                                       ),
                                                     ),
                                                   ),
+
+                                                  // Container(
+                                                  //     margin: EdgeInsets.only(
+                                                  //       left: 10,
+                                                  //     ),
+                                                  //     child: Column(
+                                                  //       crossAxisAlignment:
+                                                  //           CrossAxisAlignment
+                                                  //               .start,
+                                                  //       children: [
+                                                  //         Container(
+                                                  //             height: 60,
+                                                  //             // color: Colors.orange,
+                                                  //             alignment: Alignment
+                                                  //                 .centerLeft,
+                                                  //             child: Text(
+                                                  //                 '选择图片'.tr,
+                                                  //                 style:
+                                                  //                     TextStyle(
+                                                  //                   color: AppColor
+                                                  //                       .active,
+                                                  //                   fontSize:
+                                                  //                       18.0,
+                                                  //                   fontWeight:
+                                                  //                       FontWeight
+                                                  //                           .w600,
+                                                  //                 ))),
+                                                  //       ],
+                                                  //     )),
+                                                  Container(
+                                                      margin: EdgeInsets.only(
+                                                        left: 10,
+                                                      ),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                              height: 60,
+                                                              // color: Colors.orange,
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: Text(
+                                                                  '选择图片'.tr,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: AppColor
+                                                                        .active,
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ))),
+                                                          SizedBox(width: 230),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              cleanImage();
+                                                            },
+                                                            child: Container(
+                                                                height: 60,
+                                                                // color: Colors.orange,
+                                                                alignment: Alignment
+                                                                    .centerLeft,
+                                                                child: Text(
+                                                                    '清 除'.tr,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: AppColor
+                                                                          .unactive,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                    ))),
+                                                          ),
+                                                        ],
+                                                      )),
+
+                                                  InkWell(
+                                                    onTap: () {
+                                                      pickImage();
+                                                    },
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                        left: 10,
+                                                      ),
+                                                      child: image != null
+                                                          ? Image.file(
+                                                              image!,
+                                                              width: 120,
+                                                              height: 120,
+                                                            )
+                                                          : SvgPicture.asset(
+                                                              "assets/icons/add_image.svg",
+                                                              width: Get.width *
+                                                                  .2,
+                                                            ),
+                                                    ),
+                                                  ),
+
+                                                  // Center(
+                                                  //   child: Column(
+                                                  //     children: [
+                                                  //       MaterialButton(
+                                                  //           color: AppColor
+                                                  //               .bluegreen,
+                                                  //           child: Text(
+                                                  //             "图库选择图片",
+                                                  //             style: TextStyle(
+                                                  //                 color: Colors
+                                                  //                     .white),
+                                                  //           ),
+                                                  //           onPressed: () {
+                                                  //             pickImage();
+                                                  //           }),
+                                                  //       MaterialButton(
+                                                  //           color: AppColor
+                                                  //               .bluegreen,
+                                                  //           child: Text(
+                                                  //             "相机选择图片",
+                                                  //             style: TextStyle(
+                                                  //                 color: Colors
+                                                  //                     .white),
+                                                  //           ),
+                                                  //           onPressed: () {
+                                                  //             pickImagefromCamera();
+                                                  //           }),
+                                                  //       SizedBox(
+                                                  //         height: 20,
+                                                  //       ),
+                                                  //       image != null
+                                                  //           ? Image.file(image!)
+                                                  //           : Text("没有图片")
+                                                  //     ],
+                                                  //   ),
+                                                  // ),
 
                                                   Container(
                                                       margin: EdgeInsets.only(

@@ -35,7 +35,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
     super.initState();
 
     _tabController = TabController(
-      initialIndex: 2, //初始页面下标
+      initialIndex: 0, //初始页面下标
       length: _tabs.length, //tabbar有几个就写成几
       vsync: this,
     );

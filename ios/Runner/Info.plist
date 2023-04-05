@@ -6,6 +6,10 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo Library Access Warning</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera Library Access Warning</string>
 	<key>CFBundleDisplayName</key>
 	<string>同心百科</string>
 	<key>CFBundleExecutable</key>
@@ -47,3 +51,4 @@
 	<false/>
 </dict>
 </plist>
+

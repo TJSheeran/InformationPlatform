@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'package:tongxinbaike/pages/root/root_page.dart';
@@ -27,230 +30,247 @@ class _ProfilePageState extends State<ProfilePage> {
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
 
+  //图片
+  File? avator;
+
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/userInfo",
-        method: DioMethod.post, data: {"username": "111","password": "111"});
+        method: DioMethod.post, data: {"username": "111", "password": "111"});
     return result;
+  }
+
+  Future pickAvator() async {
+    try {
+      final avator = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (avator == null) return;
+
+      final avatorTemp = File(avator.path);
+
+      setState(() => this.avator = avatorTemp);
+    } on PlatformException catch (e) {
+      print('加载失败: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.page,
-      appBar: AppBar(
-        title: Text(
-          "个人主页",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        elevation: 0.5,
-        iconTheme: IconThemeData(color: Colors.white),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            color: AppColor.bluegreen,
-            // gradient: LinearGradient(
-            //     begin: Alignment.topLeft,
-            //     end: Alignment.bottomRight,
-            //     colors: <Color>[
-            //   Theme.of(context).primaryColor,
-            //   Theme.of(context).accentColor,
-            // ]
-
-            // )
+        backgroundColor: AppColor.page,
+        appBar: AppBar(
+          title: Text(
+            "个人主页",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-        ),
-        actions: [
-          Container(
-            margin: EdgeInsets.only(
-              top: 14,
-              right: 16,
+          elevation: 0.5,
+          iconTheme: IconThemeData(color: Colors.white),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              color: AppColor.bluegreen,
+              // gradient: LinearGradient(
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //     colors: <Color>[
+              //   Theme.of(context).primaryColor,
+              //   Theme.of(context).accentColor,
+              // ]
+
+              // )
             ),
-            child: Stack(
-              children: <Widget>[
-                Icon(
-                  Icons.notifications,
-                  size: 30,
-                ),
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
-                    child: Text(
-                      '6',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+          ),
+          actions: [
+            Container(
+              margin: EdgeInsets.only(
+                top: 14,
+                right: 16,
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Icon(
+                    Icons.notifications,
+                    size: 30,
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        '6',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+        drawer: Drawer(
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.page,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(0.0),
+              children: [
+                DrawerHeader(
+                  // padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+                  decoration: BoxDecoration(
+                    color: AppColor.bluegreen,
+                    // gradient: LinearGradient(
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    //   stops: [0.0, 1.0],
+                    //   colors: [
+                    //     Theme.of(context).primaryColor,
+                    //     AppColor.bluegreen,
+                    //   ],
+                    // ),
+                  ),
+                  child: Container(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      "设 置",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: AppColor.page,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-      drawer: Drawer(
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColor.page,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.all(0.0),
-            children: [
-              DrawerHeader(
-                // padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
-                decoration: BoxDecoration(
-                  color: AppColor.bluegreen,
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  //   stops: [0.0, 1.0],
-                  //   colors: [
-                  //     Theme.of(context).primaryColor,
-                  //     AppColor.bluegreen,
-                  //   ],
-                  // ),
                 ),
-                child: Container(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "设 置",
+                ListTile(
+                  leading: Icon(
+                    Icons.screen_lock_landscape_rounded,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '百科主页',
                     style: TextStyle(
-                        fontSize: 25,
-                        color: AppColor.page,
+                        fontSize: 17,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RootPage()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.login_rounded,
+                      size: _drawerIconSize, color: AppColor.active),
+                  title: Text(
+                    '发布词条',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
                         fontWeight: FontWeight.bold),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RootPage()),
+                    );
+                  },
                 ),
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.screen_lock_landscape_rounded,
-                  size: _drawerIconSize,
-                  color: Colors.black,
+                //Divider(color: Theme.of(context).primaryColor, height: 1,),
+                ListTile(
+                  leading: Icon(Icons.person_add_alt_1,
+                      size: _drawerIconSize, color: AppColor.active),
+                  title: Text(
+                    '修改个人信息',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RootPage()),
+                    );
+                  },
                 ),
-                title: Text(
-                  '百科主页',
-                  style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
+                //Divider(color: Theme.of(context).primaryColor, height: 1,),
+                ListTile(
+                  leading: Icon(
+                    Icons.password_rounded,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '申请流程',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RootPage()),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RootPage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.login_rounded,
-                    size: _drawerIconSize, color: Colors.black),
-                title: Text(
-                  '发布词条',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                //Divider(color: Theme.of(context).primaryColor, height: 1,),
+                ListTile(
+                  leading: Icon(
+                    Icons.verified_user_sharp,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '安全设置',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RootPage()),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RootPage()),
-                  );
-                },
-              ),
-              //Divider(color: Theme.of(context).primaryColor, height: 1,),
-              ListTile(
-                leading: Icon(Icons.person_add_alt_1,
-                    size: _drawerIconSize, color: Colors.black),
-                title: Text(
-                  '修改个人信息',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                //Divider(color: Theme.of(context).primaryColor, height: 1,),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout_rounded,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '退出登录',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    SystemNavigator.pop();
+                  },
                 ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RootPage()),
-                  );
-                },
-              ),
-              //Divider(color: Theme.of(context).primaryColor, height: 1,),
-              ListTile(
-                leading: Icon(
-                  Icons.password_rounded,
-                  size: _drawerIconSize,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  '申请流程',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RootPage()),
-                  );
-                },
-              ),
-              //Divider(color: Theme.of(context).primaryColor, height: 1,),
-              ListTile(
-                leading: Icon(
-                  Icons.verified_user_sharp,
-                  size: _drawerIconSize,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  '安全设置',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RootPage()),
-                  );
-                },
-              ),
-              //Divider(color: Theme.of(context).primaryColor, height: 1,),
-              ListTile(
-                leading: Icon(
-                  Icons.logout_rounded,
-                  size: _drawerIconSize,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  '退出登录',
-                  style: TextStyle(
-                      fontSize: _drawerFontSize,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-                onTap: () {
-                  SystemNavigator.pop();
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-      body: FutureBuilder(
+        body: FutureBuilder(
             future: _ReadHandle(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if(snapshot.hasData)
+              if (snapshot.hasData)
                 return SingleChildScrollView(
                   child: Stack(
                     children: [
@@ -264,38 +284,35 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                         child: Column(
                           children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100),
-                                  image: const DecorationImage(
-                                      image: NetworkImage(
-                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
-                              // BoxDecoration(
-                              //   borderRadius: BorderRadius.circular(100),
-                              //   border: Border.all(width: 5, color: Colors.white),
-                              //   color: Colors.white,
-                              //   boxShadow: [
-                              //     BoxShadow(
-                              //       color: Colors.black12,
-                              //       blurRadius: 100,
-                              //       offset: const Offset(5, 5),
-                              //     ),
-                              //   ],
-                              // ),
-                              // child: Image(
-                              //   image: NetworkImage(
-                              //       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"),
-                              //   width: 80,
-                              //   height: 80,
-                              // )
-                              // Icon(
-                              //   Icons.person,
-                              //   size: 80,
-                              //   color: Colors.grey.shade300,
-                              // ),
-                            ),
+                            InkWell(
+                                onTap: () {
+                                  pickAvator();
+                                },
+                                child:
+                                    // Container(
+                                    //   width: 100,
+                                    //   height: 100,
+                                    //   decoration: BoxDecoration(
+                                    //       borderRadius: BorderRadius.circular(100),
+                                    //       image: const DecorationImage(
+                                    //           image: NetworkImage(
+                                    //               "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
+                                    // ),
+                                    Container(
+                                  width: 100,
+                                  height: 100,
+                                  //超出部分，可裁剪
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: avator != null
+                                      ? Image.file(avator!, fit: BoxFit.cover)
+                                      : Image.network(
+                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg",
+                                          fit: BoxFit.cover,
+                                        ),
+                                )),
                             SizedBox(
                               height: 20,
                             ),
@@ -311,7 +328,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             Text(
                               '研二  在校',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
                               height: 10,
@@ -321,8 +339,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Column(
                                 children: <Widget>[
                                   Container(
-                                    padding:
-                                    const EdgeInsets.only(left: 8.0, bottom: 4.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, bottom: 4.0),
                                     alignment: Alignment.topLeft,
                                     child: Text(
                                       "基本信息",
@@ -348,40 +366,53 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   ListTile(
                                                     // contentPadding: EdgeInsets.symmetric(
                                                     //     horizontal: 14, vertical: 2),
-                                                    leading: Icon(Icons.my_location),
+                                                    leading:
+                                                        Icon(Icons.my_location),
                                                     title: Text(
                                                       "学 院",
                                                       style: TextStyle(
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
-                                                    subtitle: Text(snapshot.data[0]["campus"].toString()),
+                                                    subtitle: Text(snapshot
+                                                        .data[0]["campus"]
+                                                        .toString()),
                                                   ),
                                                   ListTile(
                                                     leading: Icon(Icons.email),
                                                     title: Text(
                                                       "邮 箱",
                                                       style: TextStyle(
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
-                                                    subtitle: Text(snapshot.data[0]["email"].toString()),
+                                                    subtitle: Text(snapshot
+                                                        .data[0]["email"]
+                                                        .toString()),
                                                   ),
                                                   ListTile(
                                                     leading: Icon(Icons.phone),
                                                     title: Text(
                                                       "电 话",
                                                       style: TextStyle(
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
-                                                    subtitle: Text(snapshot.data[0]["phone"].toString()),
+                                                    subtitle: Text(snapshot
+                                                        .data[0]["phone"]
+                                                        .toString()),
                                                   ),
                                                   ListTile(
                                                     leading: Icon(Icons.person),
                                                     title: Text(
                                                       "生 日",
                                                       style: TextStyle(
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
-                                                    subtitle: Text(snapshot.data[0]["birthday"].toString()),
+                                                    subtitle: Text(snapshot
+                                                        .data[0]["birthday"]
+                                                        .toString()),
                                                   ),
                                                 ],
                                               ),
@@ -402,9 +433,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 );
               else
                 return Container();
-
-            }
-      )
-    );
+            }));
   }
 }
