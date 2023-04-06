@@ -11,6 +11,8 @@ import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import '../home/home_page.dart';
 import 'header_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:dio/dio.dart' as FormDataA;
 // import 'package:flutter_login_ui/pages/goals_page.dart';
 // import 'package:flutter_login_ui/home_page.dart';
 // import 'package:flutter_login_ui/pages/widgets/header_widget.dart';
@@ -34,8 +36,8 @@ class _ProfilePageState extends State<ProfilePage> {
   File? avator;
 
   Future<List> _ReadHandle() async {
-    var result = await DioUtil().request("/userInfo",
-        method: DioMethod.post, data: {"username": "111", "password": "111"});
+    var result = await DioUtil().request("/userInfo/111",
+        method: DioMethod.get, data: {"username": "111", "password": "111"});
     return result;
   }
 
@@ -52,7 +54,33 @@ class _ProfilePageState extends State<ProfilePage> {
       print('加载失败: $e');
     }
   }
+  imageUpload() async {
+    if(avator != null)
+    {
+      var formData = FormDataA.FormData.fromMap({
+        'file': await FormDataA.MultipartFile.fromFile(avator!.path, filename:"test.jpg"),
+      });
 
+      var result = await DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+
+      DioUtil().request("/updatePic", method: DioMethod.post, data: {
+      'username': '111',
+      'picture': result,}
+      );
+
+      Fluttertoast.showToast(
+          msg: "修改成功",
+          toastLength:
+          Toast.LENGTH_SHORT,
+          gravity:
+          ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor:
+          Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -309,7 +337,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: avator != null
                                       ? Image.file(avator!, fit: BoxFit.cover)
                                       : Image.network(
-                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg",
+                                    snapshot
+                                        .data[0]["picture"],
                                           fit: BoxFit.cover,
                                         ),
                                 )),
@@ -424,7 +453,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                   )
                                 ],
                               ),
-                            )
+                            ),
+                  MaterialButton(
+                    minWidth: 20.0,
+                    height: 40.0,
+                    shape: const StadiumBorder(),
+                    onPressed: () {
+                      imageUpload();
+                    },
+                    color: AppColor.bluegreen,
+                    child: const Text(
+                      '修 改',
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  )
                           ],
                         ),
                       )

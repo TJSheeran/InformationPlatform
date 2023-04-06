@@ -16,7 +16,7 @@ import 'package:get/get.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:dio/dio.dart' as FormDataA;
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
 
@@ -170,6 +170,27 @@ class _PublishPageState extends State<PublishPage> {
     });
   }
 
+  imageUpload() async {
+    if(image != null)
+    {
+      var formData = FormDataA.FormData.fromMap({
+        'file': await FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
+      });
+
+      DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+      Fluttertoast.showToast(
+          msg: "发布成功",
+          toastLength:
+          Toast.LENGTH_SHORT,
+          gravity:
+          ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor:
+          Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -225,19 +246,20 @@ class _PublishPageState extends State<PublishPage> {
                                               print(secondLevelLabel);
                                               print(titleController.text);
                                               print(contentController.text);
+                                              imageUpload();
+                                              Navigator.of(context).pop();
                                               // if (nowtimestamp != '' &&
-                                              //     titleController.text != '') {
+                                              //     firstLevelLabel != ''&& secondLevelLabel != ''
+                                              // && titleController.text != ''&&contentController.text !='') {
                                               //   DioUtil().request(
-                                              //     "/add",
+                                              //     "/addBaike",
                                               //     method: DioMethod.post,
                                               //     data: {
-                                              //       'name': 'New',
-                                              //       'date': nowtimestamp,
-                                              //       // 'text': textController.text,
-                                              //       'likeCount': 0,
-                                              //       'commentCount': 0,
-                                              //       'userid': '11',
-                                              //       'publishTime': nowtimestamp,
+                                              //       'category1': firstLevelLabel,
+                                              //       'category2': secondLevelLabel,
+                                              //       'title': titleController.text,
+                                              //       'author': "Linhai",
+                                              //       'content': contentController.text,
                                               //     },
                                               //   );
                                               //   Fluttertoast.showToast(
@@ -252,7 +274,7 @@ class _PublishPageState extends State<PublishPage> {
                                               //       textColor: Colors.white,
                                               //       fontSize: 16.0);
                                               //   Navigator.of(context).pop();
-                                              // }
+                                              //  }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
