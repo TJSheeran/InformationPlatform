@@ -170,11 +170,17 @@ class _PublishPageState extends State<PublishPage> {
     });
   }
 
-  imageUpload() async {
+  imageUpload(String? firstlevel,String? secondlevel,String titletext,String contenttext) async {
     if(image != null)
     {
       var formData = FormDataA.FormData.fromMap({
         'file': await FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
+        'category1': firstlevel,
+        'category2': secondlevel,
+        'title': titletext,
+        'author': "Linhai",
+        'content': contenttext,
+        'campus':"嘉定校区",
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
@@ -246,35 +252,47 @@ class _PublishPageState extends State<PublishPage> {
                                               print(secondLevelLabel);
                                               print(titleController.text);
                                               print(contentController.text);
-                                              imageUpload();
-                                              Navigator.of(context).pop();
-                                              // if (nowtimestamp != '' &&
-                                              //     firstLevelLabel != ''&& secondLevelLabel != ''
-                                              // && titleController.text != ''&&contentController.text !='') {
-                                              //   DioUtil().request(
-                                              //     "/addBaike",
-                                              //     method: DioMethod.post,
-                                              //     data: {
-                                              //       'category1': firstLevelLabel,
-                                              //       'category2': secondLevelLabel,
-                                              //       'title': titleController.text,
-                                              //       'author': "Linhai",
-                                              //       'content': contentController.text,
-                                              //     },
-                                              //   );
-                                              //   Fluttertoast.showToast(
-                                              //       msg: "发布成功",
-                                              //       toastLength:
-                                              //           Toast.LENGTH_SHORT,
-                                              //       gravity:
-                                              //           ToastGravity.BOTTOM,
-                                              //       timeInSecForIosWeb: 1,
-                                              //       backgroundColor:
-                                              //           Colors.black45,
-                                              //       textColor: Colors.white,
-                                              //       fontSize: 16.0);
-                                              //   Navigator.of(context).pop();
-                                              //  }
+                                              // imageUpload();
+                                              // Navigator.of(context).pop();
+                                              if (nowtimestamp != '' &&
+                                                  firstLevelLabel != ''&& secondLevelLabel != ''
+                                              && titleController.text != ''&&contentController.text !='' && image!= null) {
+                                                imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
+                                                Navigator.of(context).pop();
+                                                  // var formData = FormDataA.FormData.fromMap({
+                                                  //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
+                                                  //   'category1': firstLevelLabel,
+                                                  //   'category2': secondLevelLabel,
+                                                  //   'title': titleController.text,
+                                                  //   'author': "Linhai",
+                                                  //   'content': contentController.text,
+                                                  //   'campus':"嘉定校区",
+                                                  // });
+                                                  // DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+                                                // DioUtil().request(
+                                                //   "/addBaike",
+                                                //   method: DioMethod.post,
+                                                //   data: {
+                                                //     'category1': firstLevelLabel,
+                                                //     'category2': secondLevelLabel,
+                                                //     'title': titleController.text,
+                                                //     'author': "Linhai",
+                                                //     'content': contentController.text,
+                                                //   },
+                                                // );
+                                                // Fluttertoast.showToast(
+                                                //     msg: "发布成功",
+                                                //     toastLength:
+                                                //         Toast.LENGTH_SHORT,
+                                                //     gravity:
+                                                //         ToastGravity.BOTTOM,
+                                                //     timeInSecForIosWeb: 1,
+                                                //     backgroundColor:
+                                                //         Colors.black45,
+                                                //     textColor: Colors.white,
+                                                //     fontSize: 16.0);
+                                                // Navigator.of(context).pop();
+                                               }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

@@ -33,42 +33,41 @@ class _DetailPageState extends State<DetailPage> {
   }
 
 // 点赞
-// Future<bool> onLikeButtonTapped(bool isLiked) async {
-//     /// send your request here
-//     // final bool success= await sendRequest();
-//     final result = await DioUtil().request(
-//       "/update",
-//       method: DioMethod.post,
-//       data: {
-//         'id': data.id,
-//         'name': data.name,
-//         'text': data.text,
-//         'date': data.date,
-//         'likeCount': data.isLiked!
-//             ? isLiked
-//                 ? data.likeCount! - 1
-//                 : data.likeCount!
-//             : isLiked
-//                 ? data.likeCount!
-//                 : data.likeCount! + 1,
-//         'commentCount': data.commentCount,
-//         'isLiked': !isLiked,
-//         'isFollowed': data.isFollowed,
-//         'likedId': data.likedId,
-//         'commentId': data.commentId,
-//         'userid': data.userid,
-//         'label': data.label,
-//         'activityDate': data.activityDate,
-//         'userNumber': data.userNumber
-//       },
-//     );
+Future<bool> onLikeButtonTapped(bool isLiked) async {
+    // /// send your request here
+    // // final bool success= await sendRequest();
+    // final result = await DioUtil().request(
+    //   "/update",
+    //   method: DioMethod.post,
+    //   data: {
+    //     'id': data.id,
+    //     'name': data.name,
+    //     'text': data.text,
+    //     'date': data.date,
+    //     'likeCount': data.isLiked!
+    //         ? isLiked
+    //             ? data.likeCount! - 1
+    //             : data.likeCount!
+    //         : isLiked
+    //             ? data.likeCount!
+    //             : data.likeCount! + 1,
+    //     'commentCount': data.commentCount,
+    //     'isLiked': !isLiked,
+    //     'isFollowed': data.isFollowed,
+    //     'likedId': data.likedId,
+    //     'commentId': data.commentId,
+    //     'userid': data.userid,
+    //     'label': data.label,
+    //     'activityDate': data.activityDate,
+    //     'userNumber': data.userNumber
+    //   },
+    // );
 
-//     /// if failed, you can do nothing
-//     if (result == "success")
-//       return !isLiked;
-//     else
-//       return isLiked;
-//   }
+    /// if failed, you can do nothing
+
+      return !isLiked;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -436,6 +435,17 @@ class _DetailPageState extends State<DetailPage> {
                                                               color: Color(
                                                                   0xFF999999),
                                                             )),
+                                                      ),
+                                                      LikeButton(
+                                                        isLiked: true,
+                                                        likeBuilder: (bool isLiked) {
+                                                          return Icon(
+                                                            Icons.favorite,
+                                                            color: isLiked ? AppColor.danger : Colors.grey,
+                                                          );
+                                                        },
+                                                        likeCount: 8,
+                                                        onTap: onLikeButtonTapped,
                                                       ),
                                                       // LikeButton(
                                                       //   isLiked: false,
