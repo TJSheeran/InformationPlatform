@@ -230,6 +230,9 @@ class _DetailPageState extends State<DetailPage> {
                                                               .start,
                                                       children: [
                                                         Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
                                                           children: [
                                                             Container(
                                                               margin: EdgeInsets
@@ -256,42 +259,47 @@ class _DetailPageState extends State<DetailPage> {
                                                                             0.8),
                                                                   )),
                                                             ),
-                                                            SizedBox(
-                                                              width: 150,
-                                                            ),
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Container(
+                                                                  margin: EdgeInsets.only(
                                                                       left:
                                                                           10.0,
                                                                       right:
                                                                           0.0,
-                                                                      top: 10.0,
+                                                                      top: 12.0,
                                                                       bottom:
                                                                           0.0),
-                                                              child: LikeButton(
-                                                                isLiked:
-                                                                    isCollected,
-                                                                likeBuilder: (bool
-                                                                    isLiked) {
-                                                                  return Icon(
-                                                                    isLiked
-                                                                        ? Icons
-                                                                            .star_rounded
-                                                                        : Icons
-                                                                            .star_border_rounded,
-                                                                    color: isLiked
-                                                                        ? AppColor
-                                                                            .warning
-                                                                        : Colors
-                                                                            .grey,
-                                                                    size: 35,
-                                                                  );
-                                                                },
-                                                                // likeCount: 8,
-                                                                onTap:
-                                                                    onCollectButtonTapped,
-                                                              ),
+                                                                  child:
+                                                                      LikeButton(
+                                                                    isLiked:
+                                                                        isCollected,
+                                                                    likeBuilder:
+                                                                        (bool
+                                                                            isLiked) {
+                                                                      return Icon(
+                                                                        isLiked
+                                                                            ? Icons.star_rounded
+                                                                            : Icons.star_border_rounded,
+                                                                        color: isLiked
+                                                                            ? AppColor.warning
+                                                                            : Colors.grey,
+                                                                        size:
+                                                                            35,
+                                                                      );
+                                                                    },
+                                                                    // likeCount: 8,
+                                                                    onTap:
+                                                                        onCollectButtonTapped,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 15,
+                                                                ),
+                                                              ],
                                                             ),
                                                           ],
                                                         ),
@@ -376,127 +384,150 @@ class _DetailPageState extends State<DetailPage> {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10.0,
-                                                                  right: 10.0,
-                                                                  top: 15.0,
-                                                                  bottom: 0.0),
-                                                          child: CircleAvatar(
-                                                              radius: 22,
-                                                              backgroundColor:
-                                                                  Color(
-                                                                      0xFFCCCCCC),
-                                                              backgroundImage:
-                                                                  NetworkImage(
-                                                                      "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
-                                                              ),
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            SizedBox(
-                                                              height: 15,
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left:
+                                                                          10.0,
+                                                                      right:
+                                                                          10.0,
+                                                                      top: 15.0,
+                                                                      bottom:
+                                                                          0.0),
+                                                              child: CircleAvatar(
+                                                                  radius: 22,
+                                                                  backgroundColor:
+                                                                      Color(
+                                                                          0xFFCCCCCC),
+                                                                  backgroundImage:
+                                                                      NetworkImage(
+                                                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                                                  ),
                                                             ),
-                                                            Text(
-                                                              "郭雨凡",
-                                                              style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: AppColor
-                                                                    .bluegreen,
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            2)),
-                                                            Text(
-                                                              s["campus"], //data.description,
-                                                              style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Color(
-                                                                    0xFF999999),
-                                                              ),
+                                                            SizedBox(width: 5),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: <
+                                                                  Widget>[
+                                                                SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                Text(
+                                                                  "郭雨凡",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: AppColor
+                                                                        .bluegreen,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                    padding: EdgeInsets
+                                                                        .only(
+                                                                            top:
+                                                                                2)),
+                                                                Text(
+                                                                  s["campus"], //data.description,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    color: Color(
+                                                                        0xFF999999),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ],
                                                         ),
-                                                        SizedBox(
-                                                          width: 130,
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            subscribed();
-                                                          },
-                                                          child: isSubscribed
-                                                              ? Container(
-                                                                  width: 80,
-                                                                  height: 35,
-                                                                  margin: EdgeInsets
-                                                                      .only(
+                                                        // SizedBox(
+                                                        //   width: 130,
+                                                        // ),
+                                                        Row(
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () {
+                                                                subscribed();
+                                                              },
+                                                              child: isSubscribed
+                                                                  ? Container(
+                                                                      width: 80,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets.only(
                                                                           left:
                                                                               10,
                                                                           top:
                                                                               15),
-                                                                  decoration: BoxDecoration(
-                                                                      color: AppColor
-                                                                          .bluegreen,
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(20.0))),
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                    "已关注",
-                                                                    style: TextStyle(
-                                                                        color: AppColor
-                                                                            .page,
-                                                                        fontSize:
-                                                                            15,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ),
-                                                                )
-                                                              : Container(
-                                                                  width: 80,
-                                                                  height: 35,
-                                                                  margin: EdgeInsets
-                                                                      .only(
+                                                                      decoration: BoxDecoration(
+                                                                          color: AppColor
+                                                                              .bluegreen,
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(20.0))),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          Text(
+                                                                        "已关注",
+                                                                        style: TextStyle(
+                                                                            color: AppColor
+                                                                                .page,
+                                                                            fontSize:
+                                                                                15,
+                                                                            fontWeight:
+                                                                                FontWeight.w600),
+                                                                      ),
+                                                                    )
+                                                                  : Container(
+                                                                      width: 80,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets.only(
                                                                           left:
                                                                               10,
                                                                           top:
                                                                               15),
-                                                                  decoration: BoxDecoration(
-                                                                      color: AppColor
-                                                                          .bluegreen
-                                                                          .withOpacity(
+                                                                      decoration: BoxDecoration(
+                                                                          color: AppColor.bluegreen.withOpacity(
                                                                               0.2),
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(20.0))),
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                    "+ 关 注",
-                                                                    style: TextStyle(
-                                                                        color: AppColor
-                                                                            .bluegreen,
-                                                                        fontSize:
-                                                                            15,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
-                                                                  ),
-                                                                ),
+                                                                          borderRadius:
+                                                                              BorderRadius.all(Radius.circular(20.0))),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          Text(
+                                                                        "+ 关 注",
+                                                                        style: TextStyle(
+                                                                            color: AppColor
+                                                                                .bluegreen,
+                                                                            fontSize:
+                                                                                15,
+                                                                            fontWeight:
+                                                                                FontWeight.w600),
+                                                                      ),
+                                                                    ),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 3,
+                                                            )
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -550,6 +581,9 @@ class _DetailPageState extends State<DetailPage> {
 
                                                   SizedBox(height: 15),
                                                   Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Container(
                                                         margin: EdgeInsets.only(
@@ -565,9 +599,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                   0xFF999999),
                                                             )),
                                                       ),
-                                                      SizedBox(
-                                                        width: 60,
-                                                      ),
+
                                                       Container(
                                                         margin: EdgeInsets.only(
                                                             left: 10.0,
@@ -637,6 +669,9 @@ class _DetailPageState extends State<DetailPage> {
                                                                 ),
                                                               ],
                                                             ),
+                                                            SizedBox(
+                                                              width: 3,
+                                                            )
                                                           ],
                                                         ),
                                                       ),
@@ -724,7 +759,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               commentController,
                                                           focusNode:
                                                               commentFocusNode,
-                                                          autofocus: true,
+                                                          autofocus: false,
                                                           maxLines: 1,
                                                           decoration:
                                                               InputDecoration(

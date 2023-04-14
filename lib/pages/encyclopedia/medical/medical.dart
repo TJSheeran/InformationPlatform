@@ -1,7 +1,10 @@
+import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
+
+import '../../../routes/app_routes.dart';
 
 class MedicalPage extends StatefulWidget {
   MedicalPage({Key? key}) : super(key: key);
@@ -78,90 +81,95 @@ class _MedicalPageState extends State<MedicalPage> {
               children: <Widget>[
                 renderCover(),
 
-                Container(
-                  margin: EdgeInsets.only(top: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          // Container(
-                          //   margin: EdgeInsets.only(bottom: 14),
-                          //   padding: EdgeInsets.symmetric(
-                          //       horizontal: 10, vertical: 2),
-                          //   decoration: BoxDecoration(
-                          //     color: AppColor.bluegreen,
-                          //     borderRadius: BorderRadius.only(
-                          //       topRight: Radius.circular(10),
-                          //       bottomLeft: Radius.circular(10),
-                          //       bottomRight: Radius.circular(10),
-                          //     ),
-                          //   ),
-                          //   child: Text(
-                          //     '${s[index]["category2"]}', //data.topic}',
-                          //     style: TextStyle(
-                          //       fontSize: 16,
-                          //       color: AppColor.active,
-                          //     ),
-                          //   ),
-                          // ),
+                InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.DETAIL, arguments: s[index]);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(top: 16),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            // Container(
+                            //   margin: EdgeInsets.only(bottom: 14),
+                            //   padding: EdgeInsets.symmetric(
+                            //       horizontal: 10, vertical: 2),
+                            //   decoration: BoxDecoration(
+                            //     color: AppColor.bluegreen,
+                            //     borderRadius: BorderRadius.only(
+                            //       topRight: Radius.circular(10),
+                            //       bottomLeft: Radius.circular(10),
+                            //       bottomRight: Radius.circular(10),
+                            //     ),
+                            //   ),
+                            //   child: Text(
+                            //     '${s[index]["category2"]}', //data.topic}',
+                            //     style: TextStyle(
+                            //       fontSize: 16,
+                            //       color: AppColor.active,
+                            //     ),
+                            //   ),
+                            // ),
 
-                          Text(
-                            '${s[index]["category2"]}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(0.8),
+                            Text(
+                              '${s[index]["category2"]}',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black.withOpacity(0.8),
+                              ),
                             ),
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 10)),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          CircleAvatar(
-                              radius: 12,
-                              backgroundColor: Color(0xFFCCCCCC),
-                              backgroundImage: NetworkImage(
-                                  "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
-                              ),
-                          Padding(padding: EdgeInsets.only(left: 8)),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "TJSheeran",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColor.bluegreen,
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 2)),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        s[index]["content"]!,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(0.8),
+                            Padding(padding: EdgeInsets.only(left: 10)),
+                          ],
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            CircleAvatar(
+                                radius: 12,
+                                backgroundColor: Color(0xFFCCCCCC),
+                                backgroundImage: NetworkImage(
+                                    "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                ),
+                            Padding(padding: EdgeInsets.only(left: 8)),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "TJSheeran",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColor.bluegreen,
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 2)),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          s[index]["content"]!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black.withOpacity(0.8),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
