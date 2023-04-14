@@ -100,6 +100,8 @@ class _RootPageState extends State<RootPage> {
         onTap: _onTabClick,
         type: BottomNavigationBarType.fixed,
       ),
+      // 防止floatButton被顶起
+      resizeToAvoidBottomInset: false,
       floatingActionButton: _creatMediaButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

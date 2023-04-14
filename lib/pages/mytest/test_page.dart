@@ -56,34 +56,38 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: RootPageHead(),
-        // title: VerticalTabBar(),
-        //隐藏返回按钮
-        automaticallyImplyLeading: false,
-        // backgroundColor: AppColor.purple,
-        bottom: TabBar(
-          tabs: _tabs,
-          controller: _tabController,
-          indicatorWeight: 3.0,
-          isScrollable: true,
-          // labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          title: RootPageHead(),
+          // title: VerticalTabBar(),
+          //隐藏返回按钮
+          automaticallyImplyLeading: false,
+          // backgroundColor: AppColor.purple,
+          bottom: TabBar(
+            tabs: _tabs,
+            controller: _tabController,
+            indicatorWeight: 3.0,
+            isScrollable: true,
+            // labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
-      body: TabBarView(
-        children: [
-          // DemoPage(title: "主页"),
-          // TestDemoPage(),
-          LifeservicePage(),
-          TransportationPage(),
-          VenuePage(),
-          //DemoPage(title: '猜你喜欢'),
-          FoodPlayPage(),
-          MedicalPage(),
-          FacultyPage(),
-        ],
-        controller: _tabController,
-      ),
-    );
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: TabBarView(
+            children: [
+              // DemoPage(title: "主页"),
+              // TestDemoPage(),
+              LifeservicePage(),
+              TransportationPage(),
+              VenuePage(),
+              //DemoPage(title: '猜你喜欢'),
+              FoodPlayPage(),
+              MedicalPage(),
+              FacultyPage(),
+            ],
+            controller: _tabController,
+          ),
+        ));
   }
 }
