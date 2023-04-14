@@ -31,7 +31,7 @@ class CommPage extends StatefulWidget {
 // }
 
 class _CommPageState extends State<CommPage> {
-  Future<List<News>>?_news;
+  Future<List<News>>? _news;
   Future<List<News>> _ReadHandle() async {
     //const url = 'https://reqres.in/api/cupcakes';
     //const url = 'https://tongxinshequ.cn/tuijian';
@@ -57,11 +57,13 @@ class _CommPageState extends State<CommPage> {
     //    //print(listuser[2]['text']);
     //   return listuser;}
   }
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _news=_ReadHandle();
+    _news = _ReadHandle();
   }
+
   // List _listuser=[];
   // void initState() {
   //   _ReadHandle().then((data) => setState(() {
@@ -74,7 +76,7 @@ class _CommPageState extends State<CommPage> {
 
   void _onRefresh() async {
     // monitor network fetch
-    _news=_ReadHandle();
+    _news = _ReadHandle();
     setState(() {});
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();

@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:ui';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/dio_util/news.dart';
 import 'package:tongxinbaike/pages/home/detail_controller.dart';
@@ -21,7 +22,10 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   DetailController detailController = Get.find<DetailController>();
   bool isSubscribed = false;
-  bool isLiked = false;
+  bool dataisLiked = false;
+  bool isDisLiked = false;
+  bool isCollected = false;
+  int likeCount = 6;
   FocusNode commentFocusNode = FocusNode();
   TextEditingController commentController = TextEditingController()
     ..addListener(() {});
@@ -30,10 +34,20 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       this.isSubscribed = !isSubscribed;
     });
+    if (isSubscribed) {
+      Fluttertoast.showToast(
+          msg: "关注成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
-// 点赞
-Future<bool> onLikeButtonTapped(bool isLiked) async {
+  // 点赞
+  Future<bool> onLikeButtonTapped(bool isLiked) async {
     // /// send your request here
     // // final bool success= await sendRequest();
     // final result = await DioUtil().request(
@@ -64,9 +78,78 @@ Future<bool> onLikeButtonTapped(bool isLiked) async {
     // );
 
     /// if failed, you can do nothing
+    setState(() {
+      dataisLiked = !isLiked;
+      likeCount = dataisLiked
+          ? dataisLiked
+              ? likeCount + 1
+              : likeCount
+          : dataisLiked
+              ? likeCount
+              : likeCount - 1;
+      if (isDisLiked) {
+        isDisLiked = !isDisLiked;
+      }
+    });
+    if (dataisLiked) {
+      Fluttertoast.showToast(
+          msg: "点赞成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return dataisLiked;
+  }
 
-      return !isLiked;
+  // 点踩
+  Future<bool> onDisLikeButtonTapped(bool isLiked) async {
+    setState(() {
+      isDisLiked = !isLiked;
 
+      if (dataisLiked) {
+        dataisLiked = !dataisLiked;
+
+        likeCount = isDisLiked
+            ? isDisLiked
+                ? likeCount - 1
+                : likeCount
+            : isDisLiked
+                ? likeCount
+                : likeCount + 1;
+      }
+    });
+    if (isDisLiked) {
+      Fluttertoast.showToast(
+          msg: "点踩成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return isDisLiked;
+  }
+
+  // 收藏
+  Future<bool> onCollectButtonTapped(bool isLiked) async {
+    setState(() {
+      isCollected = !isLiked;
+    });
+    if (isCollected) {
+      Fluttertoast.showToast(
+          msg: "收藏成功，到收藏夹里看看吧",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return isCollected;
   }
 
   @override
@@ -146,25 +229,71 @@ Future<bool> onLikeButtonTapped(bool isLiked) async {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  left: 10.0,
-                                                                  right: 10.0,
-                                                                  top: 15.0,
-                                                                  bottom: 0.0),
-                                                          child: Text(
-                                                              s["title"],
-                                                              style: TextStyle(
-                                                                fontSize: 22,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.8),
-                                                              )),
+                                                        Row(
+                                                          children: [
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left:
+                                                                          10.0,
+                                                                      right:
+                                                                          10.0,
+                                                                      top: 15.0,
+                                                                      bottom:
+                                                                          0.0),
+                                                              child: Text(
+                                                                  s["title"],
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        22,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                  )),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 150,
+                                                            ),
+                                                            Container(
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                      left:
+                                                                          10.0,
+                                                                      right:
+                                                                          0.0,
+                                                                      top: 10.0,
+                                                                      bottom:
+                                                                          0.0),
+                                                              child: LikeButton(
+                                                                isLiked:
+                                                                    isCollected,
+                                                                likeBuilder: (bool
+                                                                    isLiked) {
+                                                                  return Icon(
+                                                                    isLiked
+                                                                        ? Icons
+                                                                            .star_rounded
+                                                                        : Icons
+                                                                            .star_border_rounded,
+                                                                    color: isLiked
+                                                                        ? AppColor
+                                                                            .warning
+                                                                        : Colors
+                                                                            .grey,
+                                                                    size: 35,
+                                                                  );
+                                                                },
+                                                                // likeCount: 8,
+                                                                onTap:
+                                                                    onCollectButtonTapped,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                         Row(
                                                           children: [
@@ -436,17 +565,82 @@ Future<bool> onLikeButtonTapped(bool isLiked) async {
                                                                   0xFF999999),
                                                             )),
                                                       ),
-                                                      LikeButton(
-                                                        isLiked: true,
-                                                        likeBuilder: (bool isLiked) {
-                                                          return Icon(
-                                                            Icons.favorite,
-                                                            color: isLiked ? AppColor.danger : Colors.grey,
-                                                          );
-                                                        },
-                                                        likeCount: 8,
-                                                        onTap: onLikeButtonTapped,
+                                                      SizedBox(
+                                                        width: 60,
                                                       ),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 10.0,
+                                                            right: 0.0,
+                                                            top: 10.0,
+                                                            bottom: 0.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: <Widget>[
+                                                            Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                LikeButton(
+                                                                  isLiked:
+                                                                      dataisLiked,
+                                                                  likeBuilder:
+                                                                      (isLiked) {
+                                                                    return Icon(
+                                                                      isLiked
+                                                                          ? Icons
+                                                                              .thumb_up_alt_rounded
+                                                                          : Icons
+                                                                              .thumb_up_alt_outlined,
+                                                                      color: isLiked
+                                                                          ? AppColor
+                                                                              .danger
+                                                                          : Colors
+                                                                              .grey,
+                                                                    );
+                                                                  },
+                                                                  likeCount:
+                                                                      likeCount,
+                                                                  onTap:
+                                                                      onLikeButtonTapped,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              width: 10,
+                                                            ),
+                                                            Row(
+                                                              children: <
+                                                                  Widget>[
+                                                                LikeButton(
+                                                                  isLiked:
+                                                                      isDisLiked,
+                                                                  likeBuilder:
+                                                                      (isLiked) {
+                                                                    return Icon(
+                                                                      isLiked
+                                                                          ? Icons
+                                                                              .thumb_down_alt_rounded
+                                                                          : Icons
+                                                                              .thumb_down_alt_rounded,
+                                                                      color: isLiked
+                                                                          ? AppColor
+                                                                              .info
+                                                                          : Colors
+                                                                              .grey,
+                                                                    );
+                                                                  },
+                                                                  // likeCount: 8,
+                                                                  onTap:
+                                                                      onDisLikeButtonTapped,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+
                                                       // LikeButton(
                                                       //   isLiked: false,
                                                       //   likeBuilder:
