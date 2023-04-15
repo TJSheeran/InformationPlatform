@@ -120,7 +120,7 @@ class _LifeservicePageState extends State<LifeservicePage> {
                             // ),
 
                             Text(
-                              '${s[index]["category2"]}',
+                              '${s[index]["title"]}',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

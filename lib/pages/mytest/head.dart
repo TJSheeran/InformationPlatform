@@ -20,7 +20,7 @@ class RootPageHead extends StatelessWidget {
             autofocus: false,
             maxLines: 1,
             decoration: InputDecoration(
-                hintText: '写评论',
+                hintText: '输入想搜索的内容',
                 // contentPadding:
                 //     const EdgeInsets.fromLTRB(
                 //         20.0,

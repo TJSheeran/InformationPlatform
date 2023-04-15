@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 Widget createApp() {
   return GetMaterialApp(
-    initialRoute: Routes.ROOT,
+    initialRoute: Routes.SPLASH,
     getPages: AppPages.pages,
     theme: themeData,
   );
