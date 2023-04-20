@@ -96,42 +96,24 @@ class _LifeservicePageState extends State<LifeservicePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            // Container(
-                            //   margin: EdgeInsets.only(bottom: 14),
-                            //   padding: EdgeInsets.symmetric(
-                            //       horizontal: 10, vertical: 2),
-                            //   decoration: BoxDecoration(
-                            //     color: AppColor.bluegreen,
-                            //     borderRadius: BorderRadius.only(
-                            //       topRight: Radius.circular(10),
-                            //       bottomLeft: Radius.circular(10),
-                            //       bottomRight: Radius.circular(10),
-                            //     ),
-                            //   ),
-                            //   child: Text(
-                            //     '${s[index]["category2"]}', //data.topic}',
-                            //     style: TextStyle(
-                            //       fontSize: 16,
-                            //       color: AppColor.active,
-                            //     ),
-                            //   ),
-                            // ),
-
-                            Text(
-                              '${s[index]["title"]}',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black.withOpacity(0.8),
-                              ),
+                        // Row(
+                        //   children: <Widget>[
+                        Container(
+                          child: Text(
+                            '${s[index]["title"]}',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black.withOpacity(0.8),
                             ),
-                            Padding(padding: EdgeInsets.only(left: 10)),
-                          ],
+                          ),
                         ),
+                        Padding(padding: EdgeInsets.only(left: 10, right: 10)),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: 10,
                         ),

@@ -17,6 +17,7 @@ class RootPageHead extends StatelessWidget {
           child: TextFormField(
             controller: searchController,
             focusNode: searchFocusNode,
+            keyboardType: TextInputType.text,
             autofocus: false,
             maxLines: 1,
             decoration: InputDecoration(
@@ -36,6 +37,7 @@ class RootPageHead extends StatelessWidget {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0))),
           ),
+
           // flex: 1,
         ),
         InkWell(

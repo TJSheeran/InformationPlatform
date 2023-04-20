@@ -206,21 +206,6 @@ class _DetailPageState extends State<DetailPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  // child:
-
-                                                  // CircleAvatar(
-                                                  //     radius: 30,
-                                                  //     backgroundColor:
-                                                  //         Color(0xFFCCCCCC),
-                                                  //     backgroundImage: NetworkImage(
-                                                  //         "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
-                                                  //     ),
-
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         left: 0.0, right: 0.0),
@@ -229,79 +214,29 @@ class _DetailPageState extends State<DetailPage> {
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Container(
-                                                              margin: EdgeInsets
-                                                                  .only(
-                                                                      left:
-                                                                          10.0,
-                                                                      right:
-                                                                          10.0,
-                                                                      top: 15.0,
-                                                                      bottom:
-                                                                          0.0),
-                                                              child: Text(
-                                                                  s["title"],
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        22,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    color: Colors
-                                                                        .black
-                                                                        .withOpacity(
-                                                                            0.8),
-                                                                  )),
+                                                        Container(
+                                                          margin:
+                                                              EdgeInsets.only(
+                                                                  left: 10.0,
+                                                                  right: 0.0,
+                                                                  top: 15.0,
+                                                                  bottom: 0.0),
+                                                          child: Container(
+                                                            child: Text(
+                                                              '${s["title"]}',
+                                                              softWrap: true,
+                                                              style: TextStyle(
+                                                                fontSize: 22,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.8),
+                                                              ),
                                                             ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Container(
-                                                                  margin: EdgeInsets.only(
-                                                                      left:
-                                                                          10.0,
-                                                                      right:
-                                                                          0.0,
-                                                                      top: 12.0,
-                                                                      bottom:
-                                                                          0.0),
-                                                                  child:
-                                                                      LikeButton(
-                                                                    isLiked:
-                                                                        isCollected,
-                                                                    likeBuilder:
-                                                                        (bool
-                                                                            isLiked) {
-                                                                      return Icon(
-                                                                        isLiked
-                                                                            ? Icons.star_rounded
-                                                                            : Icons.star_border_rounded,
-                                                                        color: isLiked
-                                                                            ? AppColor.warning
-                                                                            : Colors.grey,
-                                                                        size:
-                                                                            35,
-                                                                      );
-                                                                    },
-                                                                    // likeCount: 8,
-                                                                    onTap:
-                                                                        onCollectButtonTapped,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 15,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
+                                                          ),
                                                         ),
                                                         Row(
                                                           children: [
@@ -376,7 +311,6 @@ class _DetailPageState extends State<DetailPage> {
                                                       indent: 0.0,
                                                       endIndent: 0.0,
                                                       color: AppColor.grey),
-
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         left: 0.0, right: 0.0),
@@ -548,9 +482,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               Color(0xFF999999),
                                                         )),
                                                   ),
-
                                                   SizedBox(height: 16),
-
                                                   Container(
                                                       width: 340,
                                                       height: 180,
@@ -578,7 +510,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                 .withOpacity(
                                                                     0.8)),
                                                       )),
-
                                                   SizedBox(height: 15),
                                                   Row(
                                                     mainAxisAlignment:
@@ -614,6 +545,32 @@ class _DetailPageState extends State<DetailPage> {
                                                             Row(
                                                               children: <
                                                                   Widget>[
+                                                                LikeButton(
+                                                                  isLiked:
+                                                                      isCollected,
+                                                                  likeBuilder: (bool
+                                                                      isLiked) {
+                                                                    return Icon(
+                                                                      isLiked
+                                                                          ? Icons
+                                                                              .star_rounded
+                                                                          : Icons
+                                                                              .star_border_rounded,
+                                                                      color: isLiked
+                                                                          ? AppColor
+                                                                              .warning
+                                                                          : Colors
+                                                                              .grey,
+                                                                      size: 30,
+                                                                    );
+                                                                  },
+                                                                  // likeCount: 8,
+                                                                  onTap:
+                                                                      onCollectButtonTapped,
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 14,
+                                                                ),
                                                                 LikeButton(
                                                                   isLiked:
                                                                       dataisLiked,
@@ -694,14 +651,12 @@ class _DetailPageState extends State<DetailPage> {
                                                       // ),
                                                     ],
                                                   ),
-
                                                   Divider(
                                                       height: 10.0,
                                                       thickness: 1.0,
                                                       indent: 0.0,
                                                       endIndent: 0.0,
                                                       color: AppColor.grey),
-
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         left: 0.0,
@@ -890,7 +845,6 @@ class _DetailPageState extends State<DetailPage> {
                                                       ],
                                                     ),
                                                   ),
-
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         top: 16),
@@ -984,7 +938,6 @@ class _DetailPageState extends State<DetailPage> {
                                                       ],
                                                     ),
                                                   ),
-
                                                   SizedBox(height: 220),
                                                 ],
                                               ))
