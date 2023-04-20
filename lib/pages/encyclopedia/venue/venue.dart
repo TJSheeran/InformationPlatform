@@ -17,7 +17,7 @@ class _VenuePageState extends State<VenuePage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   int pagesCount = 5;
-  String avator =
+  String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
   List<String> tabTitle = ['篮球', '羽毛球', '田径场', '游泳馆', '场地借用'];
   Future<List>? flist;
@@ -65,6 +65,7 @@ class _VenuePageState extends State<VenuePage> {
     return ListView.builder(
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
+          String avator = defaultAvator;
           if (s[index]['picture'] != null) {
             avator = s[index]['picture'];
           }

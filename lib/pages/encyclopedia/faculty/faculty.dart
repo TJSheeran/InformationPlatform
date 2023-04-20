@@ -15,7 +15,7 @@ class FacultyPage extends StatefulWidget {
 
 class _FacultyPageState extends State<FacultyPage> {
   int selectedIndex = 0;
-  String avator =
+  String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
   PageController _pageController = PageController();
   int pagesCount = 8;
@@ -74,6 +74,7 @@ class _FacultyPageState extends State<FacultyPage> {
     return ListView.builder(
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
+          String avator = defaultAvator;
           if (s[index]['picture'] != null) {
             avator = s[index]['picture'];
           }
