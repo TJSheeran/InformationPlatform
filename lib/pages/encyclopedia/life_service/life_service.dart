@@ -17,6 +17,8 @@ class _LifeservicePageState extends State<LifeservicePage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   int pagesCount = 5;
+  String avator =
+      "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
   List<String> tabTitle = ['快递', '空调', '电费', '医保', '寝室'];
   Future<List>? flist;
 
@@ -68,6 +70,9 @@ class _LifeservicePageState extends State<LifeservicePage> {
     return ListView.builder(
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
+          if (s[index]['picture'] != null) {
+            avator = s[index]['picture'];
+          }
           return Container(
             margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
             decoration: BoxDecoration(
@@ -122,8 +127,8 @@ class _LifeservicePageState extends State<LifeservicePage> {
                             CircleAvatar(
                                 radius: 12,
                                 backgroundColor: Color(0xFFCCCCCC),
-                                backgroundImage: NetworkImage(
-                                    "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                backgroundImage:
+                                    NetworkImage(avator) //data.userImgUrl),
                                 ),
                             Padding(padding: EdgeInsets.only(left: 8)),
                             Column(

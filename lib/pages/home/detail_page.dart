@@ -26,6 +26,10 @@ class _DetailPageState extends State<DetailPage> {
   bool isDisLiked = false;
   bool isCollected = false;
   int likeCount = 6;
+  String author = "TJSheeran";
+  String avatar =
+      "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
+  String createtime = "2023-03-03 18:36:36";
   FocusNode commentFocusNode = FocusNode();
   TextEditingController commentController = TextEditingController()
     ..addListener(() {});
@@ -156,6 +160,15 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     //arguments传参
     Map s = Get.arguments;
+    if (s['author'] != null) {
+      this.author = s['author'];
+    }
+    if (s['picture'] != null) {
+      this.avatar = s['picture'];
+    }
+    if (s['createtime'] != null) {
+      this.createtime = s['createtime'];
+    }
 
     return BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
@@ -344,7 +357,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFFCCCCCC),
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                          "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                                                          avatar) //data.userImgUrl),
                                                                   ),
                                                             ),
                                                             SizedBox(width: 5),
@@ -358,7 +371,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                   height: 15,
                                                                 ),
                                                                 Text(
-                                                                  "郭雨凡",
+                                                                  author,
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
@@ -523,7 +536,7 @@ class _DetailPageState extends State<DetailPage> {
                                                             top: 10.0,
                                                             bottom: 0.0),
                                                         child: Text(
-                                                            "发布于 2023-03-06 18:36",
+                                                            "发布于 " + createtime,
                                                             style: TextStyle(
                                                               fontSize: 15,
                                                               color: Color(
@@ -705,7 +718,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                     0xFFCCCCCC),
                                                             backgroundImage:
                                                                 NetworkImage(
-                                                                    "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                                                    avatar) //data.userImgUrl),
                                                             ),
                                                       ),
                                                       Expanded(
@@ -784,7 +797,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                         0xFFCCCCCC),
                                                                 backgroundImage:
                                                                     NetworkImage(
-                                                                        "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                                                        avatar) //data.userImgUrl),
                                                                 ),
                                                             Padding(
                                                                 padding: EdgeInsets
@@ -877,7 +890,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                         0xFFCCCCCC),
                                                                 backgroundImage:
                                                                     NetworkImage(
-                                                                        "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                                                                        avatar) //data.userImgUrl),
                                                                 ),
                                                             Padding(
                                                                 padding: EdgeInsets
