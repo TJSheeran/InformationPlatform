@@ -50,145 +50,163 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
-  // 点赞
-  // Future<bool> onLikeButtonTapped(bool isLiked) async {
-  //   // /// send your request here
-  //   // // final bool success= await sendRequest();
-  //   // final result = await DioUtil().request(
-  //   //   "/update",
-  //   //   method: DioMethod.post,
-  //   //   data: {
-  //   //     'id': data.id,
-  //   //     'name': data.name,
-  //   //     'text': data.text,
-  //   //     'date': data.date,
-  //   //     'likeCount': data.isLiked!
-  //   //         ? isLiked
-  //   //             ? data.likeCount! - 1
-  //   //             : data.likeCount!
-  //   //         : isLiked
-  //   //             ? data.likeCount!
-  //   //             : data.likeCount! + 1,
-  //   //     'commentCount': data.commentCount,
-  //   //     'isLiked': !isLiked,
-  //   //     'isFollowed': data.isFollowed,
-  //   //     'likedId': data.likedId,
-  //   //     'commentId': data.commentId,
-  //   //     'userid': data.userid,
-  //   //     'label': data.label,
-  //   //     'activityDate': data.activityDate,
-  //   //     'userNumber': data.userNumber
-  //   //   },
-  //   // );
-  //
-  //   setState(() {
-  //     dataisLiked = !isLiked;
-  //     likeCount = dataisLiked
-  //         ? dataisLiked
-  //         ? likeCount + 1
-  //         : likeCount
-  //         : dataisLiked
-  //         ? likeCount
-  //         : likeCount - 1;
-  //     if (isDisLiked) {
-  //       isDisLiked = !isDisLiked;
-  //     }
-  //   });
-  //   if (dataisLiked) {
-  //     Fluttertoast.showToast(
-  //         msg: "点赞成功",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.black45,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //   }
-  //   return dataisLiked;
-  // }
+  //点赞
   Future<bool> onLikeButtonTapped(bool isLiked) async {
-    if (!isLiked) {
-      var result = await DioUtil().request("/addlike",
-          method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
-      if(result["info"]=="点赞成功")
-        Fluttertoast.showToast(
-            msg: "点赞成功",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black45,
-            textColor: Colors.white,
-            fontSize: 16.0);
-    }
-    else{
-      var result = await DioUtil().request("/delectlike",
-          method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
-      if(result["info"]=="点赞已取消")
-        Fluttertoast.showToast(
-            msg: "点赞已取消",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black45,
-            textColor: Colors.white,
-            fontSize: 16.0);
-    }
-    return !isLiked;
+    // /// send your request here
+    // // final bool success= await sendRequest();
+    // final result = await DioUtil().request(
+    //   "/update",
+    //   method: DioMethod.post,
+    //   data: {
+    //     'id': data.id,
+    //     'name': data.name,
+    //     'text': data.text,
+    //     'date': data.date,
+    //     'likeCount': data.isLiked!
+    //         ? isLiked
+    //             ? data.likeCount! - 1
+    //             : data.likeCount!
+    //         : isLiked
+    //             ? data.likeCount!
+    //             : data.likeCount! + 1,
+    //     'commentCount': data.commentCount,
+    //     'isLiked': !isLiked,
+    //     'isFollowed': data.isFollowed,
+    //     'likedId': data.likedId,
+    //     'commentId': data.commentId,
+    //     'userid': data.userid,
+    //     'label': data.label,
+    //     'activityDate': data.activityDate,
+    //     'userNumber': data.userNumber
+    //   },
+    // );
+    setState(() {
+      dataisLiked = !isLiked;
+      likeCount = dataisLiked
+          ? dataisLiked
+          ? likeCount + 1
+          : likeCount
+          : dataisLiked
+          ? likeCount
+          : likeCount - 1;
+      if (isDisLiked) {
+        isDisLiked = !isDisLiked;
+      }
+    });
+      if (!isLiked) {
+        var result = await DioUtil().request("/addlike",
+            method: DioMethod.post,
+            data: {"userid": uid, "tieziid": Get.arguments['id']});
+        if(result["info"]=="点赞成功")
+          Fluttertoast.showToast(
+              msg: "点赞成功",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 16.0);
+      }
+      else{
+        var result = await DioUtil().request("/delectlike",
+            method: DioMethod.post,
+            data: {"userid": uid, "tieziid": Get.arguments['id']});
+        if(result["info"]=="点赞已取消")
+          Fluttertoast.showToast(
+              msg: "点赞已取消",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 16.0);
+      }
+
+    return dataisLiked;
   }
-  Future<bool> onDisLikeButtonTapped(bool isLiked) async {
-    if (!isLiked) {
-        Fluttertoast.showToast(
-            msg: "点赞成功",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black45,
-            textColor: Colors.white,
-            fontSize: 16.0);
-    }
-    else{
-        Fluttertoast.showToast(
-            msg: "点赞已取消",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.black45,
-            textColor: Colors.white,
-            fontSize: 16.0);
-    }
-    return !isLiked;
-  }
-  // // 点踩
-  // Future<bool> onDisLikeButtonTapped(bool isLiked) async {
-  //   setState(() {
-  //     isDisLiked = !isLiked;
-  //
-  //     if (dataisLiked) {
-  //       dataisLiked = !dataisLiked;
-  //
-  //       likeCount = isDisLiked
-  //           ? isDisLiked
-  //           ? likeCount - 1
-  //           : likeCount
-  //           : isDisLiked
-  //           ? likeCount
-  //           : likeCount + 1;
-  //     }
-  //   });
-  //   if (isDisLiked) {
-  //     Fluttertoast.showToast(
-  //         msg: "点踩成功",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.black45,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
+  // Future<bool> onLikeButtonTapped(bool isLiked) async {
+  //   if (!isLiked) {
+  //     var result = await DioUtil().request("/addlike",
+  //         method: DioMethod.post,
+  //         data: {"userid": uid, "tieziid": Get.arguments['id']});
+  //     if(result["info"]=="点赞成功")
+  //       Fluttertoast.showToast(
+  //           msg: "点赞成功",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.black45,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
   //   }
-  //   return isDisLiked;
+  //   else{
+  //     var result = await DioUtil().request("/delectlike",
+  //         method: DioMethod.post,
+  //         data: {"userid": uid, "tieziid": Get.arguments['id']});
+  //     if(result["info"]=="点赞已取消")
+  //       Fluttertoast.showToast(
+  //           msg: "点赞已取消",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.black45,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //   }
+  //   return !isLiked;
   // }
+  // Future<bool> onDisLikeButtonTapped(bool isLiked) async {
+  //   if (!isLiked) {
+  //       Fluttertoast.showToast(
+  //           msg: "点赞成功",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.black45,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //   }
+  //   else{
+  //       Fluttertoast.showToast(
+  //           msg: "点赞已取消",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.black45,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //   }
+  //   return !isLiked;
+  // }
+  // 点踩
+  Future<bool> onDisLikeButtonTapped(bool isLiked) async {
+    setState(() {
+      isDisLiked = !isLiked;
+
+      if (dataisLiked) {
+        dataisLiked = !dataisLiked;
+
+        likeCount = isDisLiked
+            ? isDisLiked
+            ? likeCount - 1
+            : likeCount
+            : isDisLiked
+            ? likeCount
+            : likeCount + 1;
+      }
+    });
+    if (isDisLiked) {
+      Fluttertoast.showToast(
+          msg: "点踩成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    return isDisLiked;
+  }
 
   // 收藏
   Future<bool> onCollectButtonTapped(bool isLiked) async {
@@ -231,6 +249,10 @@ class _DetailPageState extends State<DetailPage> {
     var result = await DioUtil().request("/searchAll",
         method: DioMethod.post,
         data: {"userid": uid, "tieziid": Get.arguments['id']});
+    isSubscribed=result[0]["isfollowed"];
+    dataisLiked=result[0]["isliked"];
+    isDisLiked=result[0]["ishated"];
+    likeCount=result[0]["likenum"];
         //data: {"userid": 1, "tieziid": 1});
     return result;
   }
@@ -673,7 +695,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                               ),
                                                                               LikeButton(
                                                                                 isLiked:
-                                                                                snapshot.data[0]["isliked"],
+                                                                                dataisLiked,
                                                                                 likeBuilder:
                                                                                     (isLiked) {
                                                                                   return Icon(
@@ -690,7 +712,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                                   );
                                                                                 },
                                                                                 likeCount:
-                                                                                likeCount=snapshot.data[0]["likenum"],
+                                                                                likeCount,
                                                                                 onTap:
                                                                                 onLikeButtonTapped,
                                                                               ),
@@ -704,7 +726,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 Widget>[
                                                                               LikeButton(
                                                                                 isLiked:
-                                                                                snapshot.data[0]["ishated"],
+                                                                                isDisLiked,
                                                                                 likeBuilder:
                                                                                     (isLiked) {
                                                                                   return Icon(
