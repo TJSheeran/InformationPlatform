@@ -195,6 +195,20 @@ class _PublishPageState extends State<PublishPage> {
           Colors.black45,
           textColor: Colors.white,
           fontSize: 16.0);
+      Navigator.of(context).pop();
+    }
+    else{
+      Fluttertoast.showToast(
+          msg: "未上传图片",
+          toastLength:
+          Toast.LENGTH_SHORT,
+          gravity:
+          ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor:
+          Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
   @override
@@ -256,9 +270,9 @@ class _PublishPageState extends State<PublishPage> {
                                               // Navigator.of(context).pop();
                                               if (nowtimestamp != '' &&
                                                   firstLevelLabel != ''&& secondLevelLabel != ''
-                                              && titleController.text != ''&&contentController.text !='' && image!= null) {
+                                              && titleController.text != ''&&contentController.text !='') {
                                                 imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
-                                                Navigator.of(context).pop();
+
                                                   // var formData = FormDataA.FormData.fromMap({
                                                   //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
                                                   //   'category1': firstLevelLabel,
