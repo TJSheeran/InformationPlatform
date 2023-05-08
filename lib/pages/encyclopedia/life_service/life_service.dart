@@ -136,7 +136,9 @@ class _LifeservicePageState extends State<LifeservicePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  "TJSheeran",
+                                  s[index]['author'] != null
+                                      ? s[index]['author']
+                                      : "TJSheeran",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,

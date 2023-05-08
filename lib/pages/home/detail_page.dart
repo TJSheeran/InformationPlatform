@@ -498,7 +498,7 @@ class _DetailPageState extends State<DetailPage> {
                                                   SizedBox(height: 16),
                                                   Container(
                                                       width: 340,
-                                                      height: 180,
+                                                      // height: 180,
                                                       margin: EdgeInsets.only(
                                                           left: 10),
                                                       padding: EdgeInsets.only(
@@ -522,6 +522,31 @@ class _DetailPageState extends State<DetailPage> {
                                                             color: Colors.black
                                                                 .withOpacity(
                                                                     0.8)),
+                                                      )),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Visibility(
+                                                      visible:
+                                                          s["picture"] != null,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          SizedBox(),
+                                                          Container(
+                                                            width: 260,
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Image.network(
+                                                                s["picture"] !=
+                                                                        null
+                                                                    ? s["picture"]
+                                                                    : ""),
+                                                          ),
+                                                          SizedBox(),
+                                                        ],
                                                       )),
                                                   SizedBox(height: 15),
                                                   Row(
