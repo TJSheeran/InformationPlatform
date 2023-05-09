@@ -54,33 +54,33 @@ class _ProfilePageState extends State<ProfilePage> {
       print('加载失败: $e');
     }
   }
+
   imageUpload() async {
-    if(avator != null)
-    {
+    if (avator != null) {
       var formData = FormDataA.FormData.fromMap({
-        'file': await FormDataA.MultipartFile.fromFile(avator!.path, filename:"test.jpg"),
+        'file': await FormDataA.MultipartFile.fromFile(avator!.path,
+            filename: "test.jpg"),
       });
 
-      var result = await DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+      var result = await DioUtil()
+          .request("/fileUpload", method: DioMethod.post, data: formData);
 
       DioUtil().request("/updatePic", method: DioMethod.post, data: {
-      'username': '111',
-      'picture': result,}
-      );
+        'username': '111',
+        'picture': result,
+      });
 
       Fluttertoast.showToast(
           msg: "修改成功",
-          toastLength:
-          Toast.LENGTH_SHORT,
-          gravity:
-          ToastGravity.BOTTOM,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,
-          backgroundColor:
-          Colors.black45,
+          backgroundColor: Colors.black45,
           textColor: Colors.white,
           fontSize: 16.0);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -337,8 +337,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   child: avator != null
                                       ? Image.file(avator!, fit: BoxFit.cover)
                                       : Image.network(
-                                    snapshot
-                                        .data[0]["picture"],
+                                          snapshot.data[0]["picture"],
                                           fit: BoxFit.cover,
                                         ),
                                 )),
@@ -454,20 +453,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                  MaterialButton(
-                    minWidth: 20.0,
-                    height: 40.0,
-                    shape: const StadiumBorder(),
-                    onPressed: () {
-                      imageUpload();
-                    },
-                    color: AppColor.bluegreen,
-                    child: const Text(
-                      '修 改',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  )
+                            MaterialButton(
+                              minWidth: 20.0,
+                              height: 40.0,
+                              shape: const StadiumBorder(),
+                              onPressed: () {
+                                imageUpload();
+                              },
+                              color: AppColor.bluegreen,
+                              child: const Text(
+                                '修 改',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )
                           ],
                         ),
                       )
