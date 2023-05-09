@@ -17,6 +17,7 @@ import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as FormDataA;
+import 'package:tongxinbaike/pages/login/login_page.dart';
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
 
@@ -178,7 +179,7 @@ class _PublishPageState extends State<PublishPage> {
         'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
-        'author': "Linhai",
+        'uid': uid,
         'content': contenttext,
         'campus':"嘉定校区",
       });
@@ -190,7 +191,7 @@ class _PublishPageState extends State<PublishPage> {
         'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
-        'author': "Linhai",
+        'uid': uid,
         'content': contenttext,
         'campus':"嘉定校区",
       });
