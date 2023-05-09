@@ -5,6 +5,7 @@ import 'package:tongxinbaike/pages/home/home_page.dart';
 import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'package:tongxinbaike/pages/mine/mine_binding.dart';
 import 'package:tongxinbaike/pages/mine/mine_page.dart';
+import 'package:tongxinbaike/pages/mine/modifyInfo_binding.dart';
 import 'package:tongxinbaike/pages/mytest/test_binding.dart';
 import 'package:tongxinbaike/pages/mytest/test_page.dart';
 import 'package:tongxinbaike/pages/publish/publish_binding.dart';
@@ -18,6 +19,7 @@ import 'package:tongxinbaike/pages/splash/splash_page.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 //import '../pages/login/login_page_old.dart';
 import '../pages/login/login_binding.dart';
+import '../pages/mine/modifyInfo_page.dart';
 import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';
 import 'package:tongxinbaike/pages/home/classify_page.dart';
@@ -71,6 +73,11 @@ abstract class AppPages {
         binding: SearchBinding()),
 
     GetPage(name: Routes.TEST, page: () => TestPage(), binding: TestBinding()),
+
+    GetPage(
+        name: Routes.MODIFY,
+        page: () => ModifyInfoPage(),
+        binding: ModifyInfoBinding()),
   ];
 }
 
@@ -112,4 +119,7 @@ abstract class Routes {
 
   //测试页
   static const TEST = "/test";
+
+  //个人信息修改页
+  static const MODIFY = "/modify";
 }
