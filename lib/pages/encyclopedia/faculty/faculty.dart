@@ -6,13 +6,13 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 
 import '../../../routes/app_routes.dart';
 
+
 class FacultyPage extends StatefulWidget {
   FacultyPage({Key? key}) : super(key: key);
 
   @override
   State<FacultyPage> createState() => _FacultyPageState();
 }
-
 class _FacultyPageState extends State<FacultyPage> {
   int selectedIndex = 0;
   String defaultAvator =

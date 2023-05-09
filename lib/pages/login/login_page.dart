@@ -12,6 +12,8 @@ import '../../dio_util/dio_util.dart';
 import '../../routes/app_routes.dart';
 import 'login_controller.dart';
 
+int uid=1;
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
@@ -56,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 16.0);
     if (result['info'] == '登录成功') {
       Get.toNamed(Routes.ROOT);
+      uid=result['uid'];
     }
   }
-
   @override
   Widget build(BuildContext context) {
     //登录标题
