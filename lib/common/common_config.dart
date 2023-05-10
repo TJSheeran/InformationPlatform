@@ -15,7 +15,7 @@ final List<String> defaultFirstLevel = [
   "交通出行",
   "场馆服务",
   "美食休闲",
-  "医 疗",
+  "医疗",
   "学院直通"
 ];
 
