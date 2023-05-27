@@ -11,7 +11,7 @@ import 'package:like_button/like_button.dart';
 import 'package:tongxinbaike/pages/login/login_page.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
-
+import 'package:dio/dio.dart' as FormDataA;
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key}) : super(key: key);
 
@@ -49,7 +49,96 @@ class _DetailPageState extends State<DetailPage> {
           fontSize: 16.0);
     }
   }
+  Widget HeaderWidget(List s) {
+    return ListView.builder(
+        itemCount: s.length, //告诉ListView总共有多少个cell
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            margin:
+            EdgeInsets.only(
+                top: 0),
+            padding: EdgeInsets
+                .symmetric(
+                horizontal:
+                10),
+            child: Column(
+              crossAxisAlignment:
+              CrossAxisAlignment
+                  .start,
+              children: <
+                  Widget>[
+                Row(
+                  children: <
+                      Widget>[
+                    Padding(
+                        padding:
+                        EdgeInsets.only(left: 10)),
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: <
+                      Widget>[
+                    CircleAvatar(
+                        radius: 12,
+                        backgroundColor:
+                        Color(0xFFCCCCCC),
+                        backgroundImage:
+                        NetworkImage(avatar) //data.userImgUrl),
+                    ),
+                    Padding(
+                        padding:
+                        EdgeInsets.only(left: 8)),
+                    SizedBox(width: 3,),
+                    Container(
+                      child:
+                      Text(
+                        s[index]['author'],
+                        style:
+                        TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: AppColor.bluegreen,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Text(
+                  s[index]['content'],
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(
+                      left: 0.0,
+                      right:
+                      0.0,
+                      top: 10.0,
+                      bottom:
+                      0.0),
+                  child: Text(
+                      '嘉定校区',
+                      style:
+                      TextStyle(
+                        fontSize:
+                        15,
+                        color: Color(
+                            0xFF999999),
+                      )),
+                ),
+              ],
+            ),
+          );
 
+        } //使用_cellForRow回调返回每个cell
+    );
+  }
   //点赞
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     // /// send your request here
@@ -245,6 +334,7 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Future<List>? likeinfor;
+
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/searchAll",
         method: DioMethod.post,
@@ -515,7 +605,8 @@ class _DetailPageState extends State<DetailPage> {
                                                                             padding:
                                                                                 EdgeInsets.only(top: 2)),
                                                                         Text(
-                                                                          s["campus"], //data.description,
+                                                                          s["campus"],
+                                                                          //data.description,
                                                                           style:
                                                                               TextStyle(
                                                                             fontSize:
@@ -808,7 +899,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                       bottom:
                                                                           0.0),
                                                                   child: Text(
-                                                                      '评论 2'.tr,
+                                                                      '评论'.tr,
                                                                       style:
                                                                           TextStyle(
                                                                         color: AppColor
@@ -870,226 +961,74 @@ class _DetailPageState extends State<DetailPage> {
                                                                       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: const BorderSide(color: AppColor.bluegreen, width: 2)),
                                                                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
                                                                 ),
-                                                                // flex: 1,
                                                               ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  // print('发布活动');
+
+                                                                  DioUtil().request("/add_comment", method: DioMethod.post, data: {
+                                                                    'uid': uid,
+                                                                    "tieziid": Get.arguments['id'],
+                                                                    'content': commentController.text}
+                                                                      );
+                                                                  Fluttertoast.showToast(
+                                                                      msg: "评论成功",
+                                                                      toastLength:
+                                                                      Toast.LENGTH_SHORT,
+                                                                      gravity:
+                                                                      ToastGravity.BOTTOM,
+                                                                      timeInSecForIosWeb: 1,
+                                                                      backgroundColor:
+                                                                      Colors.black45,
+                                                                      textColor: Colors.white,
+                                                                      fontSize: 16.0);
+                                                                  // imageUpload();
+                                                                  // Navigator.of(context).pop();
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.all(Radius.circular(
+                                                                              5)),
+                                                                      color: AppColor
+                                                                          .bluegreen),
+                                                                  width: 60,
+                                                                  height: 30,
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  child: Text(
+                                                                      '评论'.tr,
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize:
+                                                                              18)),
+                                                                ),
+
+                                                              )
+                                                              // flex: 1,
                                                             ],
                                                           ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: 16),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        16),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(left: 10)),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    CircleAvatar(
-                                                                        radius:
-                                                                            12,
-                                                                        backgroundColor:
-                                                                            Color(
-                                                                                0xFFCCCCCC),
-                                                                        backgroundImage:
-                                                                            NetworkImage(avatar) //data.userImgUrl),
-                                                                        ),
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(left: 8)),
-                                                                    SizedBox(
-                                                                      width: 3,
-                                                                    ),
-                                                                    Container(
-                                                                      child:
-                                                                          Text(
-                                                                        "张成翼",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          color:
-                                                                              AppColor.bluegreen,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Text(
-                                                                  "过去一年？chatgpt的数据只到2021年某月，请问去年也就是2022年的数据它是从哪儿得到的？",
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: Colors
-                                                                        .black
-                                                                        .withOpacity(
-                                                                            0.8),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  margin: EdgeInsets.only(
-                                                                      left: 0.0,
-                                                                      right:
-                                                                          0.0,
-                                                                      top: 10.0,
-                                                                      bottom:
-                                                                          0.0),
-                                                                  child: Text(
-                                                                      "03-06 · 四平校区",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            15,
-                                                                        color: Color(
-                                                                            0xFF999999),
-                                                                      )),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                          SizedBox(
+                                                              height: 400,
+                                                              width: 600,
+                                                              child: HeaderWidget(snapshot.data[0]['commentList'])
+
                                                           ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    top: 16),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        16),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: <
-                                                                  Widget>[
-                                                                Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(left: 10)),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    CircleAvatar(
-                                                                        radius:
-                                                                            12,
-                                                                        backgroundColor:
-                                                                            Color(
-                                                                                0xFFCCCCCC),
-                                                                        backgroundImage:
-                                                                            NetworkImage(avatar) //data.userImgUrl),
-                                                                        ),
-                                                                    Padding(
-                                                                        padding:
-                                                                            EdgeInsets.only(left: 8)),
-                                                                    SizedBox(
-                                                                      width: 3,
-                                                                    ),
-                                                                    Container(
-                                                                      child:
-                                                                          Text(
-                                                                        "陈林海",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              15,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          color:
-                                                                              AppColor.bluegreen,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                SizedBox(
-                                                                  height: 10,
-                                                                ),
-                                                                Text(
-                                                                  "通信领域很前沿的研究方向，欢迎来林Lab看看",
-                                                                  maxLines: 2,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    color: Colors
-                                                                        .black
-                                                                        .withOpacity(
-                                                                            0.8),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  margin: EdgeInsets.only(
-                                                                      left: 0.0,
-                                                                      right:
-                                                                          0.0,
-                                                                      top: 10.0,
-                                                                      bottom:
-                                                                          0.0),
-                                                                  child: Text(
-                                                                      "03-02 · 彰武校区",
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontSize:
-                                                                            15,
-                                                                        color: Color(
-                                                                            0xFF999999),
-                                                                      )),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(height: 220),
                                                         ],
                                                       ))
                                                 ],
                                               ),
-                                            )
+                                            ),
                                           ],
-                                        )))
+                                        )
+                                        ))
                                 ],
-                              )))))));
+                              ))
+                          ))
+                  )));
         });
   }
 }
