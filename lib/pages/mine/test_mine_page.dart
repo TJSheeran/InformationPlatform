@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/pages/login/login_page.dart';
+import 'package:tongxinbaike/pages/mine/modifyInfo_page.dart';
+import 'package:tongxinbaike/pages/publish/publish_page.dart';
 import 'package:tongxinbaike/pages/root/root_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -207,10 +210,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RootPage()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => RootPage()),
+                    // );
+                    showBarModalBottomSheet(
+                        context: context,
+                        builder: (context) => PublishPage(),
+                        enableDrag: true,
+                        expand: true,
+                        duration: const Duration(milliseconds: 400),
+                        backgroundColor: Colors.transparent);
                   },
                 ),
                 //Divider(color: Theme.of(context).primaryColor, height: 1,),
@@ -225,10 +235,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         fontWeight: FontWeight.bold),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RootPage()),
-                    );
+                    showBarModalBottomSheet(
+                        context: context,
+                        builder: (context) => ModifyInfoPage(),
+                        enableDrag: true,
+                        expand: true,
+                        duration: const Duration(milliseconds: 400),
+                        backgroundColor: Colors.transparent);
                   },
                 ),
                 //Divider(color: Theme.of(context).primaryColor, height: 1,),

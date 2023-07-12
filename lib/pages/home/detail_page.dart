@@ -12,6 +12,7 @@ import 'package:tongxinbaike/pages/login/login_page.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
 import 'package:dio/dio.dart' as FormDataA;
+
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key}) : super(key: key);
 
@@ -49,53 +50,41 @@ class _DetailPageState extends State<DetailPage> {
           fontSize: 16.0);
     }
   }
+
   Widget HeaderWidget(List s) {
     return ListView.builder(
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
           return Container(
-            margin:
-            EdgeInsets.only(
-                top: 0),
-            padding: EdgeInsets
-                .symmetric(
-                horizontal:
-                10),
+            margin: EdgeInsets.only(top: 0),
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
-              crossAxisAlignment:
-              CrossAxisAlignment
-                  .start,
-              children: <
-                  Widget>[
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
                 Row(
-                  children: <
-                      Widget>[
-                    Padding(
-                        padding:
-                        EdgeInsets.only(left: 10)),
+                  children: <Widget>[
+                    Padding(padding: EdgeInsets.only(left: 10)),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Row(
-                  children: <
-                      Widget>[
+                  children: <Widget>[
                     CircleAvatar(
                         radius: 12,
-                        backgroundColor:
-                        Color(0xFFCCCCCC),
+                        backgroundColor: Color(0xFFCCCCCC),
                         backgroundImage:
-                        NetworkImage(avatar) //data.userImgUrl),
+                            NetworkImage(avatar) //data.userImgUrl),
+                        ),
+                    Padding(padding: EdgeInsets.only(left: 8)),
+                    SizedBox(
+                      width: 3,
                     ),
-                    Padding(
-                        padding:
-                        EdgeInsets.only(left: 8)),
-                    SizedBox(width: 3,),
                     Container(
-                      child:
-                      Text(
+                      child: Text(
                         s[index]['author'],
-                        style:
-                        TextStyle(
+                        style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: AppColor.bluegreen,
@@ -104,41 +93,35 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   s[index]['content'],
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 18,
+                  style: TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.w400,
                     color: Colors.black.withOpacity(0.8),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                      left: 0.0,
-                      right:
-                      0.0,
-                      top: 10.0,
-                      bottom:
-                      0.0),
-                  child: Text(
-                      '嘉定校区',
-                      style:
-                      TextStyle(
-                        fontSize:
-                        15,
-                        color: Color(
-                            0xFF999999),
+                      left: 0.0, right: 0.0, top: 10.0, bottom: 0.0),
+                  child: Text('嘉定校区',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF999999),
                       )),
                 ),
               ],
             ),
           );
-
         } //使用_cellForRow回调返回每个cell
-    );
+        );
   }
+
   //点赞
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     // /// send your request here
@@ -948,6 +931,41 @@ class _DetailPageState extends State<DetailPage> {
                                                                   autofocus:
                                                                       false,
                                                                   maxLines: 1,
+                                                                  onFieldSubmitted:
+                                                                      (value) {
+                                                                    DioUtil().request(
+                                                                        "/add_comment",
+                                                                        method:
+                                                                            DioMethod.post,
+                                                                        data: {
+                                                                          'uid':
+                                                                              uid,
+                                                                          "tieziid":
+                                                                              Get.arguments['id'],
+                                                                          'content':
+                                                                              // commentController.text
+                                                                              value
+                                                                        });
+                                                                    Fluttertoast.showToast(
+                                                                        msg:
+                                                                            "评论成功",
+                                                                        toastLength:
+                                                                            Toast
+                                                                                .LENGTH_SHORT,
+                                                                        gravity:
+                                                                            ToastGravity
+                                                                                .BOTTOM,
+                                                                        timeInSecForIosWeb:
+                                                                            1,
+                                                                        backgroundColor:
+                                                                            Colors
+                                                                                .black45,
+                                                                        textColor:
+                                                                            Colors
+                                                                                .white,
+                                                                        fontSize:
+                                                                            16.0);
+                                                                  },
                                                                   decoration: InputDecoration(
                                                                       hintText: '写评论',
                                                                       // contentPadding:
@@ -962,73 +980,27 @@ class _DetailPageState extends State<DetailPage> {
                                                                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
                                                                 ),
                                                               ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  // print('发布活动');
-
-                                                                  DioUtil().request("/add_comment", method: DioMethod.post, data: {
-                                                                    'uid': uid,
-                                                                    "tieziid": Get.arguments['id'],
-                                                                    'content': commentController.text}
-                                                                      );
-                                                                  Fluttertoast.showToast(
-                                                                      msg: "评论成功",
-                                                                      toastLength:
-                                                                      Toast.LENGTH_SHORT,
-                                                                      gravity:
-                                                                      ToastGravity.BOTTOM,
-                                                                      timeInSecForIosWeb: 1,
-                                                                      backgroundColor:
-                                                                      Colors.black45,
-                                                                      textColor: Colors.white,
-                                                                      fontSize: 16.0);
-                                                                  // imageUpload();
-                                                                  // Navigator.of(context).pop();
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.all(Radius.circular(
-                                                                              5)),
-                                                                      color: AppColor
-                                                                          .bluegreen),
-                                                                  width: 60,
-                                                                  height: 30,
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .center,
-                                                                  child: Text(
-                                                                      '评论'.tr,
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              18)),
-                                                                ),
-
-                                                              )
-                                                              // flex: 1,
                                                             ],
+                                                          ),
+                                                          SizedBox(
+                                                            height: 15,
                                                           ),
                                                           SizedBox(
                                                               height: 400,
                                                               width: 600,
-                                                              child: HeaderWidget(snapshot.data[0]['commentList'])
-
-                                                          ),
+                                                              child: HeaderWidget(
+                                                                  snapshot.data[
+                                                                          0][
+                                                                      'commentList'])),
                                                         ],
                                                       ))
                                                 ],
                                               ),
                                             ),
                                           ],
-                                        )
-                                        ))
+                                        )))
                                 ],
-                              ))
-                          ))
-                  )));
+                              )))))));
         });
   }
 }
