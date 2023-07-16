@@ -14,6 +14,7 @@ import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import '../home/home_page.dart';
 import 'header_widget.dart';
+import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart' as FormDataA;
 // import 'package:flutter_login_ui/pages/goals_page.dart';
@@ -39,8 +40,8 @@ class _ProfilePageState extends State<ProfilePage> {
   File? avator;
 
   Future<List> _ReadHandle() async {
-    var result = await DioUtil().request("/userInfo/111",
-        method: DioMethod.get, data: {"username": "111", "password": "111"});
+    var result = await DioUtil().request("/userInfoByid/"+uid.toString(),
+        method: DioMethod.get, data: {});
     return result;
   }
 
@@ -58,31 +59,31 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  imageUpload() async {
-    if (avator != null) {
-      var formData = FormDataA.FormData.fromMap({
-        'file': await FormDataA.MultipartFile.fromFile(avator!.path,
-            filename: "test.jpg"),
-      });
-
-      var result = await DioUtil()
-          .request("/fileUpload", method: DioMethod.post, data: formData);
-
-      DioUtil().request("/updatePic", method: DioMethod.post, data: {
-        'username': '111',
-        'picture': result,
-      });
-
-      Fluttertoast.showToast(
-          msg: "修改成功",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.black45,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
+  // imageUpload() async {
+  //   if (avator != null) {
+  //     var formData = FormDataA.FormData.fromMap({
+  //       'file': await FormDataA.MultipartFile.fromFile(avator!.path,
+  //           filename: "test.jpg"),
+  //     });
+  //
+  //     var result = await DioUtil()
+  //         .request("/fileUpload", method: DioMethod.post, data: formData);
+  //
+  //     DioUtil().request("/updatePic", method: DioMethod.post, data: {
+  //       'username': '111',
+  //       'picture': result,
+  //     });
+  //
+  //     Fluttertoast.showToast(
+  //         msg: "修改成功",
+  //         toastLength: Toast.LENGTH_SHORT,
+  //         gravity: ToastGravity.BOTTOM,
+  //         timeInSecForIosWeb: 1,
+  //         backgroundColor: Colors.black45,
+  //         textColor: Colors.white,
+  //         fontSize: 16.0);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -326,9 +327,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             InkWell(
-                                onTap: () {
-                                  pickAvator();
-                                },
+                                // onTap: () {
+                                //   pickAvator();
+                                // },
                                 child:
                                     // Container(
                                     //   width: 100,
@@ -466,22 +467,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                             ),
-                            MaterialButton(
-                              minWidth: 20.0,
-                              height: 40.0,
-                              shape: const StadiumBorder(),
-                              onPressed: () {
-                                imageUpload();
-                              },
-                              color: AppColor.bluegreen,
-                              child: const Text(
-                                '修 改',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
+                            // MaterialButton(
+                            //   minWidth: 20.0,
+                            //   height: 40.0,
+                            //   shape: const StadiumBorder(),
+                            //   onPressed: () {
+                            //     imageUpload();
+                            //   },
+                            //   color: AppColor.bluegreen,
+                            //   child: const Text(
+                            //     '修 改',
+                            //     style: TextStyle(
+                            //         color: Colors.white,
+                            //         fontSize: 20,
+                            //         fontWeight: FontWeight.bold),
+                            //   ),
+                            // )
                           ],
                         ),
                       )

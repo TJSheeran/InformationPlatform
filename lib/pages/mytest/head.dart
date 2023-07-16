@@ -2,12 +2,34 @@ import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:tongxinbaike/dio_util/dio_util.dart';
+import 'package:tongxinbaike/routes/app_routes.dart';
 class RootPageHead extends StatelessWidget {
   RootPageHead({Key? key}) : super(key: key);
   FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController = TextEditingController()
     ..addListener(() {});
+
+  _searchHandle() async {
+    var content = searchController.text;
+    if (content == '' ) {
+      //记得写弹窗组件！！！commonToast.showToast();
+      Fluttertoast.showToast(
+          msg: "请输入搜索内容",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    }
+    else{
+      Get.toNamed(Routes.SEARCH,
+          arguments: content);
+    }
+    //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +64,7 @@ class RootPageHead extends StatelessWidget {
         ),
         InkWell(
             onTap: () {
-              print("搜索");
+              _searchHandle();
             },
             child: Container(
               width: 70,

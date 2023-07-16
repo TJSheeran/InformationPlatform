@@ -27,23 +27,23 @@ class ModifyInfoPage extends StatefulWidget {
 }
 
 class _ModifyInfoPageeState extends State<ModifyInfoPage> {
-  String? firstLevelLabel;
-  String? secondLevelLabel;
-  List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
+  // String? firstLevelLabel;
+  // String? secondLevelLabel;
+  // List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
 
   //图片
   File? image;
-
-  var targetDate = DateTime(1998, 03, 04);
+  List? futureinfo;
+  var targetDate=DateTime(1,1,1);
 
   TextEditingController userNameController =
-      new TextEditingController(text: 'TJSheeran')..addListener(() {});
+      new TextEditingController()..addListener(() {});
   TextEditingController passwordController =
-      new TextEditingController(text: '123456')..addListener(() {});
+      new TextEditingController()..addListener(() {});
   TextEditingController campusController =
-      new TextEditingController(text: '嘉定校区')..addListener(() {});
+      new TextEditingController()..addListener(() {});
   TextEditingController birthdayController =
-      new TextEditingController(text: '1998-03-04')..addListener(() {});
+      new TextEditingController()..addListener(() {});
 
   FocusNode userNameFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
@@ -89,45 +89,28 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
       this.image = null;
     });
   }
-
-  imageUpload(String? firstlevel, String? secondlevel, String titletext,
-      String contenttext) async {
+  Future<List> _ReadHandle() async {
+    var result = await DioUtil().request("/userInfoByid/"+uid.toString(),
+        method: DioMethod.get, data: {});
+    return result;
+  }
+  imageUpload() async {
     if (image != null) {
       var formData = FormDataA.FormData.fromMap({
         'file': await FormDataA.MultipartFile.fromFile(image!.path,
             filename: "test.jpg"),
-        'category1': firstlevel,
-        'category2': secondlevel,
-        'title': titletext,
-        'uid': uid,
-        'content': contenttext,
-        'campus': "嘉定校区",
+        'uid':uid
       });
-
-      DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
-    } else {
-      var formData = FormDataA.FormData.fromMap({
-        'category1': firstlevel,
-        'category2': secondlevel,
-        'title': titletext,
-        'uid': uid,
-        'content': contenttext,
-        'campus': "嘉定校区",
-      });
-
-      DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
-      // Fluttertoast.showToast(
-      //     msg: "未上传图片",
-      //     toastLength:
-      //     Toast.LENGTH_SHORT,
-      //     gravity:
-      //     ToastGravity.BOTTOM,
-      //     timeInSecForIosWeb: 1,
-      //     backgroundColor:
-      //     Colors.black45,
-      //     textColor: Colors.white,
-      //     fontSize: 16.0);
+      await DioUtil()
+          .request("/uploadPic", method: DioMethod.post, data: formData);
     }
+    await DioUtil()
+        .request("/updateUserInfoByid", method: DioMethod.post,
+        data: {"uid": uid, "username": userNameController.text, "password": passwordController.text,
+                "birthday": "${targetDate.year.toString()}/${targetDate.month.toString().padLeft(2, '0')}/${targetDate.day.toString().padLeft(2, '0')}",
+                "campus":campusController.text
+        });
+
     Fluttertoast.showToast(
         msg: "修改成功",
         toastLength: Toast.LENGTH_SHORT,
@@ -136,7 +119,22 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
-    Navigator.of(context).pop();
+  }
+  Future<void> aAsyncMethod() async {
+    futureinfo = await _ReadHandle();
+    userNameController.text=  futureinfo?[0]["username"];
+    passwordController.text = futureinfo?[0]["password"];
+    campusController.text = futureinfo?[0]["campus"];
+    if(futureinfo?[0]["birthday"] != null)
+    {List<String> datalist=futureinfo?[0]["birthday"].split("/");
+    targetDate = DateTime(int.parse(datalist[0]), int.parse(datalist[1]), int.parse(datalist[2]));}
+  }
+    // do something async hree
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    aAsyncMethod();
   }
 
   @override
@@ -145,7 +143,12 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
         filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
         child: Material(
             color: Colors.transparent,
-            child: Scaffold(
+            child: FutureBuilder(
+            future: _ReadHandle(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.hasData)
+              {
+              return Scaffold(
                 backgroundColor: AppColor.page,
                 body: SafeArea(
                     child: GestureDetector(
@@ -185,12 +188,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                           right: 20,
                                           child: InkWell(
                                             onTap: () {
-                                              // print('发布活动');
-                                              // DateTime now = DateTime.now();
-                                              // String nowtimestamp =
-                                              //     "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
-
-                                              // imageUpload();
+                                              imageUpload();
                                               Fluttertoast.showToast(
                                                   msg: "保存成功",
                                                   toastLength:
@@ -202,52 +200,6 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                   textColor: Colors.white,
                                                   fontSize: 16.0);
                                               Navigator.of(context).pop();
-                                              // if (nowtimestamp != '' &&
-                                              //     firstLevelLabel != '' &&
-                                              //     secondLevelLabel != '' &&
-                                              //     titleController.text != '' &&
-                                              //     contentController.text !=
-                                              //         '') {
-                                              //   imageUpload(
-                                              //       firstLevelLabel,
-                                              //       secondLevelLabel,
-                                              //       titleController.text,
-                                              //       contentController.text);
-
-                                              // var formData = FormDataA.FormData.fromMap({
-                                              //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
-                                              //   'category1': firstLevelLabel,
-                                              //   'category2': secondLevelLabel,
-                                              //   'title': titleController.text,
-                                              //   'author': "Linhai",
-                                              //   'content': contentController.text,
-                                              //   'campus':"嘉定校区",
-                                              // });
-                                              // DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
-                                              // DioUtil().request(
-                                              //   "/addBaike",
-                                              //   method: DioMethod.post,
-                                              //   data: {
-                                              //     'category1': firstLevelLabel,
-                                              //     'category2': secondLevelLabel,
-                                              //     'title': titleController.text,
-                                              //     'author': "Linhai",
-                                              //     'content': contentController.text,
-                                              //   },
-                                              // );
-                                              // Fluttertoast.showToast(
-                                              //     msg: "发布成功",
-                                              //     toastLength:
-                                              //         Toast.LENGTH_SHORT,
-                                              //     gravity:
-                                              //         ToastGravity.BOTTOM,
-                                              //     timeInSecForIosWeb: 1,
-                                              //     backgroundColor:
-                                              //         Colors.black45,
-                                              //     textColor: Colors.white,
-                                              //     fontSize: 16.0);
-                                              // Navigator.of(context).pop();
-                                              // }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -301,33 +253,61 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                   //         TaskEditMode
                                                   //             .TaskEditMode_Edit,
                                                   // child:
-
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                        left: 10,
-                                                      ),
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: 115,
-                                                          ),
-                                                          Container(
-                                                            width: 100,
-                                                            height: 100,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            50),
-                                                                image: const DecorationImage(
-                                                                    image: NetworkImage(
-                                                                        "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
-                                                          ),
-                                                        ],
+                                                  InkWell(
+                                                      onTap: () {
+                                                        pickImage();
+                                                      },
+                                                      child:
+                                                      // Container(
+                                                      //   width: 100,
+                                                      //   height: 100,
+                                                      //   decoration: BoxDecoration(
+                                                      //       borderRadius: BorderRadius.circular(100),
+                                                      //       image: const DecorationImage(
+                                                      //           image: NetworkImage(
+                                                      //               "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
+                                                      // ),
+                                                      Container(
+                                                        width: 100,
+                                                        height: 100,
+                                                        //超出部分，可裁剪
+                                                        clipBehavior: Clip.hardEdge,
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(50),
+                                                        ),
+                                                        child: image != null
+                                                            ? Image.file(image!, fit: BoxFit.cover)
+                                                            : Image.network(
+                                                          snapshot.data[0]["picture"],
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       )),
+                                                  // Container(
+                                                  //     margin: EdgeInsets.only(
+                                                  //       left: 10,
+                                                  //     ),
+                                                  //     child: Row(
+                                                  //       crossAxisAlignment:
+                                                  //           CrossAxisAlignment
+                                                  //               .center,
+                                                  //       children: [
+                                                  //         SizedBox(
+                                                  //           width: 115,
+                                                  //         ),
+                                                  //         Container(
+                                                  //           width: 100,
+                                                  //           height: 100,
+                                                  //           decoration: BoxDecoration(
+                                                  //               borderRadius:
+                                                  //                   BorderRadius
+                                                  //                       .circular(
+                                                  //                           50),
+                                                  //               image: const DecorationImage(
+                                                  //                   image: NetworkImage(
+                                                  //                       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg"))),
+                                                  //         ),
+                                                  //       ],
+                                                  //     )),
 
                                                   SizedBox(
                                                     height: 10,
@@ -557,9 +537,9 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                               showTitleActions:
                                                                   true,
                                                               minTime: DateTime(
-                                                                  2022, 11, 16),
+                                                                  1950, 1, 1),
                                                               maxTime: DateTime(
-                                                                  2050, 6, 6),
+                                                                  2024, 1, 1),
                                                               theme: DatePickerTheme(
                                                                   headerColor:
                                                                       AppColor
@@ -577,12 +557,6 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                   doneStyle: TextStyle(
                                                                       color: AppColor.active,
                                                                       fontSize: 16)),
-                                                              //         onChanged: (date) {
-                                                              //   print('change $date in time zone ' +
-                                                              //       date.timeZoneOffset
-                                                              //           .inHours
-                                                              //           .toString());
-                                                              // },
                                                               onConfirm: (date) {
                                                             setState(() {
                                                               targetDate = date;
@@ -591,13 +565,14 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                           }, currentTime: DateTime.now(), locale: LocaleType.zh);
                                                         },
                                                         child: Text(
-                                                          "${targetDate.year.toString()}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')}",
+                                                          "${targetDate.year.toString()}/${targetDate.month.toString().padLeft(2, '0')}/${targetDate.day.toString().padLeft(2, '0')}",
                                                           style: TextStyle(
                                                             color:
                                                                 AppColor.active,
                                                             fontSize: 18,
                                                           ),
-                                                        )),
+                                                        )
+                                                    ),
                                                   ),
 
                                                   Container(
@@ -615,7 +590,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                               alignment: Alignment
                                                                   .centerLeft,
                                                               child: Text(
-                                                                  '校区'.tr,
+                                                                  '学院'.tr,
                                                                   style:
                                                                       TextStyle(
                                                                     color: AppColor
@@ -703,7 +678,11 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                   ],
                                 )))
                           ],
-                        )))))));
+                        )))));}
+            else
+              return Container();}
+)
+    ));
   }
 }
 
