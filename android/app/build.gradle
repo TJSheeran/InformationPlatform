@@ -41,7 +41,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.flutterproject1"
+        applicationId "com.example.demo711"
         // You can update the following values to match your application needs. 
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion flutter.minSdkVersion
@@ -62,6 +62,9 @@ android {
         release {
             signingConfig signingConfigs.release
         }
+    }
+    dependencies {
+        implementation('com.amap.api:location:5.6.1')
     }
 
 }

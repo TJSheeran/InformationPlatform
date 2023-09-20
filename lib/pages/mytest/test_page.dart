@@ -10,6 +10,7 @@ import '../encyclopedia/venue/venue.dart';
 import 'demo.dart';
 import 'head.dart';
 
+
 class TestPage extends StatefulWidget {
   TestPage({Key? key}) : super(key: key);
 
@@ -29,11 +30,11 @@ const List<Tab> _tabs = [
 class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
   late TabController _tabController;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
     _tabController = TabController(
       initialIndex: 0, //初始页面下标
       length: _tabs.length, //tabbar有几个就写成几

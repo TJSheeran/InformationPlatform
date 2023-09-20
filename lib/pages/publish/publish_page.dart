@@ -280,7 +280,7 @@ class _PublishPageState extends State<PublishPage> {
                                               // imageUpload();
                                               // Navigator.of(context).pop();
                                               if (nowtimestamp != '' &&
-                                                  firstLevelLabel != ''&& secondLevelLabel != ''
+                                                  firstLevelLabel != null && secondLevelLabel != null
                                               && titleController.text != ''&&contentController.text !='') {
                                                 imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
 
@@ -318,6 +318,34 @@ class _PublishPageState extends State<PublishPage> {
                                                 //     fontSize: 16.0);
                                                 // Navigator.of(context).pop();
                                                }
+                                              else if(firstLevelLabel == null || secondLevelLabel == null)
+                                                {
+                                                  Fluttertoast.showToast(
+                                                          msg: "一二级目录不能为空！",
+                                                          toastLength:
+                                                              Toast.LENGTH_SHORT,
+                                                          gravity:
+                                                              ToastGravity.BOTTOM,
+                                                          timeInSecForIosWeb: 1,
+                                                          backgroundColor:
+                                                              Colors.black45,
+                                                          textColor: Colors.white,
+                                                          fontSize: 16.0);
+                                                }
+                                              else if(titleController.text == '' || contentController.text =='')
+                                              {
+                                                Fluttertoast.showToast(
+                                                    msg: "发布标题和内容不能为空！",
+                                                    toastLength:
+                                                    Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                    ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor:
+                                                    Colors.black45,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0);
+                                              }
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

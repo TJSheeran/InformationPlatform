@@ -4,8 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
+import 'package:tongxinbaike/pages/home/custom_icon_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import 'package:tongxinbaike/dio_util/dio_util.dart';
+import 'package:amap_flutter_location/amap_flutter_location.dart';
+import 'package:amap_flutter_location/amap_location_option.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:async';
+import 'dart:io';
+import 'test_page.dart';
+
 class RootPageHead extends StatelessWidget {
   RootPageHead({Key? key}) : super(key: key);
+
   FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController = TextEditingController()
     ..addListener(() {});
@@ -31,12 +43,48 @@ class RootPageHead extends StatelessWidget {
     //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
   }
 
+  Future _Locate() async {
+    var result = await DioUtil().request("https://restapi.amap.com/v3/ip?key=e4a914953bb737f6ffc15b9c1b319cdd",
+        method: DioMethod.get);
+    Fluttertoast.showToast(
+        msg: "当前位置为"+result["province"]+","+result["city"],
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black45,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    return result;
+  }
+  Widget iconButton(Color color) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: const EdgeInsets.all(1),
+          child: Icon(
+            FontAwesomeIcons.locationDot,
+            size: 28,
+            color: color,
+          ),
+        ),
+        onTap:(){_Locate();Get.toNamed(Routes.LOCATE);},
+        highlightColor: color.withOpacity(.1),
+        overlayColor: MaterialStateProperty.all(
+          color.withOpacity(.3),
+        ),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        iconButton(AppColor.bluegreen),
         Expanded(
-          child: TextFormField(
+          child:
+          TextFormField(
             controller: searchController,
             focusNode: searchFocusNode,
             keyboardType: TextInputType.text,
