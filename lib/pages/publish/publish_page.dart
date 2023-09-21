@@ -18,6 +18,7 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:tongxinbaike/pages/login/login_page.dart';
+
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
 
@@ -171,29 +172,29 @@ class _PublishPageState extends State<PublishPage> {
     });
   }
 
-  imageUpload(String? firstlevel,String? secondlevel,String titletext,String contenttext) async {
-    if(image != null)
-    {
+  imageUpload(String? firstlevel, String? secondlevel, String titletext,
+      String contenttext) async {
+    if (image != null) {
       var formData = FormDataA.FormData.fromMap({
-        'file': await FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
+        'file': await FormDataA.MultipartFile.fromFile(image!.path,
+            filename: "test.jpg"),
         'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'campus':"嘉定校区",
+        'campus': "嘉定校区",
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
-    }
-    else{
+    } else {
       var formData = FormDataA.FormData.fromMap({
         'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'campus':"嘉定校区",
+        'campus': "嘉定校区",
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
@@ -211,17 +212,15 @@ class _PublishPageState extends State<PublishPage> {
     }
     Fluttertoast.showToast(
         msg: "发布成功",
-        toastLength:
-        Toast.LENGTH_SHORT,
-        gravity:
-        ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor:
-        Colors.black45,
+        backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
     Navigator.of(context).pop();
   }
+
   @override
   Widget build(BuildContext context) {
     return BackdropFilter(
@@ -280,20 +279,27 @@ class _PublishPageState extends State<PublishPage> {
                                               // imageUpload();
                                               // Navigator.of(context).pop();
                                               if (nowtimestamp != '' &&
-                                                  firstLevelLabel != null && secondLevelLabel != null
-                                              && titleController.text != ''&&contentController.text !='') {
-                                                imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
+                                                  firstLevelLabel != null &&
+                                                  secondLevelLabel != null &&
+                                                  titleController.text != '' &&
+                                                  contentController.text !=
+                                                      '') {
+                                                imageUpload(
+                                                    firstLevelLabel,
+                                                    secondLevelLabel,
+                                                    titleController.text,
+                                                    contentController.text);
 
-                                                  // var formData = FormDataA.FormData.fromMap({
-                                                  //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
-                                                  //   'category1': firstLevelLabel,
-                                                  //   'category2': secondLevelLabel,
-                                                  //   'title': titleController.text,
-                                                  //   'author': "Linhai",
-                                                  //   'content': contentController.text,
-                                                  //   'campus':"嘉定校区",
-                                                  // });
-                                                  // DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+                                                // var formData = FormDataA.FormData.fromMap({
+                                                //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
+                                                //   'category1': firstLevelLabel,
+                                                //   'category2': secondLevelLabel,
+                                                //   'title': titleController.text,
+                                                //   'author': "Linhai",
+                                                //   'content': contentController.text,
+                                                //   'campus':"嘉定校区",
+                                                // });
+                                                // DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
                                                 // DioUtil().request(
                                                 //   "/addBaike",
                                                 //   method: DioMethod.post,
@@ -317,32 +323,33 @@ class _PublishPageState extends State<PublishPage> {
                                                 //     textColor: Colors.white,
                                                 //     fontSize: 16.0);
                                                 // Navigator.of(context).pop();
-                                               }
-                                              else if(firstLevelLabel == null || secondLevelLabel == null)
-                                                {
-                                                  Fluttertoast.showToast(
-                                                          msg: "一二级目录不能为空！",
-                                                          toastLength:
-                                                              Toast.LENGTH_SHORT,
-                                                          gravity:
-                                                              ToastGravity.BOTTOM,
-                                                          timeInSecForIosWeb: 1,
-                                                          backgroundColor:
-                                                              Colors.black45,
-                                                          textColor: Colors.white,
-                                                          fontSize: 16.0);
-                                                }
-                                              else if(titleController.text == '' || contentController.text =='')
-                                              {
+                                              } else if (firstLevelLabel ==
+                                                      null ||
+                                                  secondLevelLabel == null) {
+                                                Fluttertoast.showToast(
+                                                    msg: "一二级目录不能为空！",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity:
+                                                        ToastGravity.BOTTOM,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor:
+                                                        Colors.black45,
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0);
+                                              } else if (titleController.text ==
+                                                      '' ||
+                                                  contentController.text ==
+                                                      '') {
                                                 Fluttertoast.showToast(
                                                     msg: "发布标题和内容不能为空！",
                                                     toastLength:
-                                                    Toast.LENGTH_SHORT,
+                                                        Toast.LENGTH_SHORT,
                                                     gravity:
-                                                    ToastGravity.BOTTOM,
+                                                        ToastGravity.BOTTOM,
                                                     timeInSecForIosWeb: 1,
                                                     backgroundColor:
-                                                    Colors.black45,
+                                                        Colors.black45,
                                                     textColor: Colors.white,
                                                     fontSize: 16.0);
                                               }
@@ -393,95 +400,6 @@ class _PublishPageState extends State<PublishPage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  // child:
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: 5.0,
-                                                        bottom: 0.0),
-                                                    child: Text('一级目录'.tr,
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppColor.active,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        )),
-                                                  ),
-                                                  // Container(
-                                                  //   height: 0.5,
-                                                  //   color: Color.fromRGBO(250, 250, 250, 1),
-                                                  // ),
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  //     child:
-                                                  Container(
-                                                      width: double.infinity,
-                                                      margin: EdgeInsets.only(
-                                                          top: 15.0,
-                                                          left: 10.0,
-                                                          right: 0.0),
-                                                      // color: Colors.red,
-                                                      child:
-                                                          _renderFirstLevel()),
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  //     child:
-
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: 15.0,
-                                                        bottom: 0.0),
-                                                    child: Text('二级目录'.tr,
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppColor.active,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        )),
-                                                  ),
-                                                  // Container(
-                                                  //   height: 0.5,
-                                                  //   color: Color.fromRGBO(250, 250, 250, 1),
-                                                  // ),
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  //     child:
-                                                  Container(
-                                                      width: double.infinity,
-                                                      margin: EdgeInsets.only(
-                                                          top: 15.0,
-                                                          left: 10.0,
-                                                          right: 0.0),
-                                                      // color: Colors.red,
-                                                      child:
-                                                          _renderSecondLevel()),
-
-                                                  // Offstage(
-                                                  //     offstage: widget
-                                                  //             .taskEditMode ==
-                                                  //         TaskEditMode
-                                                  //             .TaskEditMode_Edit,
-                                                  //     child:
-
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
@@ -510,7 +428,6 @@ class _PublishPageState extends State<PublishPage> {
                                                                   ))),
                                                         ],
                                                       )),
-
                                                   Container(
                                                     width: 368,
                                                     height: 45,
@@ -567,7 +484,6 @@ class _PublishPageState extends State<PublishPage> {
                                                       ),
                                                     ),
                                                   ),
-
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
@@ -596,7 +512,6 @@ class _PublishPageState extends State<PublishPage> {
                                                                   ))),
                                                         ],
                                                       )),
-
                                                   Container(
                                                     width: 368,
                                                     height: 145,
@@ -654,35 +569,6 @@ class _PublishPageState extends State<PublishPage> {
                                                       ),
                                                     ),
                                                   ),
-
-                                                  // Container(
-                                                  //     margin: EdgeInsets.only(
-                                                  //       left: 10,
-                                                  //     ),
-                                                  //     child: Column(
-                                                  //       crossAxisAlignment:
-                                                  //           CrossAxisAlignment
-                                                  //               .start,
-                                                  //       children: [
-                                                  //         Container(
-                                                  //             height: 60,
-                                                  //             // color: Colors.orange,
-                                                  //             alignment: Alignment
-                                                  //                 .centerLeft,
-                                                  //             child: Text(
-                                                  //                 '选择图片'.tr,
-                                                  //                 style:
-                                                  //                     TextStyle(
-                                                  //                   color: AppColor
-                                                  //                       .active,
-                                                  //                   fontSize:
-                                                  //                       18.0,
-                                                  //                   fontWeight:
-                                                  //                       FontWeight
-                                                  //                           .w600,
-                                                  //                 ))),
-                                                  //       ],
-                                                  //     )),
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
@@ -734,7 +620,6 @@ class _PublishPageState extends State<PublishPage> {
                                                           ),
                                                         ],
                                                       )),
-
                                                   InkWell(
                                                     onTap: () {
                                                       pickImage();
@@ -756,52 +641,62 @@ class _PublishPageState extends State<PublishPage> {
                                                             ),
                                                     ),
                                                   ),
-
-                                                  // Center(
-                                                  //   child: Column(
-                                                  //     children: [
-                                                  //       MaterialButton(
-                                                  //           color: AppColor
-                                                  //               .bluegreen,
-                                                  //           child: Text(
-                                                  //             "图库选择图片",
-                                                  //             style: TextStyle(
-                                                  //                 color: Colors
-                                                  //                     .white),
-                                                  //           ),
-                                                  //           onPressed: () {
-                                                  //             pickImage();
-                                                  //           }),
-                                                  //       MaterialButton(
-                                                  //           color: AppColor
-                                                  //               .bluegreen,
-                                                  //           child: Text(
-                                                  //             "相机选择图片",
-                                                  //             style: TextStyle(
-                                                  //                 color: Colors
-                                                  //                     .white),
-                                                  //           ),
-                                                  //           onPressed: () {
-                                                  //             pickImagefromCamera();
-                                                  //           }),
-                                                  //       SizedBox(
-                                                  //         height: 20,
-                                                  //       ),
-                                                  //       image != null
-                                                  //           ? Image.file(image!)
-                                                  //           : Text("没有图片")
-                                                  //     ],
-                                                  //   ),
-                                                  // ),
-
                                                   Container(
                                                       margin: EdgeInsets.only(
-                                                          top: 30),
+                                                          top: 20),
                                                       child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
-                                                          children: []))
+                                                          children: [])),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10.0,
+                                                        right: 10.0,
+                                                        top: 5.0,
+                                                        bottom: 0.0),
+                                                    child: Text('一级目录 (可选)'.tr,
+                                                        style: TextStyle(
+                                                          color:
+                                                              AppColor.active,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                      width: double.infinity,
+                                                      margin: EdgeInsets.only(
+                                                          top: 15.0,
+                                                          left: 10.0,
+                                                          right: 0.0),
+                                                      // color: Colors.red,
+                                                      child:
+                                                          _renderFirstLevel()),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10.0,
+                                                        right: 10.0,
+                                                        top: 15.0,
+                                                        bottom: 0.0),
+                                                    child: Text('二级目录 (可选)'.tr,
+                                                        style: TextStyle(
+                                                          color:
+                                                              AppColor.active,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                      width: double.infinity,
+                                                      margin: EdgeInsets.only(
+                                                          top: 15.0,
+                                                          left: 10.0,
+                                                          right: 0.0),
+                                                      // color: Colors.red,
+                                                      child:
+                                                          _renderSecondLevel()),
                                                 ],
                                               ))
                                         ],
