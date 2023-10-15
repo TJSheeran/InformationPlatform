@@ -20,6 +20,7 @@ class _FacultyPageState extends State<FacultyPage> {
   PageController _pageController = PageController();
   int pagesCount = 8;
   List<String> tabTitle = [
+    '全部',
     '电信学院',
     '经管学院',
     '艺传学院',
@@ -32,7 +33,10 @@ class _FacultyPageState extends State<FacultyPage> {
   Future<List>? flist;
 
   Future<List> _ReadHandle(Tabtitle) async {
-    var result = await DioUtil().request("/findbaikeFromDemo",
+    var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
+        method: DioMethod.post,
+        data: {"category1": "学院直通", "campus": "嘉定校区"})
+        :await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
         data: {"category1": "学院直通", "category2": Tabtitle, "campus": "嘉定校区"});
     return result;
@@ -75,8 +79,8 @@ class _FacultyPageState extends State<FacultyPage> {
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
           String avator = defaultAvator;
-          if (s[index]['picture'] != null) {
-            avator = s[index]['picture'];
+          if (s[index]['userpic'] != null) {
+            avator = s[index]['userpic'];
           }
           return Container(
             margin: EdgeInsets.fromLTRB(10, 10, 10, 0),

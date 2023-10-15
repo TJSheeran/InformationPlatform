@@ -344,8 +344,8 @@ class _DetailPageState extends State<DetailPage> {
     if (s['author'] != null) {
       this.author = s['author'];
     }
-    if (s['picture'] != null) {
-      this.avatar = s['picture'];
+    if (s['userpic'] != null) {
+      this.avatar = s['userpic'];
     }
     if (s['createtime'] != null) {
       this.createtime = s['createtime'];
@@ -656,7 +656,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                     bottom:
                                                                         0.0),
                                                             child: Text(
-                                                                "66人赞同了该回答",
+                                                                likeCount.toString()+"人赞同了该回答",
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,

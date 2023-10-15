@@ -279,8 +279,7 @@ class _PublishPageState extends State<PublishPage> {
                                               print(contentController.text);
                                               // imageUpload();
                                               // Navigator.of(context).pop();
-                                              if (nowtimestamp != '' &&
-                                                  firstLevelLabel != null && secondLevelLabel != null
+                                              if (nowtimestamp != ''
                                               && titleController.text != ''&&contentController.text !='') {
                                                 imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
 
@@ -318,20 +317,6 @@ class _PublishPageState extends State<PublishPage> {
                                                 //     fontSize: 16.0);
                                                 // Navigator.of(context).pop();
                                                }
-                                              else if(firstLevelLabel == null || secondLevelLabel == null)
-                                                {
-                                                  Fluttertoast.showToast(
-                                                          msg: "一二级目录不能为空！",
-                                                          toastLength:
-                                                              Toast.LENGTH_SHORT,
-                                                          gravity:
-                                                              ToastGravity.BOTTOM,
-                                                          timeInSecForIosWeb: 1,
-                                                          backgroundColor:
-                                                              Colors.black45,
-                                                          textColor: Colors.white,
-                                                          fontSize: 16.0);
-                                                }
                                               else if(titleController.text == '' || contentController.text =='')
                                               {
                                                 Fluttertoast.showToast(

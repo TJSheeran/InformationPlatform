@@ -19,11 +19,14 @@ class _LifeservicePageState extends State<LifeservicePage> {
   int pagesCount = 5;
   String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
-  List<String> tabTitle = ['快递', '空调', '电费', '医保', '寝室'];
+  List<String> tabTitle = ['全部','快递', '空调', '电费', '医保', '寝室'];
   Future<List>? flist;
 
   Future<List> _ReadHandle(String Tabtitle) async {
-    var result = await DioUtil().request("/findbaikeFromDemo",
+    var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
+        method: DioMethod.post,
+        data: {"category1": "生活服务", "campus": "嘉定校区"})
+        :await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
         data: {"category1": "生活服务", "category2": Tabtitle, "campus": "嘉定校区"});
     return result;
@@ -71,8 +74,8 @@ class _LifeservicePageState extends State<LifeservicePage> {
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
           String avator = defaultAvator;
-          if (s[index]['picture'] != null) {
-            avator = s[index]['picture'];
+          if (s[index]['userpic'] != null) {
+            avator = s[index]['userpic'];
           }
           return Container(
             margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
