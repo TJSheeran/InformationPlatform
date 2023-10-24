@@ -5,6 +5,8 @@ import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
+String latitude='';
+String longitude='';
 class LocatePage extends StatefulWidget {
   @override
   State<LocatePage> createState() => new _LocatePageState();
@@ -97,7 +99,7 @@ class _LocatePageState extends State<LocatePage> {
       locationOption.onceLocation = false;
 
       ///是否需要返回逆地理信息
-      locationOption.needAddress = true;
+      locationOption.needAddress = false;
 
       ///逆地理信息的语言类型
       locationOption.geoLanguage = GeoLanguage.DEFAULT;
@@ -108,7 +110,7 @@ class _LocatePageState extends State<LocatePage> {
       locationOption.fullAccuracyPurposeKey = "AMapLocationScene";
 
       ///设置Android端连续定位的定位间隔
-      locationOption.locationInterval = 2000;
+      locationOption.locationInterval = 1000;
 
       ///设置Android端的定位模式<br>
       ///可选值：<br>
@@ -127,7 +129,7 @@ class _LocatePageState extends State<LocatePage> {
       /// <li>[DesiredAccuracy.NearestTenMeters] 10米 </li>
       /// <li>[DesiredAccuracy.Kilometer] 1000米</li>
       /// <li>[DesiredAccuracy.ThreeKilometers] 3000米</li>
-      locationOption.desiredAccuracy = DesiredAccuracy.NearestTenMeters;
+      locationOption.desiredAccuracy = DesiredAccuracy.BestForNavigation;
 
       ///设置iOS端是否允许系统暂停定位
       locationOption.pausesLocationUpdatesAutomatically = false;
@@ -215,7 +217,13 @@ class _LocatePageState extends State<LocatePage> {
 
     if (_locationResult != null) {
       _locationResult!.forEach((key, value) {
-        widgets.add(_resultWidget(key, value));
+          widgets.add(_resultWidget(key, value));
+
+            if (key=='latitude')
+              latitude='$value';
+            if(key=='longitude')
+              longitude='$value';
+
       });
     }
 

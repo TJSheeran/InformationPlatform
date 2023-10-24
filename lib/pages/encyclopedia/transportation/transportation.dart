@@ -25,10 +25,10 @@ class _TransportationPageState extends State<TransportationPage> {
   Future<List> _ReadHandle(String Tabtitle) async {
     var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "交通出行", "campus": "嘉定校区"})
+        data: {"category1": "交通出行", "campus": "安亭镇"})
         :await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "交通出行", "category2": Tabtitle, "campus": "嘉定校区"});
+        data: {"category1": "交通出行", "category2": Tabtitle, "campus": "安亭镇"});
     return result;
 
   }

@@ -428,10 +428,8 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0.0),
                                                                   child:
                                                                       Container(
-                                                                    child: Text(
+                                                                    child: SelectableText(
                                                                       '${s["title"]}',
-                                                                      softWrap:
-                                                                          true,
                                                                       style:
                                                                           TextStyle(
                                                                         fontSize:
@@ -689,7 +687,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               alignment:
                                                                   Alignment
                                                                       .topLeft,
-                                                              child: Text(
+                                                              child: SelectableText(
                                                                 s["content"],
                                                                 style: TextStyle(
                                                                     fontSize:
@@ -946,6 +944,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                               // commentController.text
                                                                               value
                                                                         });
+                                                                    //setState(() {_ReadHandle();});
                                                                     Fluttertoast.showToast(
                                                                         msg:
                                                                             "评论成功",
@@ -965,6 +964,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 .white,
                                                                         fontSize:
                                                                             16.0);
+
                                                                   },
                                                                   decoration: InputDecoration(
                                                                       hintText: '写评论',
@@ -986,7 +986,7 @@ class _DetailPageState extends State<DetailPage> {
                                                             height: 15,
                                                           ),
                                                           SizedBox(
-                                                              height: 400,
+                                                              height: 600,
                                                               width: 600,
                                                               child: HeaderWidget(
                                                                   snapshot.data[

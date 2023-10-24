@@ -18,6 +18,9 @@ import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:tongxinbaike/pages/login/login_page.dart';
+import 'package:tongxinbaike/pages/mytest/locate_test.dart';
+import 'package:tongxinbaike/pages/root/root_page.dart';
+import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
@@ -183,7 +186,7 @@ class _PublishPageState extends State<PublishPage> {
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'campus': "嘉定校区",
+        'location':longitude+','+latitude,
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
@@ -194,9 +197,9 @@ class _PublishPageState extends State<PublishPage> {
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'campus': "嘉定校区",
+        'location':longitude+','+latitude,
       });
-
+      print("777777777777777777777777"+longitude);
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
       // Fluttertoast.showToast(
       //     msg: "未上传图片",
@@ -271,11 +274,11 @@ class _PublishPageState extends State<PublishPage> {
                                               DateTime now = DateTime.now();
                                               String nowtimestamp =
                                                   "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
-                                              print(nowtimestamp);
-                                              print(firstLevelLabel);
-                                              print(secondLevelLabel);
-                                              print(titleController.text);
-                                              print(contentController.text);
+                                              // print(nowtimestamp);
+                                              // print(firstLevelLabel);
+                                              // print(secondLevelLabel);
+                                              // print(titleController.text);
+                                              // print(contentController.text);
                                               // imageUpload();
                                               // Navigator.of(context).pop();
 
@@ -294,7 +297,6 @@ class _PublishPageState extends State<PublishPage> {
                                               //       secondLevelLabel,
                                               //       titleController.text,
                                               //       contentController.text);
-
 
                                                 // var formData = FormDataA.FormData.fromMap({
                                                 //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
