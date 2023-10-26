@@ -3,7 +3,7 @@ import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
-
+import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 
 
@@ -35,10 +35,10 @@ class _FacultyPageState extends State<FacultyPage> {
   Future<List> _ReadHandle(Tabtitle) async {
     var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "学院直通", "campus": "安亭镇"})
+        data: {"category1": "学院直通", "campus": longitude+','+latitude})
         :await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "学院直通", "category2": Tabtitle, "campus": "安亭镇"});
+        data: {"category1": "学院直通", "category2": Tabtitle, "campus": longitude+','+latitude});
     return result;
   }
 
