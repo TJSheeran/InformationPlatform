@@ -199,7 +199,7 @@ class _PublishPageState extends State<PublishPage> {
         'content': contenttext,
         'location':longitude+','+latitude,
       });
-      print("777777777777777777777777"+longitude);
+      //print("777777777777777777777777"+longitude);
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
       // Fluttertoast.showToast(
       //     msg: "未上传图片",

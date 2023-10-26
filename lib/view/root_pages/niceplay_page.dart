@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:tongxinbaike/dio_util/dio_method.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
@@ -162,7 +162,22 @@ Widget HeaderWidget(List s) {
 class _NiceplayPageState extends State<NiceplayPage> {
 
   Future<List>? flist;
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
+  void _onRefresh() async {
+    // monitor network fetch
+    await _ReadHandle();
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    if (mounted) setState(() {});
+    // _refreshController.loadComplete();
+  }
   Future<List> _ReadHandle() async {
 
     var result = await DioUtil().request("/recommendByFilter/"+uid.toString(),
@@ -177,23 +192,48 @@ class _NiceplayPageState extends State<NiceplayPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder(
-            future: flist,
+      // floatingActionButton: floatButton,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+        body:FutureBuilder(
+            future: _ReadHandle(),
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              return SafeArea(
-                  child: Container(
-                    child: PageView(
-                      children: [
-                        if (snapshot.hasData)
-                          SizedBox(
-                              height: 520,
-                              width: 300,
-                              child: HeaderWidget(snapshot.data))
-                      ],
-                    ),
-                  )
-              );
+              if (snapshot.hasData) {
+                return  SmartRefresher(
+                    enablePullDown: true,
+                    enablePullUp: false,
+                    header: WaterDropMaterialHeader(backgroundColor: AppColor.purple,),
+                    controller: _refreshController,
+                    onRefresh: _onRefresh,
+                    onLoading: _onLoading,
+                    child:  SizedBox(
+                                child: HeaderWidget(snapshot.data)));
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              } else {
+                return Container(
+                    height: 50,
+                    width: 50,
+                    margin: EdgeInsets.only(left: 1000),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 8.0,
+                      color: AppColor.purple,
+                    ));
+              }
             }));
+            //   return SafeArea(
+            //       child: Container(
+            //         child: PageView(
+            //           children: [
+            //             if (snapshot.hasData)
+            //               SizedBox(
+            //                   height: 520,
+            //                   width: 300,
+            //                   child: HeaderWidget(snapshot.data))
+            //           ],
+            //         ),
+            //       )
+            //   );
+            // }));
   }
 }
 
