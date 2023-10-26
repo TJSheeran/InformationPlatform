@@ -221,7 +221,7 @@ class _PublishPageState extends State<PublishPage> {
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
-    Navigator.of(context).pop();
+
   }
 
   @override
@@ -284,6 +284,7 @@ class _PublishPageState extends State<PublishPage> {
 
                                               if (nowtimestamp != ''
                                               && titleController.text != ''&&contentController.text !='') {
+                                                Navigator.of(context).pop();
                                                 imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
 
                                               // if (nowtimestamp != '' &&
