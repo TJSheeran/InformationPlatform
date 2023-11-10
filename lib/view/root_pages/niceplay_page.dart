@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:tongxinbaike/pages/login/login_page.dart';
+import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 class NiceplayPage extends StatefulWidget {
   NiceplayPage({Key? key}) : super(key: key);
 
@@ -179,10 +180,19 @@ class _NiceplayPageState extends State<NiceplayPage> {
     // _refreshController.loadComplete();
   }
   Future<List> _ReadHandle() async {
-
-    var result = await DioUtil().request("/recommendByFilter/"+uid.toString(),
-        method: DioMethod.get, data: {});
+    var formData = FormDataA.FormData.fromMap({
+      "userid":uid,
+      "location":longitude+','+latitude
+    });
+    var result = await DioUtil()
+        .request("/recommendByFilter", method: DioMethod.post, data: formData);
     return result;
+    // var result = await DioUtil().request("/recommendByFilter",
+    //     method: DioMethod.post, data: {
+    //       "userid":131,
+    //       "location":longitude+','+latitude
+    //     });
+    // return result;
   }
   @override
   void initState(){

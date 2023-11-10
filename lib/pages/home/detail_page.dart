@@ -39,9 +39,57 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       this.isSubscribed = !isSubscribed;
     });
+    // if (isSubscribed) {
+    //     var result = await DioUtil().request("/follow",
+    //         method: DioMethod.post,
+    //         data: {"userid": uid, "tieziid": Get.arguments['id']});
+    //     if (result["info"] == "关注成功")
+    //       Fluttertoast.showToast(
+    //           msg: "关注成功",
+    //           toastLength: Toast.LENGTH_SHORT,
+    //           gravity: ToastGravity.CENTER,
+    //           timeInSecForIosWeb: 1,
+    //           backgroundColor: Colors.black45,
+    //           textColor: Colors.white,
+    //           fontSize: 16.0);
+    // }
+    // else{
+    //   var result = await DioUtil().request("/delectfollow",
+    //       method: DioMethod.post,
+    //       data: {"userid": uid, "tieziid": Get.arguments['id']});
+    //   Fluttertoast.showToast(
+    //       msg: "取消关注成功",
+    //       toastLength: Toast.LENGTH_SHORT,
+    //       gravity: ToastGravity.CENTER,
+    //       timeInSecForIosWeb: 1,
+    //       backgroundColor: Colors.black45,
+    //       textColor: Colors.white,
+    //       fontSize: 16.0);
+    // }
     if (isSubscribed) {
+        var formData = FormDataA.FormData.fromMap({
+          "userid": uid, "tieziid": Get.arguments['id']
+        });
+        var result = await DioUtil()
+          .request("/follow", method: DioMethod.post, data: formData);
+        if (result["info"] == "关注成功")
+          Fluttertoast.showToast(
+              msg: "关注成功",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.black45,
+              textColor: Colors.white,
+              fontSize: 16.0);
+    }
+    else{
+      var formData = FormDataA.FormData.fromMap({
+        "userid": uid, "tieziid": Get.arguments['id']
+      });
+      var result = await DioUtil()
+          .request("/delectfollow", method: DioMethod.post, data: formData);
       Fluttertoast.showToast(
-          msg: "关注成功",
+          msg: "取消关注成功",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,

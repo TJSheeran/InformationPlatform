@@ -261,12 +261,12 @@ class _RootPageState extends State<RootPage> {
   //点击发布按钮
   void _onCreateMedia() {
     // print('发布活动');
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) => PublishPage(),
-        ),
-        (route) => false);
+    // Navigator.pushAndRemoveUntil(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (BuildContext context) => PublishPage(),
+    //     ),
+    //     (route) => false);
     // _startLocation();
     // if (_rootResult != null) {
     //   _rootResult!.forEach((key, value) {
