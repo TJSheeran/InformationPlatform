@@ -186,7 +186,7 @@ class _PublishPageState extends State<PublishPage> {
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'location':longitude+','+latitude,
+        'location': longitude + ',' + latitude,
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
@@ -197,9 +197,9 @@ class _PublishPageState extends State<PublishPage> {
         'title': titletext,
         'uid': uid,
         'content': contenttext,
-        'location':longitude+','+latitude,
+        'location': longitude + ',' + latitude,
       });
-      //print("777777777777777777777777"+longitude);
+      print("666666" + longitude + ',' + latitude);
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
       // Fluttertoast.showToast(
       //     msg: "未上传图片",
@@ -221,7 +221,6 @@ class _PublishPageState extends State<PublishPage> {
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
-    Navigator.of(context).pop();
   }
 
   @override
@@ -282,21 +281,28 @@ class _PublishPageState extends State<PublishPage> {
                                               // imageUpload();
                                               // Navigator.of(context).pop();
 
-                                              if (nowtimestamp != ''
-                                              && titleController.text != ''&&contentController.text !='') {
-                                                imageUpload(firstLevelLabel,secondLevelLabel,titleController.text,contentController.text);
+                                              if (nowtimestamp != '' &&
+                                                  titleController.text != '' &&
+                                                  contentController.text !=
+                                                      '') {
+                                                Navigator.of(context).pop();
+                                                imageUpload(
+                                                    firstLevelLabel,
+                                                    secondLevelLabel,
+                                                    titleController.text,
+                                                    contentController.text);
 
-                                              // if (nowtimestamp != '' &&
-                                              //     firstLevelLabel != null &&
-                                              //     secondLevelLabel != null &&
-                                              //     titleController.text != '' &&
-                                              //     contentController.text !=
-                                              //         '') {
-                                              //   imageUpload(
-                                              //       firstLevelLabel,
-                                              //       secondLevelLabel,
-                                              //       titleController.text,
-                                              //       contentController.text);
+                                                // if (nowtimestamp != '' &&
+                                                //     firstLevelLabel != null &&
+                                                //     secondLevelLabel != null &&
+                                                //     titleController.text != '' &&
+                                                //     contentController.text !=
+                                                //         '') {
+                                                //   imageUpload(
+                                                //       firstLevelLabel,
+                                                //       secondLevelLabel,
+                                                //       titleController.text,
+                                                //       contentController.text);
 
                                                 // var formData = FormDataA.FormData.fromMap({
                                                 //   'file':FormDataA.MultipartFile.fromFile(image!.path, filename:"test.jpg"),
@@ -332,28 +338,28 @@ class _PublishPageState extends State<PublishPage> {
                                                 //     fontSize: 16.0);
                                                 // Navigator.of(context).pop();
 
-                                               }
-                                              else if(titleController.text == '' || contentController.text =='')
-                                              {
-
-                                              // } else if (firstLevelLabel ==
-                                              //         null ||
-                                              //     secondLevelLabel == null) {
-                                              //   Fluttertoast.showToast(
-                                              //       msg: "一二级目录不能为空！",
-                                              //       toastLength:
-                                              //           Toast.LENGTH_SHORT,
-                                              //       gravity:
-                                              //           ToastGravity.BOTTOM,
-                                              //       timeInSecForIosWeb: 1,
-                                              //       backgroundColor:
-                                              //           Colors.black45,
-                                              //       textColor: Colors.white,
-                                              //       fontSize: 16.0);
-                                              // } else if (titleController.text ==
-                                              //         '' ||
-                                              //     contentController.text ==
-                                              //         '') {
+                                              } else if (titleController.text ==
+                                                      '' ||
+                                                  contentController.text ==
+                                                      '') {
+                                                // } else if (firstLevelLabel ==
+                                                //         null ||
+                                                //     secondLevelLabel == null) {
+                                                //   Fluttertoast.showToast(
+                                                //       msg: "一二级目录不能为空！",
+                                                //       toastLength:
+                                                //           Toast.LENGTH_SHORT,
+                                                //       gravity:
+                                                //           ToastGravity.BOTTOM,
+                                                //       timeInSecForIosWeb: 1,
+                                                //       backgroundColor:
+                                                //           Colors.black45,
+                                                //       textColor: Colors.white,
+                                                //       fontSize: 16.0);
+                                                // } else if (titleController.text ==
+                                                //         '' ||
+                                                //     contentController.text ==
+                                                //         '') {
 
                                                 Fluttertoast.showToast(
                                                     msg: "发布标题和内容不能为空！",
