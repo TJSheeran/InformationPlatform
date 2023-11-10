@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -476,7 +475,8 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0.0),
                                                                   child:
                                                                       Container(
-                                                                    child: SelectableText(
+                                                                    child:
+                                                                        SelectableText(
                                                                       '${s["title"]}',
                                                                       style:
                                                                           TextStyle(
@@ -702,7 +702,9 @@ class _DetailPageState extends State<DetailPage> {
                                                                     bottom:
                                                                         0.0),
                                                             child: Text(
-                                                                likeCount.toString()+"人赞同了该回答",
+                                                                likeCount
+                                                                        .toString() +
+                                                                    "人赞同了该回答",
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 15,
@@ -735,7 +737,8 @@ class _DetailPageState extends State<DetailPage> {
                                                               alignment:
                                                                   Alignment
                                                                       .topLeft,
-                                                              child: SelectableText(
+                                                              child:
+                                                                  SelectableText(
                                                                 s["content"],
                                                                 style: TextStyle(
                                                                     fontSize:
@@ -1012,7 +1015,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 .white,
                                                                         fontSize:
                                                                             16.0);
-
                                                                   },
                                                                   decoration: InputDecoration(
                                                                       hintText: '写评论',

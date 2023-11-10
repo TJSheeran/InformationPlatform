@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:tongxinbaike/pages/login/login_page.dart';
-import 'package:tongxinbaike/pages/mytest/locate_test.dart';
+// import 'package:tongxinbaike/pages/mytest/locate_test.dart';
+import 'package:tongxinbaike/pages/mytest/head.dart';
 class NiceplayPage extends StatefulWidget {
   NiceplayPage({Key? key}) : super(key: key);
 

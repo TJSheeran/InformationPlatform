@@ -24,13 +24,13 @@ import 'package:amap_flutter_location/amap_location_option.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 
-
 class RootPage extends StatefulWidget {
   RootPage({Key? key}) : super(key: key);
 
   @override
   State<RootPage> createState() => _RootPageState();
 }
+
 const Map<String, String> _bottomNames = {
   'home': '首页',
   'niceplay': '发现',
@@ -39,9 +39,7 @@ const Map<String, String> _bottomNames = {
   'mine': '我的',
 };
 
-
 class _RootPageState extends State<RootPage> {
-
   Map<String, Object>? _rootResult;
 
   StreamSubscription<Map<String, Object>>? _locationListener;
@@ -60,9 +58,6 @@ class _RootPageState extends State<RootPage> {
 
   //底部导航数组
   final List<BottomNavigationBarItem> _bottomNavigationBarList = [];
-
-
-
 
   @override
   void initState() {
@@ -267,6 +262,7 @@ class _RootPageState extends State<RootPage> {
     //       builder: (BuildContext context) => PublishPage(),
     //     ),
     //     (route) => false);
+
     // _startLocation();
     // if (_rootResult != null) {
     //   _rootResult!.forEach((key, value) {

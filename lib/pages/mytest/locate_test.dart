@@ -5,8 +5,10 @@ import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
-String latitude='';
-String longitude='';
+
+String latitude = '';
+String longitude = '';
+
 class LocatePage extends StatefulWidget {
   @override
   State<LocatePage> createState() => new _LocatePageState();
@@ -22,6 +24,7 @@ class _LocatePageState extends State<LocatePage> {
   @override
   void initState() {
     super.initState();
+
     /// 设置是否已经包含高德隐私政策并弹窗展示显示用户查看，如果未包含或者没有弹窗展示，高德定位SDK将不会工作
     ///
     /// 高德SDK合规使用方案请参考官网地址：https://lbs.amap.com/news/sdkhgsy
@@ -57,8 +60,8 @@ class _LocatePageState extends State<LocatePage> {
     ///Android: https://lbs.amap.com/api/android-location-sdk/guide/create-project/get-key
     ///
     ///iOS: https://lbs.amap.com/api/ios-location-sdk/guide/create-project/get-key
-    // AMapFlutterLocation.setApiKey(
-    //     "anroid ApiKey", "ios ApiKey");
+    AMapFlutterLocation.setApiKey(
+        "c09cad058be13e02f148d7e97e3381d0", "df01282b3778d1b79f022fcd9696a2ee");
 
     ///iOS 获取native精度类型
     if (Platform.isIOS) {
@@ -73,6 +76,8 @@ class _LocatePageState extends State<LocatePage> {
         _locationResult = result;
       });
     });
+
+    _startLocation();
   }
 
   @override
@@ -120,7 +125,7 @@ class _LocatePageState extends State<LocatePage> {
       locationOption.locationMode = AMapLocationMode.Hight_Accuracy;
 
       ///设置iOS端的定位最小更新距离<br>
-      locationOption.distanceFilter = 1;//-1;
+      locationOption.distanceFilter = 1; //-1;
 
       ///设置iOS端期望的定位精度
       /// 可选值：<br>
@@ -165,25 +170,30 @@ class _LocatePageState extends State<LocatePage> {
             new ElevatedButton(
               onPressed: _startLocation,
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(AppColor.bluegreen),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(AppColor.bluegreen),
               ),
               child: new Text('开始定位'),
-
             ),
             new Container(width: 20.0),
             new ElevatedButton(
               onPressed: _stopLocation,
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(AppColor.bluegreen),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(AppColor.bluegreen),
               ),
-              child: new Text('停止定位'), ),
-      new Container(width: 20.0),
-          new ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(AppColor.bluegreen),
+              child: new Text('停止定位'),
             ),
-                onPressed:() {Navigator.of(context).pop();},
-                child: new Text('返回'),
+            new Container(width: 20.0),
+            new ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(AppColor.bluegreen),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: new Text('返回'),
             )
           ],
         ));
@@ -197,14 +207,18 @@ class _LocatePageState extends State<LocatePage> {
             alignment: Alignment.centerLeft,
             width: 100.0,
             height: 20.0,
-            child: new Text('$key :',style: TextStyle(fontSize: 15),),
+            child: new Text(
+              '$key :',
+              style: TextStyle(fontSize: 15),
+            ),
           ),
           new Container(width: 2.0),
           new Container(
               alignment: Alignment.centerLeft,
-              width: 320.0,
+              width: 220.0,
               height: 20.0,
-              child: new Text('$value',style: TextStyle(fontSize: 14),softWrap: true)),
+              child: new Text('$value',
+                  style: TextStyle(fontSize: 14), softWrap: true)),
         ],
       ),
     );
@@ -217,13 +231,10 @@ class _LocatePageState extends State<LocatePage> {
 
     if (_locationResult != null) {
       _locationResult!.forEach((key, value) {
-          widgets.add(_resultWidget(key, value));
+        widgets.add(_resultWidget(key, value));
 
-            if (key=='latitude')
-              latitude='$value';
-            if(key=='longitude')
-              longitude='$value';
-
+        if (key == 'latitude') latitude = '$value';
+        if (key == 'longitude') longitude = '$value';
       });
     }
 
@@ -241,17 +252,17 @@ class _LocatePageState extends State<LocatePage> {
         ),
       ),
     );
-      // new Column(
-      //       crossAxisAlignment: CrossAxisAlignment.start,
-      //       mainAxisSize: MainAxisSize.min,
-      //       children: widgets,
-      //     );
+    // new Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: widgets,
+    //     );
   }
 
   ///获取iOS native的accuracyAuthorization类型
   void requestAccuracyAuthorization() async {
     AMapAccuracyAuthorization currentAccuracyAuthorization =
-    await _locationPlugin.getSystemAccuracyAuthorization();
+        await _locationPlugin.getSystemAccuracyAuthorization();
     if (currentAccuracyAuthorization ==
         AMapAccuracyAuthorization.AMapAccuracyAuthorizationFullAccuracy) {
       print("精确定位类型");
