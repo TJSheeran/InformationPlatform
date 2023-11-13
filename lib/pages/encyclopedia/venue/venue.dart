@@ -124,7 +124,7 @@ class _VenuePageState extends State<VenuePage> {
                             // ),
 
                             Text(
-                              '${s[index]["category2"]}',
+                              '${s[index]["title"]}',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

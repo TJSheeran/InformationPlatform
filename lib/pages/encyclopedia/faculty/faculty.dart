@@ -134,7 +134,7 @@ class _FacultyPageState extends State<FacultyPage> {
                             // ),
 
                             Text(
-                              '${s[index]["category2"]}',
+                              '${s[index]["title"]}',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
