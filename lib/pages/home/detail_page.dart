@@ -25,6 +25,7 @@ class _DetailPageState extends State<DetailPage> {
   bool dataisLiked = false;
   bool isDisLiked = false;
   bool isCollected = false;
+  int tieziuid = 0;
   int likeCount = 6;
   String author = "TJSheeran";
   String avatar =
@@ -396,6 +397,9 @@ class _DetailPageState extends State<DetailPage> {
     }
     if (s['createtime'] != null) {
       this.createtime = s['createtime'];
+    }
+    if (s['uid'] != null) {
+      this.tieziuid = s['uid'];
     }
 
     return FutureBuilder(
@@ -799,7 +803,30 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFF999999),
                                                                     )),
                                                               ),
-
+                                                              if (tieziuid == uid)
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                    left:
+                                                                    10.0,
+                                                                    right:
+                                                                    0.0,
+                                                                    top:
+                                                                    10.0,
+                                                                    bottom:
+                                                                    0.0),
+                                                                child: TextButton(
+                                                                  onPressed: (){},
+                                                                  child:
+                                                                    const Text("删除帖子",
+                                                                    style:
+                                                                    TextStyle(
+                                                                      fontSize:
+                                                                      15,
+                                                                      color: Color(
+                                                                          0xFF999999),
+                                                                    )))
+                                                              ),
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -868,7 +895,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           likeBuilder:
                                                                               (isLiked) {
                                                                             return Icon(
-                                                                              isLiked ? Icons.thumb_down_alt_rounded : Icons.thumb_down_alt_rounded,
+                                                                              isLiked ? Icons.thumb_down_alt_rounded : Icons.thumb_down_alt_outlined,
                                                                               color: isLiked ? AppColor.info : Colors.grey,
                                                                             );
                                                                           },
@@ -1036,7 +1063,7 @@ class _DetailPageState extends State<DetailPage> {
                                                             height: 15,
                                                           ),
                                                           SizedBox(
-                                                              height: 600,
+                                                              height: 550,
                                                               width: 600,
                                                               child: HeaderWidget(
                                                                   snapshot.data[

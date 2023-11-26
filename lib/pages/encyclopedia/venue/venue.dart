@@ -16,19 +16,19 @@ class VenuePage extends StatefulWidget {
 class _VenuePageState extends State<VenuePage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
-  int pagesCount = 5;
+  // int pagesCount = 5;
   String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
-  List<String> tabTitle = ['全部','篮球', '羽毛球', '田径场', '游泳馆', '场地借用'];
+  // List<String> tabTitle = ['全部','篮球', '羽毛球', '田径场', '游泳馆', '场地借用'];
   Future<List>? flist;
 
-  Future<List> _ReadHandle(Tabtitle) async {
-    var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
+  Future<List> _ReadHandle() async {
+    var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "场馆服务", "campus": longitude+','+latitude})
-        :await DioUtil().request("/findbaikeFromDemo",
-        method: DioMethod.post,
-        data: {"category1": "场馆服务", "category2": Tabtitle, "campus": longitude+','+latitude});
+        data: {"category1": "场馆服务", "campus": longitude+','+latitude});
+        // :await DioUtil().request("/findbaikeFromDemo",
+        // method: DioMethod.post,
+        // data: {"category1": "场馆服务", "category2": Tabtitle, "campus": longitude+','+latitude});
     return result;
   }
 
@@ -203,7 +203,7 @@ class _VenuePageState extends State<VenuePage> {
   @override
   void initState() {
     // TODO: implement initState
-    flist = _ReadHandle(tabTitle[0]);
+    flist = _ReadHandle();
     super.initState();
   }
 
@@ -214,76 +214,88 @@ class _VenuePageState extends State<VenuePage> {
             future: flist,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return SafeArea(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: ListView.separated(
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedIndex = index;
-                                  _pageController.jumpToPage(index);
-                                  flist = _ReadHandle(tabTitle[index]);
-                                });
-                              },
-                              child: Container(
-                                child: Row(
-                                  children: [
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      height: (selectedIndex == index) ? 50 : 0,
-                                      width: 5,
-                                      color: AppColor.bluegreen,
-                                    ),
-                                    Expanded(
-                                      child: AnimatedContainer(
-                                        alignment: Alignment.center,
-                                        duration: Duration(milliseconds: 200),
-                                        height: 50,
-                                        color: (selectedIndex == index)
-                                            ? AppColor.bluegreen
-                                                .withOpacity(0.2)
-                                            : Colors.transparent,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 0, horizontal: 5),
-                                          child: Text(
-                                            tabTitle[index],
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w200,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: ((BuildContext context, int index) {
-                            return SizedBox(height: 5);
-                          }),
-                          itemCount: pagesCount),
-                    ),
-                    Expanded(
-                        child: Container(
-                      child: PageView(
-                        controller: _pageController,
-                        children: [
-                          if (snapshot.hasData)
-                            SizedBox(
-                                height: 520,
-                                width: 300,
-                                child: HeaderWidget(snapshot.data)),
-                        ],
-                      ),
-                    ))
-                  ],
-                ),
+                      child: Container(
+                        child: PageView(
+                          controller: _pageController,
+                          children: [
+                            if (snapshot.hasData)
+                              SizedBox(
+                                  height: 520,
+                                  width: 300,
+                                  child: HeaderWidget(snapshot.data)),
+                          ],
+                        ),
+                      )
+                // child: Row(
+                //   children: [
+                //     SizedBox(
+                //       width: 100,
+                //       child: ListView.separated(
+                //           itemBuilder: (BuildContext context, int index) {
+                //             return GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   selectedIndex = index;
+                //                   _pageController.jumpToPage(index);
+                //                   flist = _ReadHandle(tabTitle[index]);
+                //                 });
+                //               },
+                //               child: Container(
+                //                 child: Row(
+                //                   children: [
+                //                     AnimatedContainer(
+                //                       duration: Duration(milliseconds: 200),
+                //                       height: (selectedIndex == index) ? 50 : 0,
+                //                       width: 5,
+                //                       color: AppColor.bluegreen,
+                //                     ),
+                //                     Expanded(
+                //                       child: AnimatedContainer(
+                //                         alignment: Alignment.center,
+                //                         duration: Duration(milliseconds: 200),
+                //                         height: 50,
+                //                         color: (selectedIndex == index)
+                //                             ? AppColor.bluegreen
+                //                                 .withOpacity(0.2)
+                //                             : Colors.transparent,
+                //                         child: Padding(
+                //                           padding: const EdgeInsets.symmetric(
+                //                               vertical: 0, horizontal: 5),
+                //                           child: Text(
+                //                             tabTitle[index],
+                //                             style: TextStyle(
+                //                               fontSize: 18,
+                //                               fontWeight: FontWeight.w200,
+                //                             ),
+                //                           ),
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   ],
+                //                 ),
+                //               ),
+                //             );
+                //           },
+                //           separatorBuilder: ((BuildContext context, int index) {
+                //             return SizedBox(height: 5);
+                //           }),
+                //           itemCount: pagesCount),
+                //     ),
+                //     Expanded(
+                //         child: Container(
+                //       child: PageView(
+                //         controller: _pageController,
+                //         children: [
+                //           if (snapshot.hasData)
+                //             SizedBox(
+                //                 height: 520,
+                //                 width: 300,
+                //                 child: HeaderWidget(snapshot.data)),
+                //         ],
+                //       ),
+                //     ))
+                //   ],
+                // ),
               );
             }));
   }

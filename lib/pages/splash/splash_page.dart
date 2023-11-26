@@ -47,7 +47,7 @@ class SplashPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 15),
                     Text(
-                      "让校园生活不再单调",
+                      "社区校园生活信息一网打尽",
                       textAlign: TextAlign.center,
                       style: Theme.of(Get.context!)
                           .textTheme
@@ -61,7 +61,7 @@ class SplashPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      "探寻未知的一切",
+                      "一切都触手可及",
                       style: TextStyle(color: Colors.grey[200], fontSize: 20),
                       textAlign: TextAlign.center,
                     ),

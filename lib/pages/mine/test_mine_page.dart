@@ -369,7 +369,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               height: 20,
                             ),
                             Text(
-                              '研二  在校',
+                              '已认证用户',
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
