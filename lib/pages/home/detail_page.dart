@@ -169,7 +169,18 @@ class _DetailPageState extends State<DetailPage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
-
+  Future _delete() async {
+    var result = await DioUtil().request("/deleteBaike/"+Get.arguments['id'].toString(),
+        method: DioMethod.delete,
+        data: {});
+    // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
+    //     method: DioMethod.post,
+    //     data: {"category1": "美食休闲", "campus": longitude+','+latitude})
+    //     :await DioUtil().request("/findbaikeFromDemo",
+    //     method: DioMethod.post,
+    //     data: {"category1": "美食休闲", "category2": Tabtitle, "campus": longitude+','+latitude});
+    return result;
+  }
   //点赞
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     // /// send your request here
@@ -816,7 +827,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                     bottom:
                                                                     0.0),
                                                                 child: TextButton(
-                                                                  onPressed: (){},
+                                                                  onPressed: (){_delete();},
                                                                   child:
                                                                     const Text("删除帖子",
                                                                     style:
