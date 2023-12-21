@@ -24,7 +24,7 @@ const List<Tab> _tabs = [
   Tab(text: '场馆服务'),
   Tab(text: '美食休闲'),
   Tab(text: '医疗'),
-  Tab(text: '学院直通'),
+  // Tab(text: '学院直通'),
 ];
 
 class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
@@ -85,7 +85,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
               //DemoPage(title: '猜你喜欢'),
               FoodPlayPage(),
               MedicalPage(),
-              FacultyPage(),
+              // FacultyPage(),
             ],
             controller: _tabController,
           ),

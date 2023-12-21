@@ -590,7 +590,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                               alignment: Alignment
                                                                   .centerLeft,
                                                               child: Text(
-                                                                  '学院'.tr,
+                                                                  '地址'.tr,
                                                                   style:
                                                                       TextStyle(
                                                                     color: AppColor
