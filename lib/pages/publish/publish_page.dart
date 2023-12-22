@@ -215,9 +215,9 @@ class _PublishPageState extends State<PublishPage> {
     }
     Fluttertoast.showToast(
         msg: "发布成功",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 2,
         backgroundColor: Colors.black45,
         textColor: Colors.white,
         fontSize: 16.0);
@@ -364,10 +364,10 @@ class _PublishPageState extends State<PublishPage> {
                                                 Fluttertoast.showToast(
                                                     msg: "发布标题和内容不能为空！",
                                                     toastLength:
-                                                        Toast.LENGTH_SHORT,
+                                                        Toast.LENGTH_LONG,
                                                     gravity:
-                                                        ToastGravity.BOTTOM,
-                                                    timeInSecForIosWeb: 1,
+                                                        ToastGravity.CENTER,
+                                                    timeInSecForIosWeb: 2,
                                                     backgroundColor:
                                                         Colors.black45,
                                                     textColor: Colors.white,

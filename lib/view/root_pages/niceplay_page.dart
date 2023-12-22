@@ -89,6 +89,8 @@ Widget HeaderWidget(List s) {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
+                          Flexible(
+                            child:
                           Text(
                             '${s[index]["title"]}',
                             maxLines: 2,
@@ -98,7 +100,7 @@ Widget HeaderWidget(List s) {
                               fontWeight: FontWeight.w600,
                               color: Colors.black.withOpacity(0.8),
                             ),
-                          ),
+                          ),),
                           Padding(padding: EdgeInsets.only(left: 10)),
                         ],
                       ),
@@ -217,6 +219,7 @@ class _NiceplayPageState extends State<NiceplayPage> {
                     onRefresh: _onRefresh,
                     onLoading: _onLoading,
                     child:  SizedBox(
+                        width: 600,
                                 child: HeaderWidget(snapshot.data)));
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
