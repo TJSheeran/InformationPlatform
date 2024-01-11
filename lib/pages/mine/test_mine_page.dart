@@ -27,7 +27,6 @@ import 'package:dio/dio.dart' as FormDataA;
 // import 'achievement_page.dart';
 // import 'forgot_password_verification_page.dart';
 // import 'settings.dart';
-
 class ProfilePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

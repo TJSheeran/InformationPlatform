@@ -24,7 +24,7 @@ import '../pages/search/search_binding.dart';
 import '../pages/search/search_page.dart';
 import 'package:tongxinbaike/pages/home/classify_page.dart';
 import 'package:tongxinbaike/pages/mytest/locate_test.dart';
-
+import 'package:tongxinbaike/pages/mytest/head.dart';
 abstract class AppPages {
   static final pages = [
     //闪屏页
@@ -76,7 +76,7 @@ abstract class AppPages {
     GetPage(name: Routes.TEST, page: () => TestPage(), binding: TestBinding()),
 
     GetPage(name: Routes.LOCATE, page: () => LocatePage()),
-
+    GetPage(name: Routes.HEAD, page: () =>  RootPageHead()),
     GetPage(
         name: Routes.MODIFY,
         page: () => ModifyInfoPage(),
@@ -119,7 +119,7 @@ abstract class Routes {
   static const SEARCH = "/search";
 
   static const CLASSIFY = "/classify";
-
+  static const HEAD = "/rootpagehead";
   //测试页
   static const TEST = "/test";
   static const LOCATE = "/locate";
