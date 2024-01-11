@@ -239,7 +239,7 @@ class _DetailPageState extends State<DetailPage> {
         );
   }
   Future _delete() async {
-    var result = await DioUtil().request("/deleteBaike/"+Get.arguments['id'].toString(),
+    var result = await DioUtil().request("/disableBaike/"+Get.arguments['id'].toString(),
         method: DioMethod.delete,
         data: {});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
