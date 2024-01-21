@@ -43,7 +43,7 @@ dependencies:
   shared_preferences: ^2.0.7
   get: 4.3.8
   flutter_svg: ^0.22.0
-  fluttertoast: ^8.2.4
+  fluttertoast: ^8.1.1
   auto_animated: any
   modal_bottom_sheet: ^2.0.0
   like_button: ^2.0.5
@@ -54,7 +54,7 @@ dependencies:
   image_picker: ^0.8.7+1
   amap_flutter_location: ^3.0.0
   permission_handler: ^10.3.0
-
+  url_launcher: ^6.1.2
 
 dev_dependencies:
   flutter_test:

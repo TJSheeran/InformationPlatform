@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.demo711">
     <!--访问网络-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -18,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--用于写入缓存数据到扩展存储卡-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-sdk tools:overrideLibrary="io.github.ponnamkarthik.toast.fluttertoast"/>
    <application
         android:label="同心百科"
         android:name="${applicationName}"

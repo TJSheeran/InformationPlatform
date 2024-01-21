@@ -91,7 +91,7 @@ class _RootPageHeadState extends State<RootPageHead> {
       });
     });
 
-    _startLocation();
+    Get.arguments==null?_startLocation():_stopLocation();
   }
 
   _searchHandle() async {
@@ -218,35 +218,54 @@ class _RootPageHeadState extends State<RootPageHead> {
   }
   @override
   Widget build(BuildContext context) {
-    List<Widget> widgets = [];
-
+    var title = Get.arguments;
+    if(title == null)
+    {
     if (_locationResult != null) {
       _locationResult!.forEach((key, value) {
         if (key == 'latitude') latitude = '$value';
         if (key == 'longitude') longitude = '$value';
       });
-    }
-
+    }}
     return Row(
       children: [
-        PopupMenuButton(
-          icon:           Icon(
-    FontAwesomeIcons.locationDot,
-      size: 28,
-      color: AppColor.bluegreen,
-    ),
-        itemBuilder: (BuildContext context){
-      return [
-        PopupMenuItem(child: Text("安亭镇"), onTap: () => {_stopLocation(),longitude = '121.21416',latitude = '31.286012'},),
-        PopupMenuItem(child: Text("南翔镇"), onTap: () => {_stopLocation(),longitude = '121.308228',latitude = '31.291233'},),
-        PopupMenuItem(child: Text("马陆镇"), onTap: () => {_stopLocation(),longitude = '121.28379',latitude = '31.333048'},),
-        PopupMenuItem(child: Text("四平路街道（同济）"), onTap: () => {_stopLocation(),longitude = '121.502085',latitude = '31.282588'},),
-        PopupMenuItem(child: Text("江川路街道（交通大学）"), onTap: () => {_stopLocation(),longitude = '121.436882',latitude = '31.025626'},),
-          PopupMenuItem(child: Text("五角场街道"), onTap: () => {_stopLocation(),longitude = '121.519728',latitude = '31.30507'},),
-        PopupMenuItem(child: Text("使用手机定位"), onTap: () => _startLocation(),),
-      ];
-    },
-    ),
+        TextButton(onPressed:() {Get.toNamed(Routes.LOCATE);},
+          child: Row (
+              children: [
+                Text(title?.isNotEmpty ?? false?title:"定位",
+              style: TextStyle(
+                color: AppColor.bluegreen,
+                fontSize: 16,
+                fontWeight: FontWeight.w600)),
+          Icon(
+          FontAwesomeIcons.locationDot,
+            size: 18,
+            color: AppColor.bluegreen,
+          ),]
+        ),),
+    // Icon(
+    // FontAwesomeIcons.locationDot,
+    //   size: 20,
+    //   color: AppColor.bluegreen,
+    // ),
+    //     PopupMenuButton(
+    //       icon:           Icon(
+    // FontAwesomeIcons.locationDot,
+    //   size: 28,
+    //   color: AppColor.bluegreen,
+    // ),
+    //     itemBuilder: (BuildContext context){
+    //   return [
+    //     PopupMenuItem(child: Text("安亭镇"), onTap: () => {_stopLocation(),longitude = '121.21416',latitude = '31.286012'},),
+    //     PopupMenuItem(child: Text("南翔镇"), onTap: () => {_stopLocation(),longitude = '121.308228',latitude = '31.291233'},),
+    //     PopupMenuItem(child: Text("马陆镇"), onTap: () => {_stopLocation(),longitude = '121.28379',latitude = '31.333048'},),
+    //     PopupMenuItem(child: Text("四平路街道（同济）"), onTap: () => {_stopLocation(),longitude = '121.502085',latitude = '31.282588'},),
+    //     PopupMenuItem(child: Text("江川路街道（交通大学）"), onTap: () => {_stopLocation(),longitude = '121.436882',latitude = '31.025626'},),
+    //       PopupMenuItem(child: Text("五角场街道"), onTap: () => {_stopLocation(),longitude = '121.519728',latitude = '31.30507'},),
+    //     PopupMenuItem(child: Text("使用手机定位"), onTap: () => _startLocation(),),
+    //   ];
+    // },
+    // ),
         Expanded(
           child: TextFormField(
             controller: searchController,

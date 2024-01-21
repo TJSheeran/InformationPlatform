@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/dio_util/news.dart';
@@ -11,6 +12,7 @@ import 'package:tongxinbaike/pages/login/login_page.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
 import 'package:dio/dio.dart' as FormDataA;
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key}) : super(key: key);
@@ -18,7 +20,61 @@ class DetailPage extends StatefulWidget {
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
+class UrlText extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final TextStyle linkStyle;
 
+  UrlText({required this.text, required this.style,required this.linkStyle});
+
+  @override
+  Widget build(BuildContext context) {
+    // 正则表达式匹配网址
+    RegExp exp = RegExp(r'(http|ftp|https)://([\w_-]+(?:\.(?:[\w_-]+))+)([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?');
+    // 创建一个文本组件列表
+    List<TextSpan> spans = [];
+    List<String?> parts = text.split(exp);
+    // 遍历每个部分
+    for (int i = 0; i < parts.length; i++) {
+      String? part = parts[i];
+      // 如果不是网址，创建一个普通的文本组件
+      if (part != null && part.isNotEmpty) {
+        spans.add(TextSpan(
+          text: part,
+          style: style,
+        ));
+      }
+    }
+    // 使用正则表达式匹配文本中的网址
+    Iterable<Match> matches = exp.allMatches(text);
+    // 遍历每个匹配结果
+    for (Match match in matches) {
+      // 获取匹配到的网址
+      String? url = match.group(0);
+      // 创建一个带有点击事件的文本组件
+      spans.add(TextSpan(
+        text: url,
+        style: linkStyle,
+        recognizer: TapGestureRecognizer()
+          ..onTap = () async {
+            // 使用url_launcher插件打开网址
+            if (await canLaunchUrl(Uri.parse(url!))) {
+              await launchUrl(Uri.parse(url));
+            } else {
+              print('Could not launch $url');
+            }
+          },
+      ));
+    }
+    // 将文本分割成网址和非网址的部分
+    // 返回一个富文本组件，包含所有的文本组件列表
+    return RichText(
+      text: TextSpan(
+        children: spans,
+      ),
+    );
+  }
+}
 class _DetailPageState extends State<DetailPage> {
   DetailController detailController = Get.find<DetailController>();
   bool isSubscribed = false;
@@ -144,6 +200,19 @@ class _DetailPageState extends State<DetailPage> {
                 SizedBox(
                   height: 10,
                 ),
+                // UrlText(
+                //   text: s[index]['content'],
+                //   style: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w400,
+                //     color: Colors.black.withOpacity(0.8),
+                //   ),
+                //   linkStyle: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.w400,
+                //     color: Colors.blue.withOpacity(0.8),
+                //   ),
+                // ),
                 Text(
                   s[index]['content'],
                   maxLines: 2,
@@ -170,7 +239,7 @@ class _DetailPageState extends State<DetailPage> {
         );
   }
   Future _delete() async {
-    var result = await DioUtil().request("/deleteBaike/"+Get.arguments['id'].toString(),
+    var result = await DioUtil().request("/disableBaike/"+Get.arguments['id'].toString(),
         method: DioMethod.delete,
         data: {});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
@@ -753,16 +822,33 @@ class _DetailPageState extends State<DetailPage> {
                                                                   Alignment
                                                                       .topLeft,
                                                               child:
-                                                                  SelectableText(
-                                                                s["content"],
+                                                              UrlText(
+                                                                text: s["content"],
                                                                 style: TextStyle(
                                                                     fontSize:
-                                                                        18,
+                                                                    18,
                                                                     color: Colors
                                                                         .black
                                                                         .withOpacity(
-                                                                            0.8)),
-                                                              )),
+                                                                        0.8)),
+                                                                linkStyle: TextStyle(
+                                                                    fontSize:
+                                                                    18,
+                                                                    color: Colors
+                                                                        .blue
+                                                                        .withOpacity(
+                                                                        0.8)),
+                                                              ),),
+                                                              //     SelectableText(
+                                                              //   s["content"],
+                                                              //   style: TextStyle(
+                                                              //       fontSize:
+                                                              //           18,
+                                                              //       color: Colors
+                                                              //           .black
+                                                              //           .withOpacity(
+                                                              //               0.8)),
+                                                              // )),
                                                           Visibility(
                                                               visible:
                                                                   s["picture"] !=
