@@ -1,4 +1,6 @@
+import 'package:tongxinbaike/pages/encyclopedia/life_fun/lifefun.dart';
 import 'package:tongxinbaike/pages/encyclopedia/life_service/life_service.dart';
+import 'package:tongxinbaike/pages/encyclopedia/team/team.dart';
 import 'package:tongxinbaike/pages/mytest/test_demo.dart';
 import 'package:tongxinbaike/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +21,13 @@ class TestPage extends StatefulWidget {
 }
 
 const List<Tab> _tabs = [
-  Tab(text: '生活服务'),
+  Tab(text: '社区服务'),
   Tab(text: '交通出行'),
-  Tab(text: '场馆服务'),
-  Tab(text: '美食休闲'),
-  Tab(text: '医疗'),
+  Tab(text: '美食'),
+  Tab(text: '休闲'),
+  Tab(text: '二手'),
+  Tab(text: '团购'),
+  Tab(text: '组队'),
   // Tab(text: '学院直通'),
 ];
 
@@ -81,10 +85,12 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
               // TestDemoPage(),
               LifeservicePage(),
               TransportationPage(),
+              FoodPlayPage(),
+              LifeFunPage(),
               VenuePage(),
               //DemoPage(title: '猜你喜欢'),
-              FoodPlayPage(),
               MedicalPage(),
+              TeamPage(),
               // FacultyPage(),
             ],
             controller: _tabController,

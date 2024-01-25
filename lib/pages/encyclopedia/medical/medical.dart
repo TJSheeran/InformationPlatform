@@ -25,7 +25,7 @@ class _MedicalPageState extends State<MedicalPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "医疗", "campus": longitude+','+latitude});
+        data: {"category1": "团购", "campus": longitude+','+latitude});
         // :await DioUtil().request("/findbaikeFromDemo",
         // method: DioMethod.post,
         // data: {"category1": "医疗", "category2": Tabtitle, "campus": longitude+','+latitude});

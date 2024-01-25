@@ -16,7 +16,7 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage> {
   Future<List<Mes>> _ReadHandle() async {
     var result = await DioUtil().request(
-      "/comment/"+uid.toString(),
+      "/message/comment/"+uid.toString(),
       method: DioMethod.get,
       //data: {'uid': '1'},
     );

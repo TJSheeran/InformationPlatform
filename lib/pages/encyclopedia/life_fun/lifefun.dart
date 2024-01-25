@@ -6,14 +6,14 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
-class FoodPlayPage extends StatefulWidget {
-  FoodPlayPage({Key? key}) : super(key: key);
+class LifeFunPage extends StatefulWidget {
+  LifeFunPage({Key? key}) : super(key: key);
 
   @override
-  State<FoodPlayPage> createState() => _FoodPlayPageState();
+  State<LifeFunPage> createState() => _LifeFunPageState();
 }
 
-class _FoodPlayPageState extends State<FoodPlayPage> {
+class _LifeFunPageState extends State<LifeFunPage> {
   // int selectedIndex = 0;
   PageController _pageController = PageController();
   // int pagesCount = 4;
@@ -25,7 +25,7 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "美食", "campus": longitude+','+latitude});
+        data: {"category1": "休闲", "campus": longitude+','+latitude});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "美食休闲", "campus": longitude+','+latitude})
@@ -148,8 +148,8 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
                                 radius: 12,
                                 backgroundColor: Color(0xFFCCCCCC),
                                 backgroundImage:
-                                    NetworkImage(avator) //data.userImgUrl),
-                                ),
+                                NetworkImage(avator) //data.userImgUrl),
+                            ),
                             Padding(padding: EdgeInsets.only(left: 8)),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +200,7 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
             ),
           );
         } //使用_cellForRow回调返回每个cell
-        );
+    );
   }
 
   @override
@@ -217,18 +217,18 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
             future: flist,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return SafeArea(
-                        child: Container(
-                      child: PageView(
-                        controller: _pageController,
-                        children: [
-                          if (snapshot.hasData)
-                            SizedBox(
-                                height: 520,
-                                width: 300,
-                                child: HeaderWidget(snapshot.data)),
-                        ],
-                      ),
-                    )
+                  child: Container(
+                    child: PageView(
+                      controller: _pageController,
+                      children: [
+                        if (snapshot.hasData)
+                          SizedBox(
+                              height: 520,
+                              width: 300,
+                              child: HeaderWidget(snapshot.data)),
+                      ],
+                    ),
+                  )
                 // child: Row(
                 //   children: [
                 //     SizedBox(

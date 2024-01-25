@@ -82,7 +82,9 @@ class _DetailPageState extends State<DetailPage> {
   bool isDisLiked = false;
   bool isCollected = false;
   int tieziuid = 0;
-  int likeCount = 6;
+  int likeCount = 0;
+  var listup = [];
+  var listbool = [];
   String author = "TJSheeran";
   String avatar =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
@@ -179,7 +181,7 @@ class _DetailPageState extends State<DetailPage> {
                         radius: 12,
                         backgroundColor: Color(0xFFCCCCCC),
                         backgroundImage:
-                            NetworkImage(avatar) //data.userImgUrl),
+                        NetworkImage(s[index]['picture'])//NetworkImage(avatar) //data.userImgUrl),
                         ),
                     Padding(padding: EdgeInsets.only(left: 8)),
                     SizedBox(
@@ -195,24 +197,34 @@ class _DetailPageState extends State<DetailPage> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    LikeButton(
+                      isLiked:
+                      listbool[index],
+                      likeBuilder:
+                          (isLiked) {
+                        return Icon(
+                          isLiked ? Icons.thumb_up_alt_rounded : Icons.thumb_up_alt_outlined,
+                          color: isLiked ? AppColor.danger : Colors.grey,
+                        );
+                      },
+                      likeCount:
+                      listup[index],
+                      onTap:
+                          (isLiked) {
+                        return  onLikeCommentTapped(
+                          isLiked,index,s[index]['id']
+                        );
+                      },
+                    ),
                   ],
+
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                // UrlText(
-                //   text: s[index]['content'],
-                //   style: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.w400,
-                //     color: Colors.black.withOpacity(0.8),
-                //   ),
-                //   linkStyle: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.w400,
-                //     color: Colors.blue.withOpacity(0.8),
-                //   ),
-                // ),
                 Text(
                   s[index]['content'],
                   maxLines: 2,
@@ -249,6 +261,50 @@ class _DetailPageState extends State<DetailPage> {
     //     method: DioMethod.post,
     //     data: {"category1": "美食休闲", "category2": Tabtitle, "campus": longitude+','+latitude});
     return result;
+  }
+  Future<bool> onLikeCommentTapped(bool isLiked,int index, int commentid) async {
+    setState(() {
+      listbool[index] = !isLiked;
+      listup[index] = listbool[index]
+          ? listbool[index]
+          ? listup[index] + 1
+          : listup[index]
+          : listbool[index]
+          ? listup[index]
+          : listup[index] - 1;
+    });
+    if (!isLiked) {
+      var formData = FormDataA.FormData.fromMap({
+        "commentid": commentid.toString(),"userid": uid
+      });
+      var result = await DioUtil()
+          .request("/likecomment", method: DioMethod.post, data: formData);
+      if (result["info"] == "点赞成功")
+        Fluttertoast.showToast(
+            msg: "点赞成功",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black45,
+            textColor: Colors.white,
+            fontSize: 16.0);
+    } else {
+      var formData = FormDataA.FormData.fromMap({
+        "commentid": commentid.toString(),"userid": uid
+      });
+      var result = await DioUtil()
+          .request("/dellikecomment", method: DioMethod.post, data: formData);
+      if (result["info"] == "点赞已取消")
+        Fluttertoast.showToast(
+            msg: "点赞已取消",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.black45,
+            textColor: Colors.white,
+            fontSize: 16.0);
+    }
+    return listbool[index];
   }
   //点赞
   Future<bool> onLikeButtonTapped(bool isLiked) async {
@@ -454,6 +510,10 @@ class _DetailPageState extends State<DetailPage> {
     dataisLiked = result[0]["isliked"];
     isDisLiked = result[0]["ishated"];
     likeCount = result[0]["likenum"];
+    result[0]["commentList"].forEach((x){
+      listup.add(x['clcount']);
+      listbool.add(x['islike']== 0 ? false : true);
+    });
     //data: {"userid": 1, "tieziid": 1});
     return result;
   }
@@ -873,6 +933,52 @@ class _DetailPageState extends State<DetailPage> {
                                                                 ],
                                                               )),
                                                           SizedBox(height: 15),
+                                                          if(snapshot.data[0]['commentList'].isNotEmpty)
+                                                          Container(
+                                                            constraints: new BoxConstraints.expand(
+                                                              height: 100.0,
+                                                            ),
+                                                            decoration: new BoxDecoration(
+                                                              border: new Border.all(width: 2.0, color: Colors.blueAccent),
+                                                              borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
+                                                            ),
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            alignment: Alignment.topLeft,
+                                                            child:Column(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Icon(Icons.child_care,
+                                                                    color: Colors.blueAccent,),
+                                                                  new Text('智能AI助手帮您整理了回答：',style: TextStyle(
+                                                                    fontFamily: 'Roboto',
+                                                                    fontSize: 16.0,
+                                                                    color: Colors.blueAccent.withOpacity(
+                                                                        0.8),
+                                                                  ),)
+                                                                ],
+                                                              ),
+                                                              UrlText(
+                                                                text: s["content"],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    15,
+                                                                    color: Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                        0.8)),
+                                                                linkStyle: TextStyle(
+                                                                    fontSize:
+                                                                    18,
+                                                                    color: Colors
+                                                                        .blue
+                                                                        .withOpacity(
+                                                                        0.8)),
+                                                              ),
+                                                            ])
+                                                          ),
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -900,30 +1006,30 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFF999999),
                                                                     )),
                                                               ),
-                                                              if (tieziuid == uid)
-                                                              Container(
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                    left:
-                                                                    10.0,
-                                                                    right:
-                                                                    0.0,
-                                                                    top:
-                                                                    10.0,
-                                                                    bottom:
-                                                                    0.0),
-                                                                child: TextButton(
-                                                                  onPressed: (){_delete();},
-                                                                  child:
-                                                                    const Text("删除帖子",
-                                                                    style:
-                                                                    TextStyle(
-                                                                      fontSize:
-                                                                      15,
-                                                                      color: Color(
-                                                                          0xFF999999),
-                                                                    )))
-                                                              ),
+                                                              // if (tieziuid == uid)
+                                                              // Container(
+                                                              //   margin: EdgeInsets
+                                                              //       .only(
+                                                              //       left:
+                                                              //       10.0,
+                                                              //       right:
+                                                              //       0.0,
+                                                              //       top:
+                                                              //       10.0,
+                                                              //       bottom:
+                                                              //       0.0),
+                                                              //   child: TextButton(
+                                                              //     onPressed: (){_delete();},
+                                                              //     child:
+                                                              //       const Text("删除",
+                                                              //       style:
+                                                              //       TextStyle(
+                                                              //         fontSize:
+                                                              //         15,
+                                                              //         color: Color(
+                                                              //             0xFF999999),
+                                                              //       )))
+                                                              // ),
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(

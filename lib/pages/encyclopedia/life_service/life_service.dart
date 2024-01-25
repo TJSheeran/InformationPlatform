@@ -25,7 +25,7 @@ class _LifeservicePageState extends State<LifeservicePage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "生活服务", "campus": longitude+','+latitude});
+        data: {"category1": "社区服务", "campus": longitude+','+latitude});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "生活服务", "campus": longitude+','+latitude})
