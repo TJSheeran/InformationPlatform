@@ -47,7 +47,59 @@ class _MessagePageState extends State<MessagePage> {
   @override
   Widget build(BuildContext context) {
     //initState();
-    return Scaffold(
+      return Scaffold(
+          backgroundColor: AppColor.page,
+          appBar: AppBar(
+            title: Text(
+              "我的消息",
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            elevation: 0.5,
+            iconTheme: IconThemeData(color: Colors.white),
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                color: AppColor.bluegreen,
+              ),
+            ),
+            actions: [
+              Container(
+                margin: EdgeInsets.only(
+                  top: 14,
+                  right: 16,
+                ),
+                child: Stack(
+                  children: <Widget>[
+                    Icon(
+                      Icons.notifications,
+                      size: 30,
+                    ),
+                    Positioned(
+                      right: 0,
+                      child: Container(
+                        padding: EdgeInsets.all(1),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        constraints: BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          '6',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
       // floatingActionButton: floatButton,
       // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         body: FutureBuilder(

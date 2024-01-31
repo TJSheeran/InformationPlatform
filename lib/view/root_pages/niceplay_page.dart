@@ -56,8 +56,8 @@ Widget HeaderWidget(List s) {
       itemCount: s.length, //告诉ListView总共有多少个cell
       itemBuilder: (BuildContext context, int index) {
         String avator = defaultAvator;
-        if (s[index]['picture'] != null) {
-          avator = s[index]['picture'];
+        if (s[index]['baikeAuthorPic'] != null) {
+          avator = s[index]['baikeAuthorPic'];
         }
         return Container(
           margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -204,7 +204,69 @@ class _NiceplayPageState extends State<NiceplayPage> {
   }
 
   Widget build(BuildContext context) {
+
     return Scaffold(
+        backgroundColor: AppColor.page,
+        appBar: AppBar(
+          title: Text(
+            "发现帖子",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          elevation: 0.5,
+          iconTheme: IconThemeData(color: Colors.white),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              color: AppColor.bluegreen,
+              // gradient: LinearGradient(
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //     colors: <Color>[
+              //   Theme.of(context).primaryColor,
+              //   Theme.of(context).accentColor,
+              // ]
+
+              // )
+            ),
+          ),
+          actions: [
+            Container(
+              margin: EdgeInsets.only(
+                top: 14,
+                right: 16,
+              ),
+              child: Stack(
+                children: <Widget>[
+                  Icon(
+                    Icons.notifications,
+                    size: 30,
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        '6',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       // floatingActionButton: floatButton,
       // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         body:FutureBuilder(

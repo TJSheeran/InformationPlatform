@@ -661,64 +661,65 @@ class _PublishPageState extends State<PublishPage> {
                                                             ),
                                                     ),
                                                   ),
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: 20),
-                                                      child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [])),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: 5.0,
-                                                        bottom: 0.0),
-                                                    child: Text('一级目录 (可选)'.tr,
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppColor.active,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        )),
-                                                  ),
-                                                  Container(
-                                                      width: double.infinity,
-                                                      margin: EdgeInsets.only(
-                                                          top: 15.0,
-                                                          left: 10.0,
-                                                          right: 0.0),
-                                                      // color: Colors.red,
-                                                      child:
-                                                          _renderFirstLevel()),
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 10.0,
-                                                        right: 10.0,
-                                                        top: 15.0,
-                                                        bottom: 0.0),
-                                                    child: Text('二级目录 (可选)'.tr,
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppColor.active,
-                                                          fontSize: 18.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        )),
-                                                  ),
-                                                  Container(
-                                                      width: double.infinity,
-                                                      margin: EdgeInsets.only(
-                                                          top: 15.0,
-                                                          left: 10.0,
-                                                          right: 0.0),
-                                                      // color: Colors.red,
-                                                      child:
-                                                          _renderSecondLevel()),
+                                                //   Container(
+                                                //       margin: EdgeInsets.only(
+                                                //           top: 20),
+                                                //       child: Column(
+                                                //           crossAxisAlignment:
+                                                //               CrossAxisAlignment
+                                                //                   .start,
+                                                //           children: [])),
+                                                //   Container(
+                                                //     margin: EdgeInsets.only(
+                                                //         left: 10.0,
+                                                //         right: 10.0,
+                                                //         top: 5.0,
+                                                //         bottom: 0.0),
+                                                //     child: Text('一级目录 (可选)'.tr,
+                                                //         style: TextStyle(
+                                                //           color:
+                                                //               AppColor.active,
+                                                //           fontSize: 18.0,
+                                                //           fontWeight:
+                                                //               FontWeight.w600,
+                                                //         )),
+                                                //   ),
+                                                //   Container(
+                                                //       width: double.infinity,
+                                                //       margin: EdgeInsets.only(
+                                                //           top: 15.0,
+                                                //           left: 10.0,
+                                                //           right: 0.0),
+                                                //       // color: Colors.red,
+                                                //       child:
+                                                //           _renderFirstLevel()),
+                                                //   Container(
+                                                //     margin: EdgeInsets.only(
+                                                //         left: 10.0,
+                                                //         right: 10.0,
+                                                //         top: 15.0,
+                                                //         bottom: 0.0),
+                                                //     child: Text('二级目录 (可选)'.tr,
+                                                //         style: TextStyle(
+                                                //           color:
+                                                //               AppColor.active,
+                                                //           fontSize: 18.0,
+                                                //           fontWeight:
+                                                //               FontWeight.w600,
+                                                //         )),
+                                                //   ),
+                                                //   Container(
+                                                //       width: double.infinity,
+                                                //       margin: EdgeInsets.only(
+                                                //           top: 15.0,
+                                                //           left: 10.0,
+                                                //           right: 0.0),
+                                                //       // color: Colors.red,
+                                                //       child:
+                                                //           _renderSecondLevel()),
                                                 ],
-                                              ))
+                                              )
+                            )
                                         ],
                                       ),
                                     )

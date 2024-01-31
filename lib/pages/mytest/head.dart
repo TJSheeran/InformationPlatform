@@ -94,6 +94,17 @@ class _RootPageHeadState extends State<RootPageHead> {
     Get.arguments==null?_startLocation():_stopLocation();
   }
 
+  Future<String> _locatehandle() async {
+    var result = await DioUtil().request(
+      "/getAddress/"+longitude+','+latitude,
+      method: DioMethod.get,
+      //data: {'uid': '1'},
+    );
+    // List<Mes> act=[];
+    // act.add(Mes("用户名","回复时间","回复内容",1,"原帖内容"));
+    return result;
+  }
+
   _searchHandle() async {
     var content = searchController.text;
     if (content == '') {
@@ -232,11 +243,30 @@ class _RootPageHeadState extends State<RootPageHead> {
         TextButton(onPressed:() {Get.toNamed(Routes.LOCATE);},
           child: Row (
               children: [
-                Text(title?.isNotEmpty ?? false?title:"定位",
-              style: TextStyle(
-                color: AppColor.bluegreen,
-                fontSize: 16,
-                fontWeight: FontWeight.w600)),
+                FutureBuilder<String>(
+                  future: _locatehandle(), // 假设这是一个异步方法，返回一个Future<String>
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return
+                        Text(snapshot.data!,
+                      style: TextStyle(
+                        color: AppColor.bluegreen,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600));// 数据加载完成，显示数据或错误信息
+                    } else {
+                      return Text("定位",
+                          style: TextStyle(
+                              color: AppColor.bluegreen,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600)); // 数据加载中，显示进度指示器
+                    }
+                  },
+                ),
+              //   Text(title?.isNotEmpty ?? false?title:"定位",
+              // style: TextStyle(
+              //   color: AppColor.bluegreen,
+              //   fontSize: 16,
+              //   fontWeight: FontWeight.w600)),
           Icon(
           FontAwesomeIcons.locationDot,
             size: 18,
@@ -388,4 +418,3 @@ class _RootPageHeadState extends State<RootPageHead> {
 
 
 
-  

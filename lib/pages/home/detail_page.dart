@@ -181,7 +181,7 @@ class _DetailPageState extends State<DetailPage> {
                         radius: 12,
                         backgroundColor: Color(0xFFCCCCCC),
                         backgroundImage:
-                        NetworkImage(s[index]['picture'])//NetworkImage(avatar) //data.userImgUrl),
+                        NetworkImage(s[index]['commnetauthorpic'])//NetworkImage(avatar) //data.userImgUrl),
                         ),
                     Padding(padding: EdgeInsets.only(left: 8)),
                     SizedBox(
@@ -511,7 +511,7 @@ class _DetailPageState extends State<DetailPage> {
     isDisLiked = result[0]["ishated"];
     likeCount = result[0]["likenum"];
     result[0]["commentList"].forEach((x){
-      listup.add(x['clcount']);
+      listup.add(x['likecount']);
       listbool.add(x['islike']== 0 ? false : true);
     });
     //data: {"userid": 1, "tieziid": 1});
@@ -678,27 +678,27 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 Color(0xFF999999),
                                                                           )),
                                                                     ),
-                                                                    Container(
-                                                                      margin: EdgeInsets.only(
-                                                                          left:
-                                                                              0.0,
-                                                                          right:
-                                                                              0.0,
-                                                                          top:
-                                                                              10.0,
-                                                                          bottom:
-                                                                              0.0),
-                                                                      child: Text(
-                                                                          s[
-                                                                              "category2"],
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                15,
-                                                                            color:
-                                                                                Color(0xFF999999),
-                                                                          )),
-                                                                    ),
+                                                                    // Container(
+                                                                    //   margin: EdgeInsets.only(
+                                                                    //       left:
+                                                                    //           0.0,
+                                                                    //       right:
+                                                                    //           0.0,
+                                                                    //       top:
+                                                                    //           10.0,
+                                                                    //       bottom:
+                                                                    //           0.0),
+                                                                    //   child: Text(
+                                                                    //       s[
+                                                                    //           "category2"],
+                                                                    //       style:
+                                                                    //           TextStyle(
+                                                                    //         fontSize:
+                                                                    //             15,
+                                                                    //         color:
+                                                                    //             Color(0xFF999999),
+                                                                    //       )),
+                                                                    // ),
                                                                   ],
                                                                 ),
                                                               ],
@@ -777,17 +777,17 @@ class _DetailPageState extends State<DetailPage> {
                                                                         Padding(
                                                                             padding:
                                                                                 EdgeInsets.only(top: 2)),
-                                                                        Text(
-                                                                          s["campus"],
-                                                                          //data.description,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                15,
-                                                                            color:
-                                                                                Color(0xFF999999),
-                                                                          ),
-                                                                        ),
+                                                                        // Text(
+                                                                        //   s["campus"],
+                                                                        //   //data.description,
+                                                                        //   style:
+                                                                        //       TextStyle(
+                                                                        //     fontSize:
+                                                                        //         15,
+                                                                        //     color:
+                                                                        //         Color(0xFF999999),
+                                                                        //   ),
+                                                                        // ),
                                                                       ],
                                                                     ),
                                                                   ],
@@ -911,7 +911,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               // )),
                                                           Visibility(
                                                               visible:
-                                                                  s["picture"] !=
+                                                                  s["baikePic"] !=
                                                                       null,
                                                               child: Row(
                                                                 mainAxisAlignment:
@@ -939,7 +939,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               height: 100.0,
                                                             ),
                                                             decoration: new BoxDecoration(
-                                                              border: new Border.all(width: 2.0, color: Colors.blueAccent),
+                                                              border: new Border.all(width: 2.0, color: AppColor.bluegreen),
                                                               borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
                                                             ),
                                                             padding: const EdgeInsets.all(8.0),
@@ -951,12 +951,11 @@ class _DetailPageState extends State<DetailPage> {
                                                               Row(
                                                                 children: [
                                                                   Icon(Icons.child_care,
-                                                                    color: Colors.blueAccent,),
+                                                                    color: AppColor.bluegreen,),
                                                                   new Text('智能AI助手帮您整理了回答：',style: TextStyle(
                                                                     fontFamily: 'Roboto',
                                                                     fontSize: 16.0,
-                                                                    color: Colors.blueAccent.withOpacity(
-                                                                        0.8),
+                                                                    color: AppColor.bluegreen,
                                                                   ),)
                                                                 ],
                                                               ),

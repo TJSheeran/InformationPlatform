@@ -58,7 +58,7 @@ class MessageCard extends StatelessWidget {
                   radius: 20,
                   backgroundColor: Color(0xFFCCCCCC),
                   backgroundImage: NetworkImage(
-                      "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
+                    data.userImgUrl!)// "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg") //data.userImgUrl),
               ),
               Padding(padding: EdgeInsets.only(left: 8)),
               Column(
