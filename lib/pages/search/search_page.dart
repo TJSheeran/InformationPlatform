@@ -94,7 +94,7 @@ Widget HeaderWidget(List s) {
                       Row(
                         children: <Widget>[
                           Text(
-                            '${s[index]["category2"]}',
+                            '${s[index]["title"]}',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -263,10 +263,19 @@ class _SearchPageState extends State<SearchPage> {
                     child: PageView(
                       children: [
                         if (snapshot.hasData)
+                          if(snapshot.data.length!=0)
                           SizedBox(
                               height: 520,
                               width: 300,
                               child: HeaderWidget(snapshot.data))
+                        else
+              Text(
+              "暂时没找到相关内容",
+              style: TextStyle(
+              fontSize: 50,
+              fontWeight: FontWeight.bold,
+              color:Colors.black.withOpacity(0.8),
+              ),)
                       ],
                     ),
                   )

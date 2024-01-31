@@ -72,8 +72,8 @@ class _TeamPageState extends State<TeamPage> {
         itemCount: s.length, //告诉ListView总共有多少个cell
         itemBuilder: (BuildContext context, int index) {
           String avator = defaultAvator;
-          if (s[index]['userpic'] != null) {
-            avator = s[index]['userpic'];
+          if (s[index]['baikeAuthorPic'] != null) {
+            avator = s[index]['baikeAuthorPic'];
           }
           return Container(
             margin: EdgeInsets.fromLTRB(10, 10, 10, 0),

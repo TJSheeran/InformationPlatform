@@ -960,7 +960,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                 ],
                                                               ),
                                                               UrlText(
-                                                                text: s["content"],
+                                                                text: snapshot.data[0]["airesult"],
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                     15,
