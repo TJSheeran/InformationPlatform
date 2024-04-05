@@ -25,6 +25,7 @@ import '../pages/search/search_page.dart';
 import 'package:tongxinbaike/pages/home/classify_page.dart';
 import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+
 abstract class AppPages {
   static final pages = [
     //闪屏页
@@ -125,4 +126,5 @@ abstract class Routes {
   static const LOCATE = "/locate";
   //个人信息修改页
   static const MODIFY = "/modify";
+
 }

@@ -234,36 +234,36 @@ class _NiceplayPageState extends State<NiceplayPage> {
                 top: 14,
                 right: 16,
               ),
-              child: Stack(
-                children: <Widget>[
-                  Icon(
-                    Icons.notifications,
-                    size: 30,
-                  ),
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      constraints: BoxConstraints(
-                        minWidth: 14,
-                        minHeight: 14,
-                      ),
-                      child: Text(
-                        '6',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              // child: Stack(
+              //   children: <Widget>[
+              //     Icon(
+              //       Icons.notifications,
+              //       size: 30,
+              //     ),
+              //     Positioned(
+              //       right: 0,
+              //       child: Container(
+              //         padding: EdgeInsets.all(1),
+              //         decoration: BoxDecoration(
+              //           color: Colors.red,
+              //           borderRadius: BorderRadius.circular(6),
+              //         ),
+              //         constraints: BoxConstraints(
+              //           minWidth: 14,
+              //           minHeight: 14,
+              //         ),
+              //         child: Text(
+              //           '6',
+              //           style: TextStyle(
+              //             color: Colors.white,
+              //             fontSize: 12,
+              //           ),
+              //           textAlign: TextAlign.center,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
             )
           ],
         ),

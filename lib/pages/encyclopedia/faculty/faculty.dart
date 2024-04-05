@@ -1,3 +1,5 @@
+import 'package:flutter_floating/floating/assist/floating_slide_type.dart';
+import 'package:flutter_floating/floating_increment.dart';
 import 'package:get/get.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:flutter_floating/floating/floating.dart';
 
 class FacultyPage extends StatefulWidget {
   FacultyPage({Key? key}) : super(key: key);
@@ -35,7 +38,7 @@ class _FacultyPageState extends State<FacultyPage> {
   // Future<List> _ReadHandle(Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "学院直通", "campus": longitude+','+latitude});
+        data: {"category1": "吐槽", "campus": longitude+','+latitude});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "学院直通", "campus": longitude+','+latitude})

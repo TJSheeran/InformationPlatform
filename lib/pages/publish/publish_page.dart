@@ -21,7 +21,9 @@ import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'package:tongxinbaike/pages/root/root_page.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
-
+import 'package:flutter_floating/floating/assist/floating_slide_type.dart';
+import 'package:flutter_floating/floating/floating.dart';
+import 'package:flutter_floating/floating_increment.dart';
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
 
@@ -30,6 +32,7 @@ class PublishPage extends StatefulWidget {
 }
 
 class _PublishPageState extends State<PublishPage> {
+  // late Floating floating;
   String? firstLevelLabel;
   String? secondLevelLabel;
   List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
@@ -56,90 +59,90 @@ class _PublishPageState extends State<PublishPage> {
     ),
   );
 
-  Widget? _renderFirstLevel() {
-    return Wrap(
-        direction: Axis.horizontal,
-        alignment: WrapAlignment.start,
-        spacing: 16.0,
-        runAlignment: WrapAlignment.start,
-        runSpacing: 16.0,
-        children: defaultFirstLevel
-            .map(
-              (e) => InkWell(
-                  onTap: () {
-                    setState(() {
-                      firstLevelLabel = e;
-                      defaultSecondLevel = levelMap[e]!;
-                    });
-
-                    // if (personFocusNode.hasFocus) {
-                    //   personFocusNode.unfocus();
-                    // }
-
-                    firstLevelController.text = "";
-                  },
-                  child: Container(
-                      width: 80,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          color: firstLevelLabel == e
-                              ? AppColor.green
-                              : Color.fromRGBO(240, 240, 240, 1),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      alignment: Alignment.center,
-                      child: Text(e.toString(),
-                          style: TextStyle(
-                              color: firstLevelLabel == e
-                                  ? Colors.white
-                                  : AppColor.active,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500)))),
-            )
-            .toList());
-  }
-
-  Widget? _renderSecondLevel() {
-    return Wrap(
-        direction: Axis.horizontal,
-        alignment: WrapAlignment.start,
-        spacing: 16.0,
-        runAlignment: WrapAlignment.start,
-        runSpacing: 16.0,
-        children: defaultSecondLevel
-            .map(
-              (e) => InkWell(
-                  onTap: () {
-                    setState(() {
-                      secondLevelLabel = e;
-                    });
-
-                    // if (personFocusNode.hasFocus) {
-                    //   personFocusNode.unfocus();
-                    // }
-
-                    secondLevelController.text = "";
-                  },
-                  child: Container(
-                      width: 80,
-                      height: 35,
-                      decoration: BoxDecoration(
-                          color: secondLevelLabel == e
-                              ? AppColor.yellow
-                              : Color.fromRGBO(240, 240, 240, 1),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
-                      alignment: Alignment.center,
-                      child: Text(e.toString(),
-                          style: TextStyle(
-                              color: secondLevelLabel == e
-                                  ? Colors.white
-                                  : AppColor.active,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.w500)))),
-            )
-            .toList());
-  }
+  // Widget? _renderFirstLevel() {
+  //   return Wrap(
+  //       direction: Axis.horizontal,
+  //       alignment: WrapAlignment.start,
+  //       spacing: 16.0,
+  //       runAlignment: WrapAlignment.start,
+  //       runSpacing: 16.0,
+  //       children: defaultFirstLevel
+  //           .map(
+  //             (e) => InkWell(
+  //                 onTap: () {
+  //                   setState(() {
+  //                     firstLevelLabel = e;
+  //                     defaultSecondLevel = levelMap[e]!;
+  //                   });
+  //
+  //                   // if (personFocusNode.hasFocus) {
+  //                   //   personFocusNode.unfocus();
+  //                   // }
+  //
+  //                   firstLevelController.text = "";
+  //                 },
+  //                 child: Container(
+  //                     width: 80,
+  //                     height: 35,
+  //                     decoration: BoxDecoration(
+  //                         color: firstLevelLabel == e
+  //                             ? AppColor.green
+  //                             : Color.fromRGBO(240, 240, 240, 1),
+  //                         borderRadius:
+  //                             BorderRadius.all(Radius.circular(10.0))),
+  //                     alignment: Alignment.center,
+  //                     child: Text(e.toString(),
+  //                         style: TextStyle(
+  //                             color: firstLevelLabel == e
+  //                                 ? Colors.white
+  //                                 : AppColor.active,
+  //                             fontSize: 16.0,
+  //                             fontWeight: FontWeight.w500)))),
+  //           )
+  //           .toList());
+  // }
+  //
+  // Widget? _renderSecondLevel() {
+  //   return Wrap(
+  //       direction: Axis.horizontal,
+  //       alignment: WrapAlignment.start,
+  //       spacing: 16.0,
+  //       runAlignment: WrapAlignment.start,
+  //       runSpacing: 16.0,
+  //       children: defaultSecondLevel
+  //           .map(
+  //             (e) => InkWell(
+  //                 onTap: () {
+  //                   setState(() {
+  //                     secondLevelLabel = e;
+  //                   });
+  //
+  //                   // if (personFocusNode.hasFocus) {
+  //                   //   personFocusNode.unfocus();
+  //                   // }
+  //
+  //                   secondLevelController.text = "";
+  //                 },
+  //                 child: Container(
+  //                     width: 80,
+  //                     height: 35,
+  //                     decoration: BoxDecoration(
+  //                         color: secondLevelLabel == e
+  //                             ? AppColor.yellow
+  //                             : Color.fromRGBO(240, 240, 240, 1),
+  //                         borderRadius:
+  //                             BorderRadius.all(Radius.circular(10.0))),
+  //                     alignment: Alignment.center,
+  //                     child: Text(e.toString(),
+  //                         style: TextStyle(
+  //                             color: secondLevelLabel == e
+  //                                 ? Colors.white
+  //                                 : AppColor.active,
+  //                             fontSize: 16.0,
+  //                             fontWeight: FontWeight.w500)))),
+  //           )
+  //           .toList());
+  // }
 
   Future pickImage() async {
     try {

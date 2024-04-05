@@ -139,7 +139,7 @@ class _RootPageHeadState extends State<RootPageHead> {
     }
   }
 
-  ///设置定位参数
+  ///设置定位参数3
   void _setLocationOption() {
     if (null != _locationPlugin) {
       AMapLocationOption locationOption = new AMapLocationOption();

@@ -33,25 +33,31 @@ class UrlText extends StatelessWidget {
     RegExp exp = RegExp(r'(http|ftp|https)://([\w_-]+(?:\.(?:[\w_-]+))+)([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?');
     // 创建一个文本组件列表
     List<TextSpan> spans = [];
-    List<String?> parts = text.split(exp);
-    // 遍历每个部分
-    for (int i = 0; i < parts.length; i++) {
-      String? part = parts[i];
-      // 如果不是网址，创建一个普通的文本组件
-      if (part != null && part.isNotEmpty) {
-        spans.add(TextSpan(
-          text: part,
-          style: style,
-        ));
-      }
-    }
+    // List<String?> parts = text.split(exp);
+    // // 遍历每个部分
+    // for (int i = 0; i < parts.length; i++) {
+    //   String? part = parts[i];
+    //   // 如果不是网址，创建一个普通的文本组件
+    //   if (part != null && part.isNotEmpty) {
+    //     spans.add(TextSpan(
+    //       text: part,
+    //       style: style,
+    //     ));
+    //   }
+    // }
+    int currentIndex = 0;
     // 使用正则表达式匹配文本中的网址
     Iterable<Match> matches = exp.allMatches(text);
     // 遍历每个匹配结果
     for (Match match in matches) {
       // 获取匹配到的网址
       String? url = match.group(0);
+      final before = text.substring(currentIndex, match.start);
       // 创建一个带有点击事件的文本组件
+      spans.add(TextSpan(
+              text: before,
+              style: style,
+            ));
       spans.add(TextSpan(
         text: url,
         style: linkStyle,
@@ -65,6 +71,10 @@ class UrlText extends StatelessWidget {
             }
           },
       ));
+      currentIndex = match.end;
+    }
+    if (currentIndex < text.length) {
+      spans.add(TextSpan(text: text.substring(currentIndex),style: style));
     }
     // 将文本分割成网址和非网址的部分
     // 返回一个富文本组件，包含所有的文本组件列表
@@ -88,7 +98,7 @@ class _DetailPageState extends State<DetailPage> {
   String author = "TJSheeran";
   String avatar =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
-  String createtime = "2023-03-03 18:36:36";
+  String createtime = "";
   FocusNode commentFocusNode = FocusNode();
   TextEditingController commentController = TextEditingController()
     ..addListener(() {});
@@ -97,33 +107,6 @@ class _DetailPageState extends State<DetailPage> {
     setState(() {
       this.isSubscribed = !isSubscribed;
     });
-    // if (isSubscribed) {
-    //     var result = await DioUtil().request("/follow",
-    //         method: DioMethod.post,
-    //         data: {"userid": uid, "tieziid": Get.arguments['id']});
-    //     if (result["info"] == "关注成功")
-    //       Fluttertoast.showToast(
-    //           msg: "关注成功",
-    //           toastLength: Toast.LENGTH_SHORT,
-    //           gravity: ToastGravity.CENTER,
-    //           timeInSecForIosWeb: 1,
-    //           backgroundColor: Colors.black45,
-    //           textColor: Colors.white,
-    //           fontSize: 16.0);
-    // }
-    // else{
-    //   var result = await DioUtil().request("/delectfollow",
-    //       method: DioMethod.post,
-    //       data: {"userid": uid, "tieziid": Get.arguments['id']});
-    //   Fluttertoast.showToast(
-    //       msg: "取消关注成功",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.black45,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // }
     if (isSubscribed) {
         var formData = FormDataA.FormData.fromMap({
           "userid": uid, "tieziid": Get.arguments['id']
@@ -176,30 +159,30 @@ class _DetailPageState extends State<DetailPage> {
                   height: 10,
                 ),
                 Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment
+                      .spaceBetween,
+                  children: <Widget>[
+                    Row(
                   children: <Widget>[
                     CircleAvatar(
                         radius: 12,
                         backgroundColor: Color(0xFFCCCCCC),
                         backgroundImage:
-                        NetworkImage(s[index]['commnetauthorpic'])//NetworkImage(avatar) //data.userImgUrl),
+                        NetworkImage(s[index]['commnetauthorpic']==null?avatar:s[index]['commnetauthorpic'])//NetworkImage(avatar) //data.userImgUrl),
                         ),
                     Padding(padding: EdgeInsets.only(left: 8)),
-                    SizedBox(
-                      width: 3,
-                    ),
                     Container(
                       child: Text(
                         s[index]['author'],
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: AppColor.bluegreen,
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 30,
-                    ),
+                    ]),
                     LikeButton(
                       isLiked:
                       listbool[index],
@@ -532,8 +515,8 @@ class _DetailPageState extends State<DetailPage> {
     if (s['author'] != null) {
       this.author = s['author'];
     }
-    if (s['userpic'] != null) {
-      this.avatar = s['userpic'];
+    if (s['baikeAuthorPic'] != null) {
+      this.avatar = s['baikeAuthorPic'];
     }
     if (s['createtime'] != null) {
       this.createtime = s['createtime'];
@@ -559,10 +542,6 @@ class _DetailPageState extends State<DetailPage> {
                                     .requestFocus(new FocusNode());
                               },
                               child: Container(
-                                  // color: CupertinoTheme.of(context)
-                                  //     .scaffoldBackgroundColor
-                                  //     .withOpacity(0.1),
-                                  // color: Colors.white.withOpacity(0.1),
                                   child: Stack(
                                 children: [
                                   if (snapshot.hasData)
@@ -587,12 +566,6 @@ class _DetailPageState extends State<DetailPage> {
                                                           left: 10, right: 15),
                                                       padding: EdgeInsets.only(
                                                           left: 0.0, right: 0),
-                                                      // color: Colors.orange,
-                                                      // decoration: BoxDecoration(
-                                                      //     color:
-                                                      //         Color.fromRGBO(240, 240, 240, 1),
-                                                      //     borderRadius: BorderRadius.all(
-                                                      //         Radius.circular(26.0))),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
@@ -678,27 +651,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 Color(0xFF999999),
                                                                           )),
                                                                     ),
-                                                                    // Container(
-                                                                    //   margin: EdgeInsets.only(
-                                                                    //       left:
-                                                                    //           0.0,
-                                                                    //       right:
-                                                                    //           0.0,
-                                                                    //       top:
-                                                                    //           10.0,
-                                                                    //       bottom:
-                                                                    //           0.0),
-                                                                    //   child: Text(
-                                                                    //       s[
-                                                                    //           "category2"],
-                                                                    //       style:
-                                                                    //           TextStyle(
-                                                                    //         fontSize:
-                                                                    //             15,
-                                                                    //         color:
-                                                                    //             Color(0xFF999999),
-                                                                    //       )),
-                                                                    // ),
                                                                   ],
                                                                 ),
                                                               ],
@@ -858,7 +810,7 @@ class _DetailPageState extends State<DetailPage> {
                                                           ),
                                                           SizedBox(height: 16),
                                                           Container(
-                                                              width: 340,
+                                                              // width: 340,
                                                               // height: 180,
                                                               margin: EdgeInsets
                                                                   .only(
@@ -933,7 +885,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                 ],
                                                               )),
                                                           SizedBox(height: 15),
-                                                          if(snapshot.data[0]['commentList'].isNotEmpty)
+                                                          if(snapshot.data[0]['commentList'].isNotEmpty&&snapshot.data[0]["airesult"]!=null)
                                                           Container(
                                                             constraints: new BoxConstraints.expand(
                                                               height: 100.0,

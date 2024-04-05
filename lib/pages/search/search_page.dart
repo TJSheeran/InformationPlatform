@@ -7,6 +7,7 @@ import 'package:tongxinbaike/view/card/pet_card.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart' as FormDataA;
 class SearchPage extends StatefulWidget {
   static String tag = 'Searchpage';
@@ -24,6 +25,25 @@ class SearchPage extends StatefulWidget {
 // }
 String defaultAvator =
     "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
+// _searchHandle() async {
+//   var content = searchController.text;
+//   if (content == '') {
+//     //记得写弹窗组件！！！commonToast.showToast();
+//     Fluttertoast.showToast(
+//         msg: "请输入搜索内容",
+//         toastLength: Toast.LENGTH_SHORT,
+//         gravity: ToastGravity.BOTTOM,
+//         timeInSecForIosWeb: 1,
+//         backgroundColor: Colors.black45,
+//         textColor: Colors.white,
+//         fontSize: 16.0);
+//     return;
+//   } else {
+//     Get.toNamed(Routes.SEARCH, arguments: content);
+//   }
+//   //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
+// }
+
 Widget renderCover() {
   return Stack(
     fit: StackFit.passthrough,
@@ -181,6 +201,9 @@ Widget HeaderWidget(List s) {
 //
 class _SearchPageState extends State<SearchPage> {
   Future<List>? flist;
+  FocusNode searchFocusNode = FocusNode();
+  TextEditingController searchController = TextEditingController(text:Get.arguments)
+    ..addListener(() {});
 
   Future<List> _ReadHandle() async {
     var formData = FormDataA.FormData.fromMap({
@@ -189,6 +212,24 @@ class _SearchPageState extends State<SearchPage> {
     var result = await DioUtil()
              .request("/search", method: DioMethod.post, data: formData);
     return result;
+  }
+  _searchHandle() async {
+    var content = searchController.text;
+    if (content == '') {
+      //记得写弹窗组件！！！commonToast.showToast();
+      Fluttertoast.showToast(
+          msg: "请输入搜索内容",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    } else {
+      Get.toNamed(Routes.SEARCH, arguments: content);
+    }
+    //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
   }
   @override
   void initState(){
@@ -262,20 +303,90 @@ class _SearchPageState extends State<SearchPage> {
                   child: Container(
                     child: PageView(
                       children: [
-                        if (snapshot.hasData)
-                          if(snapshot.data.length!=0)
-                          SizedBox(
-                              height: 520,
-                              width: 300,
-                              child: HeaderWidget(snapshot.data))
-                        else
-              Text(
-              "暂时没找到相关内容",
-              style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              color:Colors.black.withOpacity(0.8),
-              ),)
+                        Column(
+                          children:<Widget>[
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children:<Widget>[
+                                  Expanded(
+                                    child: TextFormField(
+                                      // initialValue: Get.arguments,
+                                      controller: searchController,
+                                      focusNode: searchFocusNode,
+                                      keyboardType: TextInputType.text,
+                                      autofocus: false,
+                                      maxLines: 1,
+                                      decoration: InputDecoration(
+                                          hintText: '输入想搜索的内容',
+                                          // contentPadding:
+                                          //     const EdgeInsets.fromLTRB(
+                                          //         20.0,
+                                          //         5.0,
+                                          //         20.0,
+                                          //         5.0),
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.fromLTRB(16, 16, 0, 0),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(32.0),
+                                              borderSide:
+                                              const BorderSide(color: AppColor.bluegreen, width: 2)),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(32.0))),
+                                    ),
+                                    // flex: 1,
+                                  ),
+                                  InkWell(
+                                      onTap: () {
+                                        _searchHandle();
+                                        //_startLocation();
+                                      },
+                                      child: Container(
+                                        width: 70,
+                                        height: 38,
+                                        margin: EdgeInsets.only(
+                                          left: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: AppColor.bluegreen,
+                                            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "搜  索",
+                                          style: TextStyle(
+                                              color: AppColor.page,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      )),]
+                            ),
+                            if (snapshot.hasData)
+                              if(snapshot.data.length!=0)
+                                SizedBox(
+                                    height: 1000,
+                                    child: HeaderWidget(snapshot.data))
+                              else
+                                Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.search_off,
+                                        size: 80,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(height: 20),
+                                      Text(
+                                        '没有找到搜索内容',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                        ]
+                        )
                       ],
                     ),
                   )
