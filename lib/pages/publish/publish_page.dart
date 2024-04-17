@@ -33,6 +33,7 @@ class PublishPage extends StatefulWidget {
 
 class _PublishPageState extends State<PublishPage> {
   // late Floating floating;
+  bool tucaoState = false;
   String? firstLevelLabel;
   String? secondLevelLabel;
   List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
@@ -178,13 +179,15 @@ class _PublishPageState extends State<PublishPage> {
     });
   }
 
-  imageUpload(String? firstlevel, String? secondlevel, String titletext,
+  imageUpload( String? secondlevel, String titletext,
       String contenttext) async {
     if (image != null) {
       var formData = FormDataA.FormData.fromMap({
         'file': await FormDataA.MultipartFile.fromFile(image!.path,
             filename: "test.jpg"),
-        'category1': firstlevel,
+        if(tucaoState==true)
+          'category1': '吐槽',
+        // 'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
@@ -195,14 +198,16 @@ class _PublishPageState extends State<PublishPage> {
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
     } else {
       var formData = FormDataA.FormData.fromMap({
-        'category1': firstlevel,
+        // 'category1': firstlevel,
+        if(tucaoState==true)
+          'category1': '吐槽',
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
         'content': contenttext,
         'location': longitude + ',' + latitude,
       });
-      print("666666" + longitude + ',' + latitude);
+      // print("666666" + longitude + ',' + latitude);
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
       // Fluttertoast.showToast(
       //     msg: "未上传图片",
@@ -290,7 +295,7 @@ class _PublishPageState extends State<PublishPage> {
                                                       '') {
                                                 Navigator.of(context).pop();
                                                 imageUpload(
-                                                    firstLevelLabel,
+                                                    // firstLevelLabel,
                                                     secondLevelLabel,
                                                     titleController.text,
                                                     contentController.text);
@@ -592,6 +597,60 @@ class _PublishPageState extends State<PublishPage> {
                                                       ),
                                                     ),
                                                   ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                          margin: EdgeInsets.only(
+                                                            top: 2,
+                                                          ),
+                                                          child:
+                                                        Checkbox(
+                                                          value: tucaoState,
+                                                          activeColor: AppColor.bluegreen,
+                                                          checkColor: Colors.white,
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              tucaoState = value!;
+                                                            });
+                                                          },
+                                                        ),
+                                                      ),
+                                                      Text("吐槽贴",
+                                                          style:
+                                                          TextStyle(
+                                                            color: AppColor
+                                                                .active,
+                                                            fontSize:
+                                                            16.0,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w600,
+                                                          )),
+                                                    ],
+                                                  ),
+                                                  // CheckboxListTile(
+                                                  //   value: tucaoState,
+                                                  //   onChanged: (value) {
+                                                  //     setState(() {
+                                                  //       tucaoState = value!;
+                                                  //     });
+                                                  //   },
+                                                  //   title: Text("吐槽贴",
+                                                  //     style:
+                                                  //     TextStyle(
+                                                  //       color: AppColor
+                                                  //           .active,
+                                                  //       fontSize:
+                                                  //       16.0,
+                                                  //       fontWeight:
+                                                  //       FontWeight
+                                                  //           .w600,
+                                                  //     )),
+                                                  //   activeColor: AppColor.bluegreen,
+                                                  //   checkColor: Colors.white,
+                                                  //   secondary: Icon(Icons.hearing),
+                                                  //   contentPadding: EdgeInsets.only(left: 20.0),
+                                                  // ),
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
