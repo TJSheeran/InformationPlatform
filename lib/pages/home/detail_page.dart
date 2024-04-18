@@ -631,26 +631,26 @@ class _DetailPageState extends State<DetailPage> {
                                                                                 Color(0xFF999999),
                                                                           )),
                                                                     ),
-                                                                    Container(
-                                                                      margin: EdgeInsets.only(
-                                                                          left:
-                                                                              3.0,
-                                                                          right:
-                                                                              3.0,
-                                                                          top:
-                                                                              10.0,
-                                                                          bottom:
-                                                                              0.0),
-                                                                      child: Text(
-                                                                          "·",
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                15,
-                                                                            color:
-                                                                                Color(0xFF999999),
-                                                                          )),
-                                                                    ),
+                                                                    // Container(
+                                                                    //   margin: EdgeInsets.only(
+                                                                    //       left:
+                                                                    //           3.0,
+                                                                    //       right:
+                                                                    //           3.0,
+                                                                    //       top:
+                                                                    //           10.0,
+                                                                    //       bottom:
+                                                                    //           0.0),
+                                                                    //   child: Text(
+                                                                    //       "·",
+                                                                    //       style:
+                                                                    //           TextStyle(
+                                                                    //         fontSize:
+                                                                    //             15,
+                                                                    //         color:
+                                                                    //             Color(0xFF999999),
+                                                                    //       )),
+                                                                    // ),
                                                                   ],
                                                                 ),
                                                               ],
@@ -887,14 +887,11 @@ class _DetailPageState extends State<DetailPage> {
                                                           SizedBox(height: 15),
                                                           if(snapshot.data[0]['commentList'].isNotEmpty&&snapshot.data[0]["airesult"]!=null)
                                                           Container(
-                                                            constraints: new BoxConstraints.expand(
-                                                              height: 100.0,
-                                                            ),
                                                             decoration: new BoxDecoration(
                                                               border: new Border.all(width: 2.0, color: AppColor.bluegreen),
                                                               borderRadius: new BorderRadius.all(new Radius.circular(20.0)),
                                                             ),
-                                                            padding: const EdgeInsets.all(8.0),
+                                                            padding: EdgeInsets.only(left: 12.0,top: 10.0,right: 12.0,bottom: 10.0),
                                                             alignment: Alignment.topLeft,
                                                             child:Column(
                                                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -902,7 +899,7 @@ class _DetailPageState extends State<DetailPage> {
                                                             children: [
                                                               Row(
                                                                 children: [
-                                                                  Icon(Icons.child_care,
+                                                                  Icon(Icons.smart_toy,
                                                                     color: AppColor.bluegreen,),
                                                                   new Text('智能AI助手帮您整理了回答：',style: TextStyle(
                                                                     fontFamily: 'Roboto',
@@ -919,14 +916,16 @@ class _DetailPageState extends State<DetailPage> {
                                                                     color: Colors
                                                                         .black
                                                                         .withOpacity(
-                                                                        0.8)),
+                                                                        0.8),
+                                                                    height:1.4),
+
                                                                 linkStyle: TextStyle(
-                                                                    fontSize:
-                                                                    18,
+                                                                    fontSize: 18,
                                                                     color: Colors
                                                                         .blue
                                                                         .withOpacity(
-                                                                        0.8)),
+                                                                        0.8),
+                                                                    height:1.4),
                                                               ),
                                                             ])
                                                           ),
