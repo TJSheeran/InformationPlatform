@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   _loginHandle() async {
     var name = loginController.UsernameController.text;
     var password = loginController.PasswordController.text;
-    if (name == '' || password == '') {
+    if (name == '' ) {
       //记得写弹窗组件！！！commonToast.showToast();
       Fluttertoast.showToast(
           msg: "请输入用户名和密码",

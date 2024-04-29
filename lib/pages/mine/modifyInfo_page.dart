@@ -124,7 +124,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
     futureinfo = await _ReadHandle();
     userNameController.text=  futureinfo?[0]["username"];
     passwordController.text = futureinfo?[0]["password"];
-    campusController.text = futureinfo?[0]["campus"];
+    campusController.text = "嘉定校区";
     if(futureinfo?[0]["birthday"] != null)
     {List<String> datalist=futureinfo?[0]["birthday"].split("/");
     targetDate = DateTime(int.parse(datalist[0]), int.parse(datalist[1]), int.parse(datalist[2]));}
@@ -278,7 +278,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                         child: image != null
                                                             ? Image.file(image!, fit: BoxFit.cover)
                                                             : Image.network(
-                                                          snapshot.data[0]["picture"],
+                                                          snapshot.data[0]["picture"]!=null?snapshot.data[0]["picture"]: "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg",
                                                           fit: BoxFit.cover,
                                                         ),
                                                       )),

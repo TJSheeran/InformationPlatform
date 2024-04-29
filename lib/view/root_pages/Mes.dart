@@ -1,11 +1,15 @@
+
 class Mes{
   String?author;
   String?createtime;
   String?content;
   int?id;
+  bool?isread;
   String?tiezititle;
+  String?tieziContent;
+  int?tieziid;
   String?userImgUrl;
-  Mes(this.author,this.createtime,this.content,this.id,this.tiezititle,this.userImgUrl);
+  Mes(this.author,this.createtime,this.content,this.id,this.isread,this.tiezititle,this.tieziContent,this.tieziid,this.userImgUrl);
 
 }
 List<Mes> convertMes(var received_data)
@@ -15,7 +19,7 @@ List<Mes> convertMes(var received_data)
   for(int i = 0;i < activity.length;i++)
   {
     act.add(Mes(activity[i]['author'],activity[i]['createtime'],activity[i]['content'],
-       activity[i]['id'], activity[i]['tiezititle'],activity[i]['picture']));
+       activity[i]['id'],activity[i]['isread'],activity[i]['tiezititle'],activity[i]['tieziContent'],activity[i]['tieziid'],activity[i]['picture']));
   }
   //print(act[0].name);
   return act;
@@ -23,4 +27,8 @@ List<Mes> convertMes(var received_data)
 void News_print(Mes news)
 {
   print('name:${news.author},date:${news.createtime},text:${news.content},userid:${news.id},label:${news.tiezititle}');
+}
+String StringId(Mes news)
+{
+  return news.id.toString();
 }

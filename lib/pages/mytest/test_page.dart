@@ -32,14 +32,14 @@ class TestPage extends StatefulWidget {
 }
 
 const List<Tab> _tabs = [
+  Tab(text: '吐槽专区'),
   Tab(text: '社区服务'),
-  Tab(text: '交通出行'),
   Tab(text: '美食'),
   Tab(text: '休闲'),
   Tab(text: '二手'),
   Tab(text: '团购'),
   Tab(text: '组队'),
-  Tab(text: '吐槽专区'),
+  Tab(text: '交通出行'),
   // Tab(text: '学院直通'),
 ];
 
@@ -98,7 +98,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
   }
 
   @override
-  void _onCreateMedia() {
+  void onCreateMedia() {
     showBarModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -365,7 +365,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.announcement,color: Colors.black,size: 40,),
             onPressed: ()  {
-              _onCreateMedia();
+              onCreateMedia();
             },
             backgroundColor: AppColor.bluegreen
         ),
@@ -378,15 +378,15 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
             children: [
               // DemoPage(title: "主页"),
               // TestDemoPage(),
+              FacultyPage(),
               LifeservicePage(),
-              TransportationPage(),
               FoodPlayPage(),
               LifeFunPage(),
               VenuePage(),
               //DemoPage(title: '猜你喜欢'),
               MedicalPage(),
               TeamPage(),
-              FacultyPage(),
+              TransportationPage(),
             ],
             controller: _tabController,
           ),

@@ -18,12 +18,14 @@ import '../mine/test_mine_page.dart';
 import '../mytest/test_page.dart';
 import '../publish/publish_page.dart';
 import 'dart:async';
+import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'dart:io';
 import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
-
+import 'package:tongxinbaike/dio_util/dio_method.dart';
+import '../../dio_util/dio_util.dart';
 class RootPage extends StatefulWidget {
   RootPage({Key? key}) : super(key: key);
 
@@ -33,7 +35,7 @@ class RootPage extends StatefulWidget {
 
 const Map<String, String> _bottomNames = {
   'home': '首页',
-  'niceplay': '发现',
+  'niceplay': '推荐',
   'create_media': '',
   'message': '消息',
   'mine': '我的',
@@ -46,7 +48,7 @@ class _RootPageState extends State<RootPage> {
   AMapFlutterLocation _locationPlugin = new AMapFlutterLocation();
 
   //当前选中页索引
-  int _currentIndex = 0;
+  int currentIndex = 0;
   //页面集合
   final List<Widget> _pages = [
     TestPage(),
@@ -120,6 +122,15 @@ class _RootPageState extends State<RootPage> {
   }
 
   @override
+  Future<bool> getMessage() async {
+    var result =
+    await DioUtil().request("message/redpoint/"+uid.toString(), method: DioMethod.get);
+    if(result["data"]["redpoint"]=="true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
   // void dispose() {
   //   super.dispose();
   //
@@ -249,7 +260,7 @@ class _RootPageState extends State<RootPage> {
     }
 
     setState(() {
-      _currentIndex = index;
+      currentIndex = index;
     });
   }
 
@@ -285,10 +296,10 @@ class _RootPageState extends State<RootPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: _pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: _bottomNavigationBarList,
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: _onTabClick,
         type: BottomNavigationBarType.fixed,
       ),

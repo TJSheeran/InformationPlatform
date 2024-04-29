@@ -205,17 +205,15 @@ class _DetailPageState extends State<DetailPage> {
                   ],
 
                 ),
-                SizedBox(
-                  height: 10,
-                ),
                 Text(
                   s[index]['content'],
-                  maxLines: 2,
+                  maxLines: 10,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w400,
                     color: Colors.black.withOpacity(0.8),
+                    height: 1.2,
                   ),
                 ),
                 Container(
@@ -837,6 +835,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               UrlText(
                                                                 text: s["content"],
                                                                 style: TextStyle(
+                                                                    height: 1.4,
                                                                     fontSize:
                                                                     18,
                                                                     color: Colors
@@ -863,8 +862,7 @@ class _DetailPageState extends State<DetailPage> {
                                                               // )),
                                                           Visibility(
                                                               visible:
-                                                                  s["baikePic"] !=
-                                                                      null,
+                                                                  s["baikePic"] != null&&s["baikePic"] !="",
                                                               child: Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
@@ -876,9 +874,8 @@ class _DetailPageState extends State<DetailPage> {
                                                                     alignment:
                                                                         Alignment
                                                                             .center,
-                                                                    child: Image.network(s["picture"] !=
-                                                                            null
-                                                                        ? s["picture"]
+                                                                    child: Image.network(s["baikePic"] != null
+                                                                        ? s["baikePic"]
                                                                         : ""),
                                                                   ),
                                                                   SizedBox(),
