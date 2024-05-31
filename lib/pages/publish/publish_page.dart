@@ -33,8 +33,8 @@ class PublishPage extends StatefulWidget {
 
 class _PublishPageState extends State<PublishPage> {
   // late Floating floating;
-  bool tucaoState = false;
-  String? firstLevelLabel;
+  // bool tucaoState = false;
+  String? firstLevelLabel = defaultTalk[0];
   String? secondLevelLabel;
   List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
 
@@ -59,7 +59,42 @@ class _PublishPageState extends State<PublishPage> {
       color: Color.fromRGBO(240, 240, 240, 1),
     ),
   );
-
+  Widget? _renderLevel() {
+    return Wrap(
+        direction: Axis.horizontal,
+        alignment: WrapAlignment.start,
+        spacing: 16.0,
+        runAlignment: WrapAlignment.start,
+        runSpacing: 16.0,
+        children: defaultTalk
+            .map(
+              (e) => InkWell(
+                  onTap: () {
+                    setState(() {
+                      firstLevelLabel = e;
+                    });
+                    firstLevelController.text = "";
+                  },
+                  child: Container(
+                      width: 80,
+                      height: 35,
+                      decoration: BoxDecoration(
+                          color: firstLevelLabel == e
+                              ? AppColor.bluegreen
+                              : Color.fromRGBO(240, 240, 240, 1),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      alignment: Alignment.center,
+                      child: Text(e.toString(),
+                          style: TextStyle(
+                              color: firstLevelLabel == e
+                                  ? Colors.white
+                                  : AppColor.active,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500)))),
+            )
+            .toList());
+  }
   // Widget? _renderFirstLevel() {
   //   return Wrap(
   //       direction: Axis.horizontal,
@@ -179,15 +214,15 @@ class _PublishPageState extends State<PublishPage> {
     });
   }
 
-  imageUpload( String? secondlevel, String titletext,
+  imageUpload( String? firstlevel,String? secondlevel, String titletext,
       String contenttext) async {
     if (image != null) {
       var formData = FormDataA.FormData.fromMap({
         'file': await FormDataA.MultipartFile.fromFile(image!.path,
             filename: "test.jpg"),
-        if(tucaoState==true)
-          'category1': '吐槽',
-        // 'category1': firstlevel,
+        // if(tucaoState==true)
+        //   'category1': '吐槽',
+        'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
@@ -198,9 +233,9 @@ class _PublishPageState extends State<PublishPage> {
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
     } else {
       var formData = FormDataA.FormData.fromMap({
-        // 'category1': firstlevel,
-        if(tucaoState==true)
-          'category1': '吐槽',
+        'category1': firstlevel,
+        // if(tucaoState==true)
+        //   'category1': '吐槽',
         'category2': secondlevel,
         'title': titletext,
         'uid': uid,
@@ -208,7 +243,7 @@ class _PublishPageState extends State<PublishPage> {
         'location': longitude + ',' + latitude,
       });
       // print("666666" + longitude + ',' + latitude);
-      DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
+      DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);}
       // Fluttertoast.showToast(
       //     msg: "未上传图片",
       //     toastLength:
@@ -220,7 +255,7 @@ class _PublishPageState extends State<PublishPage> {
       //     Colors.black45,
       //     textColor: Colors.white,
       //     fontSize: 16.0);
-    }
+
     Fluttertoast.showToast(
         msg: "发布成功",
         toastLength: Toast.LENGTH_LONG,
@@ -293,9 +328,9 @@ class _PublishPageState extends State<PublishPage> {
                                                   titleController.text != '' &&
                                                   contentController.text !=
                                                       '') {
-                                                Navigator.of(context).pop();
+                                                Get.back(result: true);
                                                 imageUpload(
-                                                    // firstLevelLabel,
+                                                    firstLevelLabel!='吐槽'?null:firstLevelLabel,
                                                     secondLevelLabel,
                                                     titleController.text,
                                                     contentController.text);
@@ -564,7 +599,6 @@ class _PublishPageState extends State<PublishPage> {
                                                         color: AppColor.active,
                                                       ),
                                                       maxLines: 6,
-                                                      minLines: 1,
                                                       onChanged: (text) {
                                                         setState(() {});
                                                       },
@@ -597,37 +631,62 @@ class _PublishPageState extends State<PublishPage> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                          margin: EdgeInsets.only(
-                                                            top: 2,
-                                                          ),
-                                                          child:
-                                                        Checkbox(
-                                                          value: tucaoState,
-                                                          activeColor: AppColor.bluegreen,
-                                                          checkColor: Colors.white,
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              tucaoState = value!;
-                                                            });
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Text("吐槽贴",
-                                                          style:
-                                                          TextStyle(
-                                                            color: AppColor
-                                                                .active,
-                                                            fontSize:
-                                                            16.0,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w600,
-                                                          )),
-                                                    ],
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 10.0,
+                                                        right: 10.0,
+                                                        top: 20.0,
+                                                        bottom: 0.0),
+                                                    child: Text('分区选择'.tr,
+                                                        style: TextStyle(
+                                                          color:
+                                                          AppColor.active,
+                                                          fontSize: 18.0,
+                                                          fontWeight:
+                                                          FontWeight.w600,
+                                                        )),
                                                   ),
+                                                  Container(
+                                                      width: double.infinity,
+                                                      margin: EdgeInsets.only(
+                                                          top: 15.0,
+                                                          left: 10.0,
+                                                          right: 0.0),
+                                                      // color: Colors.red,
+                                                      child:
+                                                      _renderLevel()
+                                                  ),
+                                                  // Row(
+                                                  //   children: [
+                                                      // Container(
+                                                      //     margin: EdgeInsets.only(
+                                                      //       top: 2,
+                                                      //     ),
+                                                      //     child:
+                                                      //   Checkbox(
+                                                      //     value: tucaoState,
+                                                      //     activeColor: AppColor.bluegreen,
+                                                      //     checkColor: Colors.white,
+                                                      //     onChanged: (value) {
+                                                      //       setState(() {
+                                                      //         tucaoState = value!;
+                                                      //       });
+                                                      //     },
+                                                      //   ),
+                                                      // ),
+                                                    //   Text("吐槽贴",
+                                                    //       style:
+                                                    //       TextStyle(
+                                                    //         color: AppColor
+                                                    //             .active,
+                                                    //         fontSize:
+                                                    //         16.0,
+                                                    //         fontWeight:
+                                                    //         FontWeight
+                                                    //             .w600,
+                                                    //       )),
+                                                    // ],
+                                                  // ),
                                                   // CheckboxListTile(
                                                   //   value: tucaoState,
                                                   //   onChanged: (value) {
@@ -723,38 +782,39 @@ class _PublishPageState extends State<PublishPage> {
                                                             ),
                                                     ),
                                                   ),
-                                                //   Container(
-                                                //       margin: EdgeInsets.only(
-                                                //           top: 20),
-                                                //       child: Column(
-                                                //           crossAxisAlignment:
-                                                //               CrossAxisAlignment
-                                                //                   .start,
-                                                //           children: [])),
-                                                //   Container(
-                                                //     margin: EdgeInsets.only(
-                                                //         left: 10.0,
-                                                //         right: 10.0,
-                                                //         top: 5.0,
-                                                //         bottom: 0.0),
-                                                //     child: Text('一级目录 (可选)'.tr,
-                                                //         style: TextStyle(
-                                                //           color:
-                                                //               AppColor.active,
-                                                //           fontSize: 18.0,
-                                                //           fontWeight:
-                                                //               FontWeight.w600,
-                                                //         )),
-                                                //   ),
-                                                //   Container(
-                                                //       width: double.infinity,
-                                                //       margin: EdgeInsets.only(
-                                                //           top: 15.0,
-                                                //           left: 10.0,
-                                                //           right: 0.0),
-                                                //       // color: Colors.red,
-                                                //       child:
-                                                //           _renderFirstLevel()),
+                                                  // Container(
+                                                  //     margin: EdgeInsets.only(
+                                                  //         top: 20),
+                                                  //     child: Column(
+                                                  //         crossAxisAlignment:
+                                                  //             CrossAxisAlignment
+                                                  //                 .start,
+                                                  //         children: [])),
+                                                  // Container(
+                                                  //   margin: EdgeInsets.only(
+                                                  //       left: 10.0,
+                                                  //       right: 10.0,
+                                                  //       top: 5.0,
+                                                  //       bottom: 0.0),
+                                                  //   child: Text('分区选择'.tr,
+                                                  //       style: TextStyle(
+                                                  //         color:
+                                                  //             AppColor.active,
+                                                  //         fontSize: 18.0,
+                                                  //         fontWeight:
+                                                  //             FontWeight.w600,
+                                                  //       )),
+                                                  // ),
+                                                  // Container(
+                                                  //     width: double.infinity,
+                                                  //     margin: EdgeInsets.only(
+                                                  //         top: 15.0,
+                                                  //         left: 10.0,
+                                                  //         right: 0.0),
+                                                  //     // color: Colors.red,
+                                                  //     child:
+                                                  //         _renderLevel()
+                                                  // ),
                                                 //   Container(
                                                 //     margin: EdgeInsets.only(
                                                 //         left: 10.0,

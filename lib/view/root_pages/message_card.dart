@@ -133,7 +133,7 @@ class MessageCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
               Text(
-                    data.tiezititle!,
+                    data.tiezititle==null?"帖子已删除":data.tiezititle!,
                     style:TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class MessageCard extends StatelessWidget {
                   ),
                   SizedBox(height: 3.0),
                   Text(
-                    data.tieziContent!,
+                    data.tieziContent==null?"回复已删除":data.tieziContent!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

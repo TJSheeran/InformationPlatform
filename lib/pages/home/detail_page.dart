@@ -13,6 +13,7 @@ import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key}) : super(key: key);
@@ -143,6 +144,8 @@ class _DetailPageState extends State<DetailPage> {
   Widget HeaderWidget(List s) {
     return ListView.builder(
         itemCount: s.length, //告诉ListView总共有多少个cell
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return Container(
             margin: EdgeInsets.only(top: 0),
@@ -166,7 +169,7 @@ class _DetailPageState extends State<DetailPage> {
                     Row(
                   children: <Widget>[
                     CircleAvatar(
-                        radius: 12,
+                        radius: 15,
                         backgroundColor: Color(0xFFCCCCCC),
                         backgroundImage:
                         NetworkImage(s[index]['commnetauthorpic']==null?avatar:s[index]['commnetauthorpic'])//NetworkImage(avatar) //data.userImgUrl),
@@ -176,13 +179,30 @@ class _DetailPageState extends State<DetailPage> {
                       child: Text(
                         s[index]['author'],
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: AppColor.bluegreen,
                         ),
                       ),
                     ),
                     ]),
+                    Row(
+                    children: <Widget>[
+                      if (s[index]['uid'] == uid)
+                        TextButton(
+                                onPressed: (){
+                                  _deleteComment(s[index]['id']);
+                                  },
+                                child:
+                                const Text("删除评论",
+                                    style:
+                                    TextStyle(
+                                      fontSize:
+                                      15,
+                                      color: Color(
+                                          0xFF999999),
+                                    ))
+                        ),
                     LikeButton(
                       isLiked:
                       listbool[index],
@@ -201,7 +221,7 @@ class _DetailPageState extends State<DetailPage> {
                           isLiked,index,s[index]['id']
                         );
                       },
-                    ),
+                    )]),
                   ],
 
                 ),
@@ -232,16 +252,35 @@ class _DetailPageState extends State<DetailPage> {
         );
   }
   Future _delete() async {
-    var result = await DioUtil().request("/disableBaike/"+Get.arguments['id'].toString(),
+    var result = await DioUtil().request("/deleteBaike/"+Get.arguments['id'].toString(),
         method: DioMethod.delete,
         data: {});
-    // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
-    //     method: DioMethod.post,
-    //     data: {"category1": "美食休闲", "campus": longitude+','+latitude})
-    //     :await DioUtil().request("/findbaikeFromDemo",
-    //     method: DioMethod.post,
-    //     data: {"category1": "美食休闲", "category2": Tabtitle, "campus": longitude+','+latitude});
-    return result;
+    if (result["info"] == "百科删除成功")
+    {
+      Fluttertoast.showToast(
+          msg: "删除成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Get.back(result: true);
+    }
+  }
+  Future _deleteComment(Commentid) async {
+    var result = await DioUtil().request("/delectComment/"+Commentid.toString(),
+        method: DioMethod.get);
+    if (result["info"] == "删除评论成功")
+      Fluttertoast.showToast(
+          msg: "删除评论成功",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black45,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    setState(() { likeinfor = _ReadHandle();});
   }
   Future<bool> onLikeCommentTapped(bool isLiked,int index, int commentid) async {
     setState(() {
@@ -548,8 +587,7 @@ class _DetailPageState extends State<DetailPage> {
                                         right: 0,
                                         top: 20,
                                         bottom: 0,
-                                        child: SingleChildScrollView(
-                                            child: Column(
+                                        child:ListView(
                                           children: [
                                             Container(
                                               width: double.infinity,
@@ -926,6 +964,27 @@ class _DetailPageState extends State<DetailPage> {
                                                               ),
                                                             ])
                                                           ),
+                                                        // Row(
+                                                        //   mainAxisAlignment:
+                                                        //   MainAxisAlignment
+                                                        //       .end,
+                                                        //   children: [
+                                                        //   RatingBar.builder(
+                                                        //     initialRating: 3,
+                                                        //     minRating: 1,
+                                                        //     direction: Axis.horizontal,
+                                                        //     allowHalfRating: true,
+                                                        //     itemCount: 5,
+                                                        //     itemSize:30,
+                                                        //     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                                        //     itemBuilder: (context, _) => Icon(
+                                                        //       Icons.star,
+                                                        //       color: Colors.amber,
+                                                        //     ),
+                                                        //     onRatingUpdate: (rating) {
+                                                        //       print(rating);
+                                                        //     },
+                                                        //   )]),
                                                           Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -953,30 +1012,30 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFF999999),
                                                                     )),
                                                               ),
-                                                              // if (tieziuid == uid)
-                                                              // Container(
-                                                              //   margin: EdgeInsets
-                                                              //       .only(
-                                                              //       left:
-                                                              //       10.0,
-                                                              //       right:
-                                                              //       0.0,
-                                                              //       top:
-                                                              //       10.0,
-                                                              //       bottom:
-                                                              //       0.0),
-                                                              //   child: TextButton(
-                                                              //     onPressed: (){_delete();},
-                                                              //     child:
-                                                              //       const Text("删除",
-                                                              //       style:
-                                                              //       TextStyle(
-                                                              //         fontSize:
-                                                              //         15,
-                                                              //         color: Color(
-                                                              //             0xFF999999),
-                                                              //       )))
-                                                              // ),
+                                                              if (tieziuid == uid)
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                    left:
+                                                                    10.0,
+                                                                    right:
+                                                                    0.0,
+                                                                    top:
+                                                                    10.0,
+                                                                    bottom:
+                                                                    0.0),
+                                                                child: TextButton(
+                                                                  onPressed: (){_delete();},
+                                                                  child:
+                                                                    const Text("删除",
+                                                                    style:
+                                                                    TextStyle(
+                                                                      fontSize:
+                                                                      15,
+                                                                      color: Color(
+                                                                          0xFF999999),
+                                                                    )))
+                                                              ),
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -1159,6 +1218,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                   maxLines: 1,
                                                                   onFieldSubmitted:
                                                                       (value) {
+                                                                        setState(() { likeinfor = _ReadHandle();});
                                                                     DioUtil().request(
                                                                         "/add_comment",
                                                                         method:
@@ -1211,21 +1271,18 @@ class _DetailPageState extends State<DetailPage> {
                                                           ),
                                                           SizedBox(
                                                             height: 15,
-                                                          ),
-                                                          SizedBox(
-                                                              height: 550,
-                                                              width: 600,
-                                                              child: HeaderWidget(
+                                                          ), HeaderWidget(
                                                                   snapshot.data[
                                                                           0][
-                                                                      'commentList'])),
+                                                                      'commentList']),
                                                         ],
                                                       ))
                                                 ],
                                               ),
                                             ),
                                           ],
-                                        )))
+                                        )
+                                        )
                                 ],
                               )))))));
         });

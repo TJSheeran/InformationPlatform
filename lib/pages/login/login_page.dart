@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         textColor: Colors.white,
         fontSize: 16.0);
     if (result['info'] == '登录成功') {
-      Get.toNamed(Routes.ROOT);
+      Get.offNamed(Routes.ROOT);
       uid=result['uid'];
     }
   }

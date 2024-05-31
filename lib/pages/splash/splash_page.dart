@@ -74,7 +74,7 @@ class SplashPage extends StatelessWidget {
                     shape: const StadiumBorder(),
                     color: AppColor.bluegreen,
                     onPressed: () {
-                      Get.toNamed(Routes.LOGIN);
+                      Get.offNamed(Routes.LOGIN);
                     },
                     child: Text(
                       "现 在 开 始",

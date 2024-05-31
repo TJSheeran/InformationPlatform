@@ -18,7 +18,6 @@ final List<String> defaultFirstLevel = [
   "医疗",
   "学院直通"
 ];
-
 //defaultTargetLabels
 
 // final List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室"];
@@ -31,3 +30,7 @@ final levelMap = <String, List<String>>{
   "医 疗": ["医院", "药店", "报销流程", "校医院"],
   "学院直通": ["电信学院", "经管学院", "艺传学院", "材料学院", "交运学院", "机械学院"]
 };
+final List<String> defaultTalk = [
+  "吐槽",
+  "其他"
+];

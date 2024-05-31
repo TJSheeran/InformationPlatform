@@ -38,8 +38,8 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
 
   TextEditingController userNameController =
       new TextEditingController()..addListener(() {});
-  TextEditingController passwordController =
-      new TextEditingController()..addListener(() {});
+  // TextEditingController passwordController =
+  //     new TextEditingController()..addListener(() {});
   TextEditingController campusController =
       new TextEditingController()..addListener(() {});
   TextEditingController birthdayController =
@@ -106,7 +106,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
     }
     await DioUtil()
         .request("/updateUserInfoByid", method: DioMethod.post,
-        data: {"uid": uid, "username": userNameController.text, "password": passwordController.text,
+        data: {"uid": uid, "username": userNameController.text,
                 "birthday": "${targetDate.year.toString()}/${targetDate.month.toString().padLeft(2, '0')}/${targetDate.day.toString().padLeft(2, '0')}",
                 "campus":campusController.text
         });
@@ -123,11 +123,11 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
   Future<void> aAsyncMethod() async {
     futureinfo = await _ReadHandle();
     userNameController.text=  futureinfo?[0]["username"];
-    passwordController.text = futureinfo?[0]["password"];
-    campusController.text = "嘉定校区";
+    // passwordController.text = futureinfo?[0]["password"];
+    campusController.text = futureinfo?[0]["campus"];
     if(futureinfo?[0]["birthday"] != null)
     {List<String> datalist=futureinfo?[0]["birthday"].split("/");
-    targetDate = DateTime(int.parse(datalist[0]), int.parse(datalist[1]), int.parse(datalist[2]));}
+    targetDate = DateTime(int.parse(datalist[0]),int.parse(datalist[1]), int.parse(datalist[2]));}
   }
     // do something async hree
   @override
@@ -230,7 +230,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                       padding: EdgeInsets.only(bottom: 40),
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Container(
                                               margin: EdgeInsets.only(
@@ -245,7 +245,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                               //         Radius.circular(26.0))),
                                               child: Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   // Offstage(
                                                   //     offstage: widget
@@ -317,10 +317,9 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                       margin: EdgeInsets.only(
                                                         left: 10,
                                                       ),
-                                                      child: Column(
+                                                      child: Row(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                            CrossAxisAlignment.start,
                                                         children: [
                                                           Container(
                                                               height: 60,
@@ -339,12 +338,11 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                         FontWeight
                                                                             .w600,
                                                                   ))),
-                                                        ],
-                                                      )),
+
 
                                                   Container(
                                                     width: 368,
-                                                    height: 45,
+                                                    height: 60,
                                                     margin: EdgeInsets.only(
                                                         left: 10),
                                                     decoration: BoxDecoration(
@@ -355,12 +353,13 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                 Radius.circular(
                                                                     5.0))),
                                                     alignment:
-                                                        Alignment.topLeft,
+                                                        Alignment.center,
                                                     child: TextField(
                                                       controller:
                                                           userNameController,
                                                       focusNode:
                                                           userNameFocusNode,
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         fontSize: 18,
                                                         color: AppColor.active,
@@ -399,12 +398,101 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                       ),
                                                     ),
                                                   ),
-
+                                                        ],
+                                                      )),
+                                                  // Container(
+                                                  //     margin: EdgeInsets.only(
+                                                  //       left: 10,
+                                                  //     ),
+                                                  //     child: Column(
+                                                  //       crossAxisAlignment:
+                                                  //           CrossAxisAlignment
+                                                  //               .start,
+                                                  //       children: [
+                                                  //         Container(
+                                                  //             height: 60,
+                                                  //             // color: Colors.orange,
+                                                  //             alignment: Alignment
+                                                  //                 .centerLeft,
+                                                  //             child: Text(
+                                                  //                 '密 码'.tr,
+                                                  //                 style:
+                                                  //                     TextStyle(
+                                                  //                   color: AppColor
+                                                  //                       .active,
+                                                  //                   fontSize:
+                                                  //                       18.0,
+                                                  //                   fontWeight:
+                                                  //                       FontWeight
+                                                  //                           .w600,
+                                                  //                 ))),
+                                                  //       ],
+                                                  //     )),
+                                                  //
+                                                  // Container(
+                                                  //   width: 368,
+                                                  //   height: 45,
+                                                  //   margin: EdgeInsets.only(
+                                                  //       left: 10),
+                                                  //   decoration: BoxDecoration(
+                                                  //       color: Color.fromRGBO(
+                                                  //           240, 240, 240, 1),
+                                                  //       borderRadius:
+                                                  //           BorderRadius.all(
+                                                  //               Radius.circular(
+                                                  //                   5.0))),
+                                                  //   alignment:
+                                                  //       Alignment.topLeft,
+                                                  //   child: TextField(
+                                                  //     obscureText: true,
+                                                  //     controller:
+                                                  //         passwordController,
+                                                  //     focusNode:
+                                                  //         passwordFocusNode,
+                                                  //     style: TextStyle(
+                                                  //       fontSize: 18,
+                                                  //       color: AppColor.active,
+                                                  //     ),
+                                                  //     maxLines: 1,
+                                                  //     minLines: 1,
+                                                  //     onChanged: (text) {
+                                                  //       setState(() {});
+                                                  //     },
+                                                  //     decoration:
+                                                  //         InputDecoration(
+                                                  //       fillColor:
+                                                  //           Color.fromRGBO(240,
+                                                  //               240, 240, 1),
+                                                  //       filled: true,
+                                                  //       isCollapsed: true,
+                                                  //       contentPadding:
+                                                  //           EdgeInsets
+                                                  //               .symmetric(
+                                                  //                   horizontal:
+                                                  //                       10,
+                                                  //                   vertical:
+                                                  //                       8),
+                                                  //       border:
+                                                  //           _outlineInputBorder,
+                                                  //       focusedBorder:
+                                                  //           _outlineInputBorder,
+                                                  //       enabledBorder:
+                                                  //           _outlineInputBorder,
+                                                  //       disabledBorder:
+                                                  //           _outlineInputBorder,
+                                                  //       focusedErrorBorder:
+                                                  //           _outlineInputBorder,
+                                                  //       errorBorder:
+                                                  //           _outlineInputBorder,
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+                                                  SizedBox(height: 20,),
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
                                                       ),
-                                                      child: Column(
+                                                      child: Row(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
@@ -415,7 +503,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                               alignment: Alignment
                                                                   .centerLeft,
                                                               child: Text(
-                                                                  '密 码'.tr,
+                                                                  '生  日 '.tr,
                                                                   style:
                                                                       TextStyle(
                                                                     color: AppColor
@@ -426,100 +514,11 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                         FontWeight
                                                                             .w600,
                                                                   ))),
-                                                        ],
-                                                      )),
+
 
                                                   Container(
                                                     width: 368,
-                                                    height: 45,
-                                                    margin: EdgeInsets.only(
-                                                        left: 10),
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            240, 240, 240, 1),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5.0))),
-                                                    alignment:
-                                                        Alignment.topLeft,
-                                                    child: TextField(
-                                                      obscureText: true,
-                                                      controller:
-                                                          passwordController,
-                                                      focusNode:
-                                                          passwordFocusNode,
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: AppColor.active,
-                                                      ),
-                                                      maxLines: 1,
-                                                      minLines: 1,
-                                                      onChanged: (text) {
-                                                        setState(() {});
-                                                      },
-                                                      decoration:
-                                                          InputDecoration(
-                                                        fillColor:
-                                                            Color.fromRGBO(240,
-                                                                240, 240, 1),
-                                                        filled: true,
-                                                        isCollapsed: true,
-                                                        contentPadding:
-                                                            EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        10,
-                                                                    vertical:
-                                                                        8),
-                                                        border:
-                                                            _outlineInputBorder,
-                                                        focusedBorder:
-                                                            _outlineInputBorder,
-                                                        enabledBorder:
-                                                            _outlineInputBorder,
-                                                        disabledBorder:
-                                                            _outlineInputBorder,
-                                                        focusedErrorBorder:
-                                                            _outlineInputBorder,
-                                                        errorBorder:
-                                                            _outlineInputBorder,
-                                                      ),
-                                                    ),
-                                                  ),
-
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                        left: 10,
-                                                      ),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                              height: 60,
-                                                              // color: Colors.orange,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                  '生 日'.tr,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: AppColor
-                                                                        .active,
-                                                                    fontSize:
-                                                                        18.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                  ))),
-                                                        ],
-                                                      )),
-
-                                                  Container(
-                                                    width: 130,
-                                                    height: 35,
+                                                    height: 60,
                                                     margin: EdgeInsets.only(
                                                         left: 10),
                                                     decoration: BoxDecoration(
@@ -574,12 +573,14 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                         )
                                                     ),
                                                   ),
-
+                                                        ],
+                                                      )),
+                                                  SizedBox(height: 20,),
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                         left: 10,
                                                       ),
-                                                      child: Column(
+                                                      child: Row(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
@@ -590,7 +591,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                               alignment: Alignment
                                                                   .centerLeft,
                                                               child: Text(
-                                                                  '地址'.tr,
+                                                                  '地  址 '.tr,
                                                                   style:
                                                                       TextStyle(
                                                                     color: AppColor
@@ -601,12 +602,11 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                         FontWeight
                                                                             .w600,
                                                                   ))),
-                                                        ],
-                                                      )),
+
 
                                                   Container(
                                                     width: 368,
-                                                    height: 45,
+                                                    height: 60,
                                                     margin: EdgeInsets.only(
                                                         left: 10),
                                                     decoration: BoxDecoration(
@@ -617,12 +617,13 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                                 Radius.circular(
                                                                     5.0))),
                                                     alignment:
-                                                        Alignment.topLeft,
+                                                        Alignment.center,
                                                     child: TextField(
                                                       controller:
                                                           campusController,
                                                       focusNode:
                                                           campusFocusNode,
+                                                      textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         fontSize: 18,
                                                         color: AppColor.active,
@@ -661,7 +662,8 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
                                                       ),
                                                     ),
                                                   ),
-
+                                                        ],
+                                                      )),
                                                   Container(
                                                       margin: EdgeInsets.only(
                                                           top: 30),

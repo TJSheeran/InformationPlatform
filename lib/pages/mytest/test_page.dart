@@ -23,7 +23,7 @@ import 'demo.dart';
 import 'head.dart';
 import 'package:get/get.dart';
 import '../../routes/app_routes.dart';
-
+import 'package:tongxinbaike/pages/mytest/head.dart';
 
 class TestPage extends StatefulWidget {
   TestPage({Key? key}) : super(key: key);
@@ -33,12 +33,12 @@ class TestPage extends StatefulWidget {
 
 const List<Tab> _tabs = [
   Tab(text: '吐槽专区'),
-  Tab(text: '社区服务'),
   Tab(text: '美食'),
   Tab(text: '休闲'),
   Tab(text: '二手'),
-  Tab(text: '团购'),
-  Tab(text: '组队'),
+  Tab(text: '社区服务'),
+  // Tab(text: '团购'),
+  // Tab(text: '组队'),
   Tab(text: '交通出行'),
   // Tab(text: '学院直通'),
 ];
@@ -96,234 +96,259 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
-  @override
+  void onWeather()async {
+      var result = await DioUtil().request("/weather/"+longitude+','+latitude,
+          method: DioMethod.get);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return SimpleDialog(
+              title: Text('天气信息'),
+              titleTextStyle: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: AppColor.bluegreen),
+              children: <Widget>[
+                Padding(padding: EdgeInsets.only(left: 25),
+                child: Text('当前位置：'+result[0]["cityName"],style: TextStyle(color: AppColor.active, fontSize: 18.0, fontWeight: FontWeight.w600,)),),
+                SizedBox(height: 10,),
+                Padding(padding: EdgeInsets.only(left: 45),
+                child:Row(
+                  children: <Widget>[
+                    // Icon(Icons.sunny,color:AppColor.yellow ,size: 35,),
+                    Icon(Icons.cloud,color:AppColor.grey ,size: 35,),
+                    Text('天气：'+result[0]["weather"],style: TextStyle(color: AppColor.active, fontSize: 18.0, fontWeight: FontWeight.w600,
+                    ),textAlign: TextAlign.center,),
+                  ],
+                )),
+                SizedBox(height: 10,),
+                Padding(padding: EdgeInsets.only(left: 45),
+                  child:Row(
+                  children: <Widget>[
+                    Icon(Icons.thermostat,color:AppColor.red1 ,size: 35,),
+                    Text('温度：'+result[0]["temperature"]+'度',style: TextStyle(color: AppColor.active, fontSize: 18.0, fontWeight: FontWeight.w600,
+                    ),),
+                  ],
+                ),),
+                SizedBox(height: 10,),
+                Padding(padding: EdgeInsets.only(left: 45),
+                  child:Row(
+                  children: <Widget>[
+                    Icon(Icons.water_drop,color:Colors.blue ,size: 35,),
+                    Text('湿度：'+result[0]["humidity"]+'%',style: TextStyle(color: AppColor.active, fontSize: 18.0, fontWeight: FontWeight.w600,
+                    ),),
+                  ],
+                ),)
+                // 其他天气信息...
+              ],
+            );
+          });
+  }
   void onCreateMedia() {
-    showBarModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-      return Container(
-          height: 350,
-          color: Colors.transparent,
-          child: Scaffold(
-              backgroundColor: AppColor.page,
-              body: SafeArea(
-                  child: GestureDetector(
-                      onTap: () {
-                        //隐藏键盘
-                        FocusScope.of(context).requestFocus(new FocusNode());
-                      },
-                      child: Container(
-                        // color: CupertinoTheme.of(context)
-                        //     .scaffoldBackgroundColor
-                        //     .withOpacity(0.1),
-                        // color: Colors.white.withOpacity(0.1),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  top: 0,
-                                  child: Container(
-                                      height: 60,
-                                      color: Colors.transparent,
-                                      child: Stack(children: [
-                                        Positioned(
-                                            top: 20,
-                                            left: 20,
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('取消'.tr,
-                                                  style: TextStyle(
-                                                      color: AppColor.bluegreen,
-                                                      fontSize: 18)),
-                                            )),
-                                        Positioned(
-                                            top: 20,
-                                            right: 20,
-                                            child: InkWell(
-                                              onTap: () {
-                                                // print('发布活动');
-                                                DateTime now = DateTime.now();
-                                                String nowtimestamp =
-                                                    "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            content:Container(
+                height: 300,
+                width: 800,
+                color: Colors.transparent,
+                child: Scaffold(
+                    backgroundColor: AppColor.page,
+                    body: Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).requestFocus(new FocusNode());
+                            },
+                            child: Container(
+                                child: Stack(
+                                  children: [
+                                    Positioned(
+                                        left: 0,
+                                        right: 0,
+                                        top: 0,
+                                        child: Container(
+                                            height: 60,
+                                            color: Colors.transparent,
+                                            child: Stack(children: [
+                                              Positioned(
+                                                  top: 25,
+                                                  left: 25,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    child: Text('取消'.tr,
+                                                        style: TextStyle(
+                                                            color: AppColor.bluegreen,
+                                                            fontSize: 18)),
+                                                  )),
+                                              Positioned(
+                                                  top: 20,
+                                                  right: 20,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      // print('发布活动');
+                                                      DateTime now = DateTime.now();
+                                                      String nowtimestamp =
+                                                          "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
 
-                                                if (nowtimestamp != '' &&
-                                                    contentController.text !=
-                                                        '') {
-                                                  Navigator.of(context).pop();
-                                                  imageUpload(contentController.text);
-                                                } else if (
-                                                contentController.text ==
-                                                    '') {
-                                                  Fluttertoast.showToast(
-                                                      msg: "内容不能为空！",
-                                                      toastLength:
-                                                      Toast.LENGTH_LONG,
-                                                      gravity:
-                                                      ToastGravity.CENTER,
-                                                      timeInSecForIosWeb: 2,
-                                                      backgroundColor:
-                                                      Colors.black45,
-                                                      textColor: Colors.white,
-                                                      fontSize: 16.0);
-                                                }
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.all(
-                                                        Radius.circular(5)),
-                                                    color: AppColor.bluegreen),
-                                                width: 60,
-                                                height: 30,
-                                                alignment: Alignment.center,
-                                                child: Text('发送'.tr,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18)),
-                                              ),
-                                            ))
-                                      ]))),
-                              Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  top: 50,
-                                  bottom: 0,
-                                  child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: double.infinity,
-                                            padding: EdgeInsets.only(bottom: 40),
+                                                      if (nowtimestamp != '' &&
+                                                          contentController.text !=
+                                                              '') {
+                                                        Navigator.of(context).pop();
+                                                        imageUpload(contentController.text);
+                                                      } else if (
+                                                      contentController.text ==
+                                                          '') {
+                                                        Fluttertoast.showToast(
+                                                            msg: "内容不能为空！",
+                                                            toastLength:
+                                                            Toast.LENGTH_LONG,
+                                                            gravity:
+                                                            ToastGravity.CENTER,
+                                                            timeInSecForIosWeb: 2,
+                                                            backgroundColor:
+                                                            Colors.black45,
+                                                            textColor: Colors.white,
+                                                            fontSize: 16.0);
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(5)),
+                                                          color: AppColor.bluegreen),
+                                                      width: 60,
+                                                      height: 30,
+                                                      alignment: Alignment.center,
+                                                      child: Text('发送'.tr,
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 18)),
+                                                    ),
+                                                  ))
+                                            ]))),
+                                    Positioned(
+                                        left: 0,
+                                        right: 0,
+                                        top: 30,
+                                        bottom: 0,
+                                        child: SingleChildScrollView(
                                             child: Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 20, right: 20),
-                                                    padding: EdgeInsets.only(
-                                                        left: 0.0, right: 0),
-                                                    // color: Colors.orange,
-                                                    // decoration: BoxDecoration(
-                                                    //     color:
-                                                    //         Color.fromRGBO(240, 240, 240, 1),
-                                                    //     borderRadius: BorderRadius.all(
-                                                    //         Radius.circular(26.0))),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                      children: [
-                                                        Container(
-                                                            margin: EdgeInsets.only(
-                                                              left: 10,
-                                                            ),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                            )),
-                                                        Container(
-                                                            margin: EdgeInsets.only(
-                                                              left: 10,
-                                                            ),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                Container(
-                                                                    height: 60,
-                                                                    // color: Colors.orange,
-                                                                    alignment: Alignment
-                                                                        .center,
-                                                                    child: Text(
-                                                                        '意见反馈'.tr,
-                                                                        style:
-                                                                        TextStyle(
-                                                                          color: AppColor
-                                                                              .active,
-                                                                          fontSize:
-                                                                          18.0,
-                                                                          fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                        ))),
-                                                              ],
-                                                            )),
-                                                        Container(
-                                                          width: 600,
-                                                          height: 145,
+                                                  width: double.infinity,
+                                                  padding: EdgeInsets.only(bottom: 40),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
                                                           margin: EdgeInsets.only(
-                                                              left: 20),
-                                                          decoration: BoxDecoration(
-                                                              color: Color.fromRGBO(
-                                                                  240, 240, 240, 1),
-                                                              borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      5.0))),
-                                                          alignment:
-                                                          Alignment.topLeft,
-                                                          child: TextField(
-                                                            controller:
-                                                            contentController,
-                                                            focusNode:
-                                                            contentFocusNode,
-                                                            style: TextStyle(
-                                                              fontSize: 18,
-                                                              color: AppColor.active,
-                                                            ),
-                                                            maxLines: 6,
-                                                            minLines: 1,
-                                                            onChanged: (text) {
-                                                              setState(() {});
-                                                            },
-                                                            decoration:
-                                                            InputDecoration(
-                                                              fillColor:
-                                                              Color.fromRGBO(240,
-                                                                  240, 240, 1),
-                                                              filled: true,
-                                                              isCollapsed: true,
-                                                              contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                  10,
-                                                                  vertical:
-                                                                  8),
-                                                              border:
-                                                              _outlineInputBorder,
-                                                              focusedBorder:
-                                                              _outlineInputBorder,
-                                                              enabledBorder:
-                                                              _outlineInputBorder,
-                                                              disabledBorder:
-                                                              _outlineInputBorder,
-                                                              focusedErrorBorder:
-                                                              _outlineInputBorder,
-                                                              errorBorder:
-                                                              _outlineInputBorder,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
+                                                              left: 20, right: 20),
+                                                          padding: EdgeInsets.only(
+                                                              left: 0.0, right: 0),
+                                                          // color: Colors.orange,
+                                                          // decoration: BoxDecoration(
+                                                          //     color:
+                                                          //         Color.fromRGBO(240, 240, 240, 1),
+                                                          //     borderRadius: BorderRadius.all(
+                                                          //         Radius.circular(26.0))),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                            children: [
+                                                              Container(
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                    children: [
+                                                                      Container(
+                                                                          height: 60,
+                                                                          // color: Colors.orange,
+                                                                          alignment: Alignment
+                                                                              .center,
+                                                                          child: Text(
+                                                                              '意见反馈'.tr,
+                                                                              style:
+                                                                              TextStyle(
+                                                                                color: AppColor
+                                                                                    .active,
+                                                                                fontSize:
+                                                                                18.0,
+                                                                                fontWeight:
+                                                                                FontWeight
+                                                                                    .w600,
+                                                                              ))),
+                                                                    ],
+                                                                  )),
+                                                              Container(
+                                                                width: 700,
+                                                                height: 160,
+                                                                decoration: BoxDecoration(
+                                                                    color: Color.fromRGBO(
+                                                                        240, 240, 240, 1),
+                                                                    borderRadius:
+                                                                    BorderRadius.all(
+                                                                        Radius.circular(
+                                                                            5.0))),
+                                                                alignment:
+                                                                Alignment.topLeft,
+                                                                child: TextField(
+                                                                  controller:
+                                                                  contentController,
+                                                                  focusNode:
+                                                                  contentFocusNode,
+                                                                  style: TextStyle(
+                                                                    fontSize: 18,
+                                                                    color: AppColor.active,
+                                                                  ),
+                                                                  maxLines: 7,
+                                                                  onChanged: (text) {
+                                                                    setState(() {});
+                                                                  },
+                                                                  decoration:
+                                                                  InputDecoration(
+                                                                    fillColor:
+                                                                    Color.fromRGBO(240,
+                                                                        240, 240, 1),
+                                                                    filled: true,
+                                                                    isCollapsed: true,
+                                                                    contentPadding:
+                                                                    EdgeInsets
+                                                                        .symmetric(
+                                                                        horizontal:
+                                                                        10,
+                                                                        vertical:
+                                                                        8),
+                                                                    border:
+                                                                    _outlineInputBorder,
+                                                                    focusedBorder:
+                                                                    _outlineInputBorder,
+                                                                    enabledBorder:
+                                                                    _outlineInputBorder,
+                                                                    disabledBorder:
+                                                                    _outlineInputBorder,
+                                                                    focusedErrorBorder:
+                                                                    _outlineInputBorder,
+                                                                    errorBorder:
+                                                                    _outlineInputBorder,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                      )
+                                                    ],
+                                                  ),
                                                 )
                                               ],
-                                            ),
-                                          )
-                                        ],
-                                      )))
-                            ],
-                          ))))));},
-        enableDrag: true,
-        duration: const Duration(milliseconds: 400),
-        backgroundColor: Colors.transparent);
+                                            )))
+                                  ],
+                                )))))));},
+
+    );
   }
   @override
   void dispose() {
@@ -362,13 +387,33 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
             // labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.announcement,color: Colors.black,size: 40,),
-            onPressed: ()  {
-              onCreateMedia();
-            },
-            backgroundColor: AppColor.bluegreen
-        ),
+        floatingActionButton: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              FloatingActionButton(
+                  heroTag: 'onWeather',
+                  child: Icon(Icons.cloud_circle_rounded,color: Colors.black,size: 40,),
+                  onPressed: ()  {
+                    onWeather();
+                  },
+                  backgroundColor: AppColor.bluegreen
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              FloatingActionButton(
+                  heroTag: 'onCreateMedia',
+                  child: Icon(Icons.announcement,color: Colors.black,size: 40,),
+                  onPressed: ()  {
+                    onCreateMedia();
+                  },
+                  backgroundColor: AppColor.bluegreen
+              ),
+              SizedBox(
+                height: 15,
+              ),
+            ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         body: GestureDetector(
           onTap: () {
@@ -379,13 +424,13 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
               // DemoPage(title: "主页"),
               // TestDemoPage(),
               FacultyPage(),
-              LifeservicePage(),
               FoodPlayPage(),
               LifeFunPage(),
               VenuePage(),
+              LifeservicePage(),
               //DemoPage(title: '猜你喜欢'),
-              MedicalPage(),
-              TeamPage(),
+              // MedicalPage(),
+              // TeamPage(),
               TransportationPage(),
             ],
             controller: _tabController,

@@ -95,7 +95,14 @@ class _LifeFunPageState extends State<LifeFunPage> {
 
                 InkWell(
                   onTap: () {
-                    Get.toNamed(Routes.DETAIL, arguments: s[index]);
+                    Get.toNamed(Routes.DETAIL, arguments: s[index])?.then((value) {
+                      if (value != null && value) {
+                        setState(() {
+                          flist = _ReadHandle();
+                        });
+                      }
+                    }
+                    );
                   },
                   child: Container(
                     margin: EdgeInsets.only(top: 16),
