@@ -339,7 +339,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget UserHeadWidget(msg){
     return Container(
-        margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
         decoration:  BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -407,7 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget UserMsgWidget(msg){
       return Container(
-          margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+          margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
           decoration:  BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
@@ -471,7 +471,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget HeaderWidget(List s) {
     return Container(
-        margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
         decoration:  BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -489,7 +489,6 @@ class _ProfilePageState extends State<ProfilePage> {
       Container(child: Row(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
               child:Icon(
                 Icons.screen_lock_landscape_rounded,
                 size: 40,
@@ -529,7 +528,7 @@ class _ProfilePageState extends State<ProfilePage> {
             avator = s[index]['baikeAuthorPic'];
           }
           return Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -641,7 +640,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   Widget MyCollect() {
     return Container(
-        margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
         decoration:  BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
@@ -659,7 +658,6 @@ class _ProfilePageState extends State<ProfilePage> {
           Container(child: Row(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child:Icon(
                   Icons.collections_sharp,
                   size: 40,
@@ -708,7 +706,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   avator = snapshot.data[index]['baikeAuthorPic'];
                 }
                 return Container(
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
