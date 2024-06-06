@@ -15,6 +15,8 @@ import 'package:dio/dio.dart' as FormDataA;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../gexControl/userController.dart';
+
 class DetailPage extends StatefulWidget {
   DetailPage({Key? key}) : super(key: key);
 
@@ -87,6 +89,7 @@ class UrlText extends StatelessWidget {
   }
 }
 class _DetailPageState extends State<DetailPage> {
+  final userControl = Get.find<UserController>();
   DetailController detailController = Get.find<DetailController>();
   bool isSubscribed = false;
   bool dataisLiked = false;
@@ -110,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
     });
     if (isSubscribed) {
         var formData = FormDataA.FormData.fromMap({
-          "userid": uid, "tieziid": Get.arguments['id']
+          "userid": userControl.uid.value, "tieziid": Get.arguments['id']
         });
         var result = await DioUtil()
           .request("/follow", method: DioMethod.post, data: formData);
@@ -126,7 +129,7 @@ class _DetailPageState extends State<DetailPage> {
     }
     else{
       var formData = FormDataA.FormData.fromMap({
-        "userid": uid, "tieziid": Get.arguments['id']
+        "userid": userControl.uid.value, "tieziid": Get.arguments['id']
       });
       var result = await DioUtil()
           .request("/delectfollow", method: DioMethod.post, data: formData);
@@ -188,7 +191,7 @@ class _DetailPageState extends State<DetailPage> {
                     ]),
                     Row(
                     children: <Widget>[
-                      if (s[index]['uid'] == uid)
+                      if (s[index]['uid'] == userControl.uid.value)
                         TextButton(
                                 onPressed: (){
                                   _deleteComment(s[index]['id']);
@@ -295,7 +298,7 @@ class _DetailPageState extends State<DetailPage> {
     });
     if (!isLiked) {
       var formData = FormDataA.FormData.fromMap({
-        "commentid": commentid.toString(),"userid": uid
+        "commentid": commentid.toString(),"userid": userControl.uid.value
       });
       var result = await DioUtil()
           .request("/likecomment", method: DioMethod.post, data: formData);
@@ -310,7 +313,7 @@ class _DetailPageState extends State<DetailPage> {
             fontSize: 16.0);
     } else {
       var formData = FormDataA.FormData.fromMap({
-        "commentid": commentid.toString(),"userid": uid
+        "commentid": commentid.toString(),"userid": userControl.uid.value
       });
       var result = await DioUtil()
           .request("/dellikecomment", method: DioMethod.post, data: formData);
@@ -372,7 +375,7 @@ class _DetailPageState extends State<DetailPage> {
     if (!isLiked) {
       var result = await DioUtil().request("/addlike",
           method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
+          data: {"userid": userControl.uid.value, "tieziid": Get.arguments['id']});
       if (result["info"] == "点赞成功")
         Fluttertoast.showToast(
             msg: "点赞成功",
@@ -385,7 +388,7 @@ class _DetailPageState extends State<DetailPage> {
     } else {
       var result = await DioUtil().request("/delectlike",
           method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
+          data: {"userid": userControl.uid.value, "tieziid": Get.arguments['id']});
       if (result["info"] == "点赞已取消")
         Fluttertoast.showToast(
             msg: "点赞已取消",
@@ -492,7 +495,7 @@ class _DetailPageState extends State<DetailPage> {
     if (!isLiked) {
       var result = await DioUtil().request("/addcollect",
           method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
+          data: {"userid": userControl.uid.value, "tieziid": Get.arguments['id']});
       if (result["info"] == "收藏成功")
         Fluttertoast.showToast(
             msg: "收藏成功，到收藏夹里看看吧",
@@ -505,7 +508,7 @@ class _DetailPageState extends State<DetailPage> {
     } else {
       var result = await DioUtil().request("/delectcollect",
           method: DioMethod.post,
-          data: {"userid": uid, "tieziid": Get.arguments['id']});
+          data: {"userid": userControl.uid.value, "tieziid": Get.arguments['id']});
       if (result["info"] == "收藏已取消")
         Fluttertoast.showToast(
             msg: "收藏已取消",
@@ -525,7 +528,7 @@ class _DetailPageState extends State<DetailPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/searchAll",
         method: DioMethod.post,
-        data: {"userid": uid, "tieziid": Get.arguments['id']});
+        data: {"userid": userControl.uid.value, "tieziid": Get.arguments['id']});
     isSubscribed = result[0]["isfollowed"];
     dataisLiked = result[0]["isliked"];
     isDisLiked = result[0]["ishated"];
@@ -1012,7 +1015,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFF999999),
                                                                     )),
                                                               ),
-                                                              if (tieziuid == uid)
+                                                              if (tieziuid == userControl.uid.value)
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -1225,7 +1228,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                             DioMethod.post,
                                                                         data: {
                                                                           'uid':
-                                                                              uid,
+                                                                          userControl.uid.value,
                                                                           "tieziid":
                                                                               Get.arguments['id'],
                                                                           'content':

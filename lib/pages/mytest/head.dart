@@ -15,9 +15,9 @@ import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import 'dart:async';
 import 'dart:io';
 import 'test_page.dart';
-
-String latitude = '';
-String longitude = '';
+import 'package:tongxinbaike/gexControl/location.dart';
+// String latitude = '';
+// String longitude = '';
 
 class RootPageHead extends StatefulWidget {
   @override
@@ -26,6 +26,7 @@ class RootPageHead extends StatefulWidget {
 
 class _RootPageHeadState extends State<RootPageHead> {
   Map<String, Object>? _locationResult;
+  final location = Get.put(Location());
 
   FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController = TextEditingController()
@@ -96,7 +97,7 @@ class _RootPageHeadState extends State<RootPageHead> {
 
   Future<String> _locatehandle() async {
     var result = await DioUtil().request(
-      "/getAddress/"+longitude+','+latitude,
+      "/getAddress/"+location.longitude.value+','+location.latitude.value,
       method: DioMethod.get,
       //data: {'uid': '1'},
     );
@@ -234,8 +235,8 @@ class _RootPageHeadState extends State<RootPageHead> {
     {
     if (_locationResult != null) {
       _locationResult!.forEach((key, value) {
-        if (key == 'latitude') latitude = '$value';
-        if (key == 'longitude') longitude = '$value';
+        if (key == 'latitude') location.latitude.value = '$value';
+        if (key == 'longitude') location.longitude.value = '$value';
       });
     }}
     return Row(

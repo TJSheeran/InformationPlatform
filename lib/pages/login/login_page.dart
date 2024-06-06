@@ -9,10 +9,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../config/app_colors.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
+import '../../gexControl/userController.dart';
 import '../../routes/app_routes.dart';
 import 'login_controller.dart';
 
-int uid=1;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -24,7 +24,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   //注入login_controller页面控制文件
   LoginController loginController = Get.find<LoginController>();
-
   _loginHandle() async {
     var name = loginController.UsernameController.text;
     var password = loginController.PasswordController.text;
@@ -58,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 16.0);
     if (result['info'] == '登录成功') {
       Get.offNamed(Routes.ROOT);
-      uid=result['uid'];
+      Get.find<UserController>().login(result['token'],result['uid']);
     }
   }
   @override

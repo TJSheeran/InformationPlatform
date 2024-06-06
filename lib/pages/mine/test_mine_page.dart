@@ -14,6 +14,7 @@ import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:get/get.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
+import '../../gexControl/userController.dart';
 import '../home/home_page.dart';
 import 'header_widget.dart';
 import 'package:tongxinbaike/pages/login/login_page.dart';
@@ -35,6 +36,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final userControl = Get.find<UserController>();
   double _drawerIconSize = 24;
   double _drawerFontSize = 17;
   Future<List>? flist;
@@ -46,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
   File? avator;
   bool flag=false;
   Future<List> _ReadHandle() async {
-    var result = await DioUtil().request("/userInfoByid/" + uid.toString(),
+    var result = await DioUtil().request("/userInfoByid/" + userControl.uid.value.toString(),
         method: DioMethod.get, data: {});
     return result;
   }
@@ -82,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
     var result =
     await DioUtil().request("/advice/postAdvice", method: DioMethod.post, data: {
       'content': contenttext,
-      'uid': uid,
+      'uid': userControl.uid.value,
     });
     Fluttertoast.showToast(
         msg: result['info'],
@@ -424,7 +426,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Expanded(
                   flex: 1,
                   child: Column(children: <Widget>[
-                    Text(uid.toString(),
+                    Text(userControl.uid.value.toString(),
                         style: TextStyle(
                             color: Color.fromRGBO(102, 102, 102, 1),
                             fontSize: 23,
@@ -546,7 +548,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
                 InkWell(
                   onTap: () {
-                   s[index]["uid"]=uid;
+                   s[index]["uid"]=userControl.uid.value;
                     Get.toNamed(Routes.DETAIL, arguments: s[index])?.then((value) {
                       if (value != null && value) {
                         setState(() {
@@ -833,7 +835,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<List> _ReadHandle2() async {
     var result = await DioUtil().request(
-      "/userInfoByid/"+uid.toString(),
+      "/userInfoByid/"+userControl.uid.value.toString(),
       method: DioMethod.get,
       //data: {'uid': '1'},
     );
@@ -847,7 +849,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
     Future<List> _collectHandle() async {
     var result = await DioUtil().request(
-    "/getCollectBaike/"+uid.toString(),
+    "/getCollectBaike/"+userControl.uid.value.toString(),
       method: DioMethod.get,
     //data: {'uid': '1'},
     );
@@ -1130,6 +1132,7 @@ Widget build(BuildContext context) {
               ),
               onTap: () {
                 SystemNavigator.pop();
+                Get.find<UserController>().logout();
               },
             ),
           ],

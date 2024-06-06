@@ -24,6 +24,10 @@ import 'package:tongxinbaike/pages/mytest/head.dart';
 import 'package:flutter_floating/floating/assist/floating_slide_type.dart';
 import 'package:flutter_floating/floating/floating.dart';
 import 'package:flutter_floating/floating_increment.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
+
+import '../../gexControl/userController.dart';
+
 class PublishPage extends StatefulWidget {
   PublishPage({Key? key}) : super(key: key);
 
@@ -37,10 +41,10 @@ class _PublishPageState extends State<PublishPage> {
   String? firstLevelLabel = defaultTalk[0];
   String? secondLevelLabel;
   List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
-
+  final location = Get.find<Location>();
   //图片
   File? image;
-
+  final userControl = Get.find<UserController>();
   TextEditingController titleController = TextEditingController()
     ..addListener(() {});
   TextEditingController contentController = TextEditingController()
@@ -225,9 +229,9 @@ class _PublishPageState extends State<PublishPage> {
         'category1': firstlevel,
         'category2': secondlevel,
         'title': titletext,
-        'uid': uid,
+        'uid': userControl.uid.value,
         'content': contenttext,
-        'location': longitude + ',' + latitude,
+        'location': location.longitude.value + ',' + location.latitude.value,
       });
 
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);
@@ -238,9 +242,9 @@ class _PublishPageState extends State<PublishPage> {
         //   'category1': '吐槽',
         'category2': secondlevel,
         'title': titletext,
-        'uid': uid,
+        'uid': userControl.uid.value,
         'content': contenttext,
-        'location': longitude + ',' + latitude,
+        'location': location.longitude.value + ',' + location.latitude.value,
       });
       // print("666666" + longitude + ',' + latitude);
       DioUtil().request("/fileUpload", method: DioMethod.post, data: formData);}

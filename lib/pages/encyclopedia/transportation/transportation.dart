@@ -6,6 +6,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 class TransportationPage extends StatefulWidget {
   TransportationPage({Key? key}) : super(key: key);
 
@@ -17,6 +18,7 @@ class _TransportationPageState extends State<TransportationPage> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   // int pagesCount = 6;
+  final location = Get.find<Location>();
   String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
   // List<String> tabTitle = ['全部','短驳车', '定班车', '北安跨线', '地铁出行', '交通枢纽', '火车票'];
@@ -25,7 +27,7 @@ class _TransportationPageState extends State<TransportationPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "交通出行", "campus": longitude+','+latitude});
+        data: {"category1": "交通出行", "campus": location.longitude.value + ',' + location.latitude.value,});
         // :await DioUtil().request("/findbaikeFromDemo",
         // method: DioMethod.post,
         // data: {"category1": "交通出行", "category2": Tabtitle, "campus": longitude+','+latitude});

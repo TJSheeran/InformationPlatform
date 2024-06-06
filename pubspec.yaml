@@ -57,6 +57,7 @@ dependencies:
   url_launcher: ^6.1.2
   flutter_floating: ^1.0.7
   flutter_rating_bar: ^4.0.1
+  sp_util: ^2.0.3
   flutter_test:
     sdk: flutter
 

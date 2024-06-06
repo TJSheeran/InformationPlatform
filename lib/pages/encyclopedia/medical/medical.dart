@@ -6,6 +6,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 class MedicalPage extends StatefulWidget {
   MedicalPage({Key? key}) : super(key: key);
 
@@ -15,6 +16,7 @@ class MedicalPage extends StatefulWidget {
 
 class _MedicalPageState extends State<MedicalPage> {
   int selectedIndex = 0;
+  final location = Get.find<Location>();
   PageController _pageController = PageController();
   //int pagesCount = 4;
   String defaultAvator =
@@ -25,7 +27,7 @@ class _MedicalPageState extends State<MedicalPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "团购", "campus": longitude+','+latitude});
+        data: {"category1": "团购", "campus": location.longitude.value + ',' + location.latitude.value,});
         // :await DioUtil().request("/findbaikeFromDemo",
         // method: DioMethod.post,
         // data: {"category1": "医疗", "category2": Tabtitle, "campus": longitude+','+latitude});

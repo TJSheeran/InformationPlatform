@@ -12,6 +12,7 @@ import 'package:tongxinbaike/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
+import '../../gexControl/userController.dart';
 import '../encyclopedia/faculty/faculty.dart';
 import '../encyclopedia/food_play/food_play.dart';
 import '../encyclopedia/medical/medical.dart';
@@ -24,6 +25,7 @@ import 'head.dart';
 import 'package:get/get.dart';
 import '../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 
 class TestPage extends StatefulWidget {
   TestPage({Key? key}) : super(key: key);
@@ -46,7 +48,8 @@ const List<Tab> _tabs = [
 class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
   late TabController _tabController;
   // late Floating floating;
-
+  final userControl = Get.find<UserController>();
+  final location = Get.find<Location>();
   @override
   void initState() {
     // TODO: implement initState
@@ -85,7 +88,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
     var result =
     await DioUtil().request("/advice/postAdvice", method: DioMethod.post, data: {
       'content': contenttext,
-      'uid': uid,
+      'uid': userControl.uid.value,
     });
     Fluttertoast.showToast(
         msg: result['info'],
@@ -97,7 +100,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
         fontSize: 16.0);
   }
   void onWeather()async {
-      var result = await DioUtil().request("/weather/"+longitude+','+latitude,
+      var result = await DioUtil().request("/weather/"+location.longitude.value+','+location.latitude.value,
           method: DioMethod.get);
       showDialog(
           context: context,

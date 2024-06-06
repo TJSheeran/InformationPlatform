@@ -9,7 +9,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
 import 'package:flutter_floating/floating/floating.dart';
-
+import 'package:tongxinbaike/gexControl/location.dart';
 class FacultyPage extends StatefulWidget {
   FacultyPage({Key? key}) : super(key: key);
 
@@ -17,6 +17,7 @@ class FacultyPage extends StatefulWidget {
   State<FacultyPage> createState() => _FacultyPageState();
 }
 class _FacultyPageState extends State<FacultyPage> {
+  final location = Get.find<Location>();
   int selectedIndex = 0;
   String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
@@ -38,7 +39,7 @@ class _FacultyPageState extends State<FacultyPage> {
   // Future<List> _ReadHandle(Tabtitle) async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "吐槽", "campus": longitude+','+latitude});
+        data: {"category1": "吐槽", "campus": location.longitude.value+','+location.latitude.value});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "学院直通", "campus": longitude+','+latitude})
@@ -227,6 +228,13 @@ class _FacultyPageState extends State<FacultyPage> {
   void initState() {
     // TODO: implement initState
     flist = _ReadHandle();
+    once(location.longitude, (value) {
+      //注意写个delay 不然跨页面更新问题很大
+      Future.delayed(Duration.zero, () async {
+        setState(() {flist = _ReadHandle();});
+      });
+    });
+
     // flist = _ReadHandle(tabTitle[0]);
     super.initState();
   }

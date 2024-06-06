@@ -6,6 +6,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 class VenuePage extends StatefulWidget {
   VenuePage({Key? key}) : super(key: key);
 
@@ -21,11 +22,11 @@ class _VenuePageState extends State<VenuePage> {
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
   // List<String> tabTitle = ['全部','篮球', '羽毛球', '田径场', '游泳馆', '场地借用'];
   Future<List>? flist;
-
+  final location = Get.find<Location>();
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "二手", "campus": longitude+','+latitude});
+        data: {"category1": "二手", "campus": location.longitude.value + ',' + location.latitude.value,});
         // :await DioUtil().request("/findbaikeFromDemo",
         // method: DioMethod.post,
         // data: {"category1": "场馆服务", "category2": Tabtitle, "campus": longitude+','+latitude});

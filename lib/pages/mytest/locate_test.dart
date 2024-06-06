@@ -8,6 +8,7 @@ import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:tongxinbaike/routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 // String latitude = '';
 // String longitude = '';
 
@@ -23,6 +24,7 @@ class _LocatePageState extends State<LocatePage> {
   //     PopupMenuItem(child: Text("四平路街道（同济）"), onTap: () => {_stopLocation(),longitude = '121.502085',latitude = '31.282588'},),
   //     PopupMenuItem(child: Text("江川路街道（交通大学）"), onTap: () => {_stopLocation(),longitude = '121.436882',latitude = '31.025626'},),
   //       PopupMenuItem(child: Text("五角场街道"), onTap: () => {_stopLocation(),longitude = '121.519728',latitude = '31.30507'},),
+  final location = Get.find<Location>();
   var _cityList = [
     {"location":"安亭镇","long":'121.21416',"lati":'31.286012'},
     {"location":"南翔镇","long":'121.308228',"lati":'31.291233'},
@@ -124,7 +126,7 @@ class _LocatePageState extends State<LocatePage> {
     List<Widget> list = [];
       list.add(GestureDetector(
         onTap: () {
-          longitude = element["long"];latitude = element["lati"];
+          location.longitude.value = element["long"];location.latitude.value = element["lati"];
           Get.toNamed(Routes.ROOT,arguments: '${element['location']}');
         },
         child: Container(

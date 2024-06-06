@@ -5,6 +5,7 @@ import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
 class LifeservicePage extends StatefulWidget {
   LifeservicePage({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class LifeservicePage extends StatefulWidget {
 }
 
 class _LifeservicePageState extends State<LifeservicePage> {
+  final location = Get.find<Location>();
   int selectedIndex = 0;
   PageController _pageController = PageController();
   // int pagesCount = 5;
@@ -25,7 +27,7 @@ class _LifeservicePageState extends State<LifeservicePage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "社区服务", "campus": longitude+','+latitude});
+        data: {"category1": "社区服务", "campus": location.longitude.value + ',' + location.latitude.value,});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "生活服务", "campus": longitude+','+latitude})

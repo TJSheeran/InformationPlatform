@@ -1,10 +1,13 @@
+import 'package:sp_util/sp_util.dart';
 import 'package:tongxinbaike/app.dart';
 import 'package:flutter/material.dart';
 
 import 'config/app_theme.dart';
 
-void main() {
+void main() async{
   // runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await SpUtil.getInstance();
   runApp(createApp());
 }
 

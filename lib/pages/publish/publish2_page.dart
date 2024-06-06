@@ -24,6 +24,8 @@ import 'package:tongxinbaike/pages/mytest/head.dart';
 import 'package:flutter_floating/floating/assist/floating_slide_type.dart';
 import 'package:flutter_floating/floating/floating.dart';
 import 'package:flutter_floating/floating_increment.dart';
+
+import '../../gexControl/userController.dart';
 class PublishPage2 extends StatefulWidget {
   PublishPage2({Key? key}) : super(key: key);
 
@@ -35,7 +37,7 @@ class _PublishPage2State extends State<PublishPage2> {
 
   TextEditingController contentController = TextEditingController()
     ..addListener(() {});
-
+  final userControl = Get.find<UserController>();
   FocusNode contentFocusNode = FocusNode();
 
   OutlineInputBorder _outlineInputBorder = OutlineInputBorder(
@@ -49,7 +51,7 @@ class _PublishPage2State extends State<PublishPage2> {
       var result =
       await DioUtil().request("/advice/postAdvice", method: DioMethod.post, data: {
         'content': contenttext,
-        'uid': uid,
+        'uid': userControl.uid.value,
       });
       Fluttertoast.showToast(
           msg: result['info'],

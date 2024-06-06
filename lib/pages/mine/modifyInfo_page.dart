@@ -19,6 +19,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as FormDataA;
 import 'package:tongxinbaike/pages/login/login_page.dart';
 
+import '../../gexControl/userController.dart';
+
 class ModifyInfoPage extends StatefulWidget {
   ModifyInfoPage({Key? key}) : super(key: key);
 
@@ -30,7 +32,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
   // String? firstLevelLabel;
   // String? secondLevelLabel;
   // List<String> defaultSecondLevel = ["快递", "空调", "电费", "医保", "寝室", "差旅报销"];
-
+  final userControl = Get.find<UserController>();
   //图片
   File? image;
   List? futureinfo;
@@ -90,7 +92,7 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
     });
   }
   Future<List> _ReadHandle() async {
-    var result = await DioUtil().request("/userInfoByid/"+uid.toString(),
+    var result = await DioUtil().request("/userInfoByid/"+userControl.uid.value.toString(),
         method: DioMethod.get, data: {});
     return result;
   }
@@ -99,14 +101,14 @@ class _ModifyInfoPageeState extends State<ModifyInfoPage> {
       var formData = FormDataA.FormData.fromMap({
         'file': await FormDataA.MultipartFile.fromFile(image!.path,
             filename: "test.jpg"),
-        'uid':uid
+        'uid':userControl.uid.value
       });
       await DioUtil()
           .request("/uploadPic", method: DioMethod.post, data: formData);
     }
     await DioUtil()
         .request("/updateUserInfoByid", method: DioMethod.post,
-        data: {"uid": uid, "username": userNameController.text,
+        data: {"uid": userControl.uid.value, "username": userNameController.text,
                 "birthday": "${targetDate.year.toString()}/${targetDate.month.toString().padLeft(2, '0')}/${targetDate.day.toString().padLeft(2, '0')}",
                 "campus":campusController.text
         });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
+import '../../gexControl/userController.dart';
 import 'message_card.dart';
 import 'Mes.dart';
 import 'package:tongxinbaike/dio_util/dio_method.dart';
@@ -19,9 +20,10 @@ class MessagePage extends StatefulWidget {
 }
 
 class _MessagePageState extends State<MessagePage> {
+  final userControl = Get.find<UserController>();
   Future<List<Mes>> _ReadHandle() async {
     var result = await DioUtil().request(
-      "/message/comment/"+uid.toString(),
+      "/message/comment/"+userControl.uid.value.toString(),
       method: DioMethod.get,
       //data: {'uid': '1'},
     );
@@ -73,7 +75,7 @@ class _MessagePageState extends State<MessagePage> {
     var result =
     await DioUtil().request("/advice/postAdvice", method: DioMethod.post, data: {
       'content': contenttext,
-      'uid': uid,
+      'uid': userControl.uid.value,
     });
     Fluttertoast.showToast(
         msg: result['info'],

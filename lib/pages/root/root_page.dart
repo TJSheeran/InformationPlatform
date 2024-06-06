@@ -10,6 +10,7 @@ import 'package:tongxinbaike/pages/home/home_page.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../config/app_colors.dart';
+import '../../gexControl/userController.dart';
 import '../../view/root_pages/message_page.dart';
 import '../../view/root_pages/niceplay_page.dart';
 import '../home/home_page.dart';
@@ -26,6 +27,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tongxinbaike/config/app_colors.dart';
 import 'package:tongxinbaike/dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
+import 'package:get/get.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
+import 'package:tongxinbaike/gexControl/userController.dart';
 class RootPage extends StatefulWidget {
   RootPage({Key? key}) : super(key: key);
 
@@ -43,7 +47,8 @@ const Map<String, String> _bottomNames = {
 
 class _RootPageState extends State<RootPage> {
   Map<String, Object>? _rootResult;
-
+  // final location = Get.put(Location());
+  final userControl = Get.find<UserController>();
   StreamSubscription<Map<String, Object>>? _locationListener;
   AMapFlutterLocation _locationPlugin = new AMapFlutterLocation();
 
@@ -60,7 +65,6 @@ class _RootPageState extends State<RootPage> {
 
   //底部导航数组
   final List<BottomNavigationBarItem> _bottomNavigationBarList = [];
-
   @override
   void initState() {
     super.initState();
@@ -124,7 +128,7 @@ class _RootPageState extends State<RootPage> {
   @override
   Future<bool> getMessage() async {
     var result =
-    await DioUtil().request("message/redpoint/"+uid.toString(), method: DioMethod.get);
+    await DioUtil().request("message/redpoint/"+userControl.uid.value.toString(), method: DioMethod.get);
     if(result["data"]["redpoint"]=="true") {
       return true;
     } else {

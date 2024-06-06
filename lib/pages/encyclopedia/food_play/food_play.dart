@@ -6,6 +6,7 @@ import 'package:tongxinbaike/dio_util/dio_util.dart';
 // import 'package:tongxinbaike/pages/mytest/locate_test.dart';
 import '../../../routes/app_routes.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
 class FoodPlayPage extends StatefulWidget {
   FoodPlayPage({Key? key}) : super(key: key);
 
@@ -16,6 +17,7 @@ class FoodPlayPage extends StatefulWidget {
 class _FoodPlayPageState extends State<FoodPlayPage> {
   // int selectedIndex = 0;
   PageController _pageController = PageController();
+  final location = Get.find<Location>();
   // int pagesCount = 4;
   String defaultAvator =
       "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
@@ -25,7 +27,7 @@ class _FoodPlayPageState extends State<FoodPlayPage> {
   Future<List> _ReadHandle() async {
     var result = await DioUtil().request("/findbaikeFromDemo",
         method: DioMethod.post,
-        data: {"category1": "美食", "campus": longitude+','+latitude});
+        data: {"category1": "美食", "campus": location.longitude.value + ',' + location.latitude.value,});
     // var result = Tabtitle=="全部"?await DioUtil().request("/findbaikeFromDemo",
     //     method: DioMethod.post,
     //     data: {"category1": "美食休闲", "campus": longitude+','+latitude})

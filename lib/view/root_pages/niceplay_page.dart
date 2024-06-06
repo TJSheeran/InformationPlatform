@@ -13,13 +13,16 @@ import 'package:tongxinbaike/pages/login/login_page.dart';
 import 'package:tongxinbaike/pages/mytest/head.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tongxinbaike/gexControl/location.dart';
+
+import '../../gexControl/userController.dart';
 class NiceplayPage extends StatefulWidget {
   NiceplayPage({Key? key}) : super(key: key);
 
   @override
   State<NiceplayPage> createState() => _NiceplayPageState();
 }
-
+final location = Get.find<Location>();
 
 String defaultAvator =
     "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
@@ -170,7 +173,7 @@ class _NiceplayPageState extends State<NiceplayPage> {
 
   Future<List>? flist;
   RefreshController _refreshController = RefreshController(initialRefresh: false);
-
+  final userControl = Get.find<UserController>();
   void _onRefresh() async {
     // monitor network fetch
     await _ReadHandle();
@@ -198,8 +201,8 @@ class _NiceplayPageState extends State<NiceplayPage> {
   );
   Future<List> _ReadHandle() async {
     var formData = FormDataA.FormData.fromMap({
-      "userid":uid,
-      "location":longitude+','+latitude
+      "userid":userControl.uid.value,
+      "location":location.longitude.value+','+location.latitude.value
     });
     var result = await DioUtil()
         .request("/recommendByFilter", method: DioMethod.post, data: formData);
@@ -215,7 +218,7 @@ class _NiceplayPageState extends State<NiceplayPage> {
     var result =
     await DioUtil().request("/advice/postAdvice", method: DioMethod.post, data: {
       'content': contenttext,
-      'uid': uid,
+      'uid': userControl.uid.value,
     });
     Fluttertoast.showToast(
         msg: result['info'],
