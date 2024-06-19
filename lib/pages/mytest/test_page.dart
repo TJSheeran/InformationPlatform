@@ -432,7 +432,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
                   child: Icon(Icons.cloud_circle_rounded,color: Colors.black,size: 40,),
                   onPressed: ()  {
                     onWeather();
-                    Get.to(() => WebSocketPage(title: '',));
+                    // Get.to(() => WebSocketPage(title: '',));
                   },
                   backgroundColor: AppColor.bluegreen
               ),
