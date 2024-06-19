@@ -10,6 +10,7 @@ import 'package:tongxinbaike/pages/encyclopedia/team/team.dart';
 import 'package:tongxinbaike/pages/mytest/test_demo.dart';
 import 'package:tongxinbaike/pages/mytest/vertical_tab_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:tongxinbaike/view/root_pages/webscoket.dart';
 import '../../dio_util/dio_method.dart';
 import '../../dio_util/dio_util.dart';
 import '../../gexControl/userController.dart';
@@ -360,7 +361,6 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
     // floating.close();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     // WDScreenButton.initConfig(
@@ -382,13 +382,46 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
           //隐藏返回按钮
           automaticallyImplyLeading: false,
           // backgroundColor: AppColor.purple,
-          bottom: TabBar(
-            tabs: _tabs,
-            controller: _tabController,
-            indicatorWeight: 3.0,
-            isScrollable: true,
-            // labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          bottom:
+          PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child:
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,//这个很关键
+              children: <Widget>[
+                TabBar(
+                tabs: _tabs,
+                controller: _tabController,
+                indicatorWeight: 3.0,
+                isScrollable: true,
+                // labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                // PopupMenuButton<String>(
+                //   onSelected: (String value) {
+                //     setState(() {
+                //       _selectedValue = value;
+                //       if(value=='时间排序')
+                //         location.tabControl.value = 0;
+                //       else
+                //         location.tabControl.value = 1;
+                //     });
+                //   },
+                //   icon: Icon(Icons.menu),
+                //   itemBuilder: (BuildContext context) {
+                //     return ['时间排序', '热度排序'].map((String choice) {
+                //       return PopupMenuItem<String>(
+                //         value: choice,
+                //         child: Text(choice),
+                //       );
+                //     }).toList();
+                //   },
+                // ),
+                // Text('$_selectedValue'),
+              ],
+            ),
           ),
+        ),
         ),
         floatingActionButton: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -399,6 +432,7 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
                   child: Icon(Icons.cloud_circle_rounded,color: Colors.black,size: 40,),
                   onPressed: ()  {
                     onWeather();
+                    Get.to(() => WebSocketPage(title: '',));
                   },
                   backgroundColor: AppColor.bluegreen
               ),
@@ -418,7 +452,9 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
               ),
             ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        body: GestureDetector(
+        body: GetBuilder<Location>(
+            builder: (locationController) {
+        return GestureDetector(
           onTap: () {
             FocusScope.of(context).requestFocus(new FocusNode());
           },
@@ -438,6 +474,6 @@ class _TestPageState extends State<TestPage> with TickerProviderStateMixin {
             ],
             controller: _tabController,
           ),
-        ));
+        );}));
   }
 }

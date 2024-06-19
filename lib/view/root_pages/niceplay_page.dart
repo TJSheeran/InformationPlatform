@@ -448,7 +448,7 @@ class _NiceplayPageState extends State<NiceplayPage> {
         backgroundColor: AppColor.page,
         appBar: AppBar(
           title: Text(
-            "发现帖子",
+            "推荐",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           elevation: 0.5,

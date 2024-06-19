@@ -58,6 +58,7 @@ dependencies:
   flutter_floating: ^1.0.7
   flutter_rating_bar: ^4.0.1
   sp_util: ^2.0.3
+  web_socket_channel: ^2.4.0
   flutter_test:
     sdk: flutter
 

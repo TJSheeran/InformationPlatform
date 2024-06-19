@@ -1016,7 +1016,7 @@ Widget build(BuildContext context) {
                 color: AppColor.active,
               ),
               title: Text(
-                '百科主页',
+                '回到首页',
                 style: TextStyle(
                     fontSize: 17,
                     color: AppColor.active,
