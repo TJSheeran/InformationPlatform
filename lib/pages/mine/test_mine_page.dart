@@ -42,6 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<List>? flist;
   RefreshController _refreshController = RefreshController(
       initialRefresh: false);
+  bool isExpandRecent = true;
   bool isExpandPlayRecord = true;
   bool isExpandCollect = false;
   //图片
@@ -376,12 +377,42 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                  Text(msg[0]["username"],
-                    style: TextStyle(
-                        color: AppColor.googleblack,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold)),
-                  SizedBox(height: 15),
+                    Row(
+                      children:<Widget>[
+                        Text(msg[0]["username"],
+                            style: TextStyle(
+                                color: AppColor.googleblack,
+                                fontSize: 23,
+                                fontWeight: FontWeight.bold)),
+                        SizedBox(width: 30,),
+                        if(userControl.isAdmin.value)
+                        Chip(
+                          //左侧的小组件
+                          avatar: const CircleAvatar(
+                            backgroundColor: Colors.orangeAccent,
+                            foregroundColor: Colors.white,
+                            child: Text('管',style: TextStyle(
+                              fontSize: 16,),
+                            ),),
+                          ///右侧的文本
+                          label: Text('同心社区管理员',style: TextStyle(color:Colors.white,fontSize: 15,)),
+                          backgroundColor: Colors.amber,
+                        ),
+                        if(!userControl.isAdmin.value)
+                          Chip(
+                            //左侧的小组件
+                            avatar: const CircleAvatar(
+                              backgroundColor: Colors.tealAccent,
+                              foregroundColor: Colors.white,
+                              child: Text('同',style: TextStyle(
+                                fontSize: 16,),
+                              ),),
+                            ///右侧的文本
+                            label: Text('同心社区成员',style: TextStyle(color:Colors.white,fontSize: 15,)),
+                            backgroundColor: AppColor.bluegreen,
+                          ),  ]
+                      ),
+                    SizedBox(height: 10),
                   Text(msg[0]['campus']==null?'':msg[0]['campus'],
                       style: TextStyle(
                           color: Color.fromRGBO(102, 102, 102, 1),
@@ -815,7 +846,183 @@ class _ProfilePageState extends State<ProfilePage> {
               } //使用_cellForRow回调返回每个cell
           );}}):SizedBox()]));
   }
+  Widget MyRecent() {
+    return Container(
+        margin: EdgeInsets.fromLTRB(5, 10, 5, 0),
+        decoration:  BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 6,
+              spreadRadius: 4,
+              color: Color.fromARGB(20, 0, 0, 0),
+            ),
+          ],
+        ),
 
+        padding: EdgeInsets.all(15),
+        child: Column(children: <Widget>[
+          Container(child: Row(
+            children: <Widget>[
+              Container(
+                child:Icon(
+                  Icons.collections_sharp,
+                  size: 40,
+                  color: AppColor.googleblack,
+                ),
+              ),
+              SizedBox(width: 15),
+              Text("最新帖子",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: AppColor.googleblack,
+                    fontWeight: FontWeight.w600,
+                  )),
+              Expanded(
+                flex: 1,
+                child: SizedBox(),
+              ),
+              InkWell(
+                child: Transform.rotate(
+                    angle: (isExpandRecent ? 90 : 0) * pi / 180,
+                    child: Icon(Icons.arrow_forward_ios)),
+                onTap: () {
+                  setState(() {
+                    isExpandRecent = !isExpandRecent;
+                  });
+                },
+              ),
+            ],
+          )),
+          isExpandRecent ?
+          FutureBuilder(
+              future: _recentHandle(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.data == null) {
+                  return SizedBox();
+                }
+                else
+                {
+                  return ListView.builder(
+                      itemCount: snapshot.data?.length, //告诉ListView总共有多少个cell
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        String avator = defaultAvator;
+                        if (snapshot.data[index]['baikeAuthorPic'] != null) {
+                          avator = snapshot.data[index]['baikeAuthorPic'];
+                        }
+                        return Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 6,
+                                spreadRadius: 4,
+                                color: Color.fromARGB(20, 0, 0, 0),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              renderCover(),
+
+                              InkWell(
+                                onTap: () {
+                                  Get.toNamed(Routes.DETAIL, arguments:  snapshot.data[index])?.then((value) {
+                                    if (value != null && value) {
+                                      setState(() {
+                                        flist = _ReadHandle();
+                                      });
+                                    }
+                                  }
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 16),
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Flexible(
+                                            child:
+                                            Text(
+                                              '${snapshot.data[index]["title"]}',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black.withOpacity(0.8),
+                                              ),
+                                            ),),
+                                          Padding(padding: EdgeInsets.only(left: 10)),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                              radius: 12,
+                                              backgroundColor: Color(0xFFCCCCCC),
+                                              backgroundImage:
+                                              NetworkImage(avator) //data.userImgUrl),
+                                          ),
+                                          Padding(padding: EdgeInsets.only(left: 8)),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                snapshot.data[index]['author'] != null
+                                                    ? snapshot.data[index]['author']
+                                                    : "TJSheeran",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColor.bluegreen,
+                                                ),
+                                              ),
+                                              Padding(padding: EdgeInsets.only(top: 2)),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        snapshot.data[index]["content"]!,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black.withOpacity(0.8),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(
+                                height: 10,
+                              ),
+
+                            ],
+                          ),
+                        );
+                      } //使用_cellForRow回调返回每个cell
+                  );}}):SizedBox()]));
+  }
   void _onRefresh() async {
     // monitor network fetch
     await _ReadHandle();
@@ -853,6 +1060,14 @@ class _ProfilePageState extends State<ProfilePage> {
     );
     return result;
     }
+  Future<List> _recentHandle() async {
+    var result = await DioUtil().request(
+      "/getBadBaike/"+userControl.uid.value.toString(),
+      method: DioMethod.get,
+      //data: {'uid': '1'},
+    );
+    return result;
+  }
   @override
   void initState() {
     super.initState();
@@ -1100,7 +1315,7 @@ Widget build(BuildContext context) {
             //     size: _drawerIconSize,
             //     color: AppColor.active,
             //   ),
-            //   title: Text(
+            //   title: Text(3
             //     '安全设置',
             //     style: TextStyle(
             //         fontSize: _drawerFontSize,
@@ -1148,6 +1363,10 @@ Widget build(BuildContext context) {
                     UserHeadWidget(snapshot.data),
                     SizedBox(height: 10),
                     UserMsgWidget(snapshot.data),
+                    if(userControl.isAdmin.value)
+                    SizedBox(height: 10),
+                    if(userControl.isAdmin.value)
+                    MyRecent(),
                     SizedBox(height: 10),
                     HeaderWidget(snapshot.data[0]['mybaike']),
                     SizedBox(height: 10),

@@ -191,10 +191,10 @@ class _DetailPageState extends State<DetailPage> {
                     ]),
                     Row(
                     children: <Widget>[
-                      if (s[index]['uid'] == userControl.uid.value)
+                      if (s[index]['uid'] == userControl.uid.value||userControl.isAdmin.value)
                         TextButton(
                                 onPressed: (){
-                                  _deleteComment(s[index]['id']);
+                                  _alertDeleteComment(s[index]['id']);
                                   },
                                 child:
                                 const Text("删除评论",
@@ -254,6 +254,29 @@ class _DetailPageState extends State<DetailPage> {
         } //使用_cellForRow回调返回每个cell
         );
   }
+  _alertDelete() async {
+    var result = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('提示'),
+            content: const Text('是否删除'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, '取消'),
+                child: const Text('取消',style:TextStyle(
+                    color: AppColor.bluegreen)),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, '确认删除'),
+                child: const Text('确认',style:TextStyle(
+                    color: AppColor.bluegreen)),
+              ),
+            ],
+          );
+        });
+    if(result=='确认删除') _delete();
+  }
   Future _delete() async {
     var result = await DioUtil().request("/deleteBaike/"+Get.arguments['id'].toString(),
         method: DioMethod.delete,
@@ -270,6 +293,29 @@ class _DetailPageState extends State<DetailPage> {
           fontSize: 16.0);
       Get.back(result: true);
     }
+  }
+  _alertDeleteComment(Commentid) async {
+    var result = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('提示'),
+            content: const Text('是否删除此评论'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, '取消'),
+                child: const Text('取消',style:TextStyle(
+                    color: AppColor.bluegreen)),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, '确认删除'),
+                child: const Text('确认',style:TextStyle(
+                    color: AppColor.bluegreen)),
+              ),
+            ],
+          );
+        });
+    if(result=='确认删除') _deleteComment(Commentid);
   }
   Future _deleteComment(Commentid) async {
     var result = await DioUtil().request("/delectComment/"+Commentid.toString(),
@@ -990,9 +1036,14 @@ class _DetailPageState extends State<DetailPage> {
                                                         //   )]),
                                                           Row(
                                                             mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
+                                                              MainAxisAlignment.spaceBetween,
+                                                            children: <
+                                                                Widget>[
+                                                                  Row(
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment.start,
+                                                                children: <
+                                                                    Widget>[
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -1005,7 +1056,6 @@ class _DetailPageState extends State<DetailPage> {
                                                                         bottom:
                                                                             0.0),
                                                                 child: Text(
-                                                                    "发布于 " +
                                                                         createtime,
                                                                     style:
                                                                         TextStyle(
@@ -1015,7 +1065,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                           0xFF999999),
                                                                     )),
                                                               ),
-                                                              if (tieziuid == userControl.uid.value)
+                                                              if (tieziuid == userControl.uid.value||userControl.isAdmin.value)
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -1028,7 +1078,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                     bottom:
                                                                     0.0),
                                                                 child: TextButton(
-                                                                  onPressed: (){_delete();},
+                                                                  onPressed: _alertDelete,
                                                                   child:
                                                                     const Text("删除",
                                                                     style:
@@ -1038,7 +1088,7 @@ class _DetailPageState extends State<DetailPage> {
                                                                       color: Color(
                                                                           0xFF999999),
                                                                     )))
-                                                              ),
+                                                              ),],),
                                                               Container(
                                                                 margin: EdgeInsets
                                                                     .only(
@@ -1052,13 +1102,9 @@ class _DetailPageState extends State<DetailPage> {
                                                                             0.0),
                                                                 child: Row(
                                                                   mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
+                                                                      MainAxisAlignment.end,
                                                                   children: <
                                                                       Widget>[
-                                                                    Row(
-                                                                      children: <
-                                                                          Widget>[
                                                                         LikeButton(
                                                                           isLiked:
                                                                               snapshot.data[0]["iscollected"],
@@ -1093,53 +1139,26 @@ class _DetailPageState extends State<DetailPage> {
                                                                           onTap:
                                                                               onLikeButtonTapped,
                                                                         ),
-                                                                      ],
-                                                                    ),
                                                                     SizedBox(
-                                                                      width: 10,
+                                                                      width: 14,
                                                                     ),
-                                                                    Row(
-                                                                      children: <
-                                                                          Widget>[
-                                                                        LikeButton(
-                                                                          isLiked:
-                                                                              isDisLiked,
-                                                                          likeBuilder:
-                                                                              (isLiked) {
-                                                                            return Icon(
-                                                                              isLiked ? Icons.thumb_down_alt_rounded : Icons.thumb_down_alt_outlined,
-                                                                              color: isLiked ? AppColor.info : Colors.grey,
-                                                                            );
-                                                                          },
-                                                                          // likeCount: 8,
-                                                                          onTap:
-                                                                              onDisLikeButtonTapped,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    SizedBox(
-                                                                      width: 3,
-                                                                    )
+                                                                    LikeButton(
+                                                                      isLiked:
+                                                                          isDisLiked,
+                                                                      likeBuilder:
+                                                                          (isLiked) {
+                                                                        return Icon(
+                                                                          isLiked ? Icons.thumb_down_alt_rounded : Icons.thumb_down_alt_outlined,
+                                                                          color: isLiked ? AppColor.info : Colors.grey,
+                                                                        );
+                                                                      },
+                                                                      // likeCount: 8,
+                                                                      onTap:
+                                                                          onDisLikeButtonTapped,
+                                                                ),
                                                                   ],
                                                                 ),
                                                               ),
-
-                                                              // LikeButton(
-                                                              //   isLiked: false,
-                                                              //   likeBuilder:
-                                                              //       (bool isLiked) {
-                                                              //     return Icon(
-                                                              //       Icons.favorite,
-                                                              //       color: isLiked
-                                                              //           ? AppColor
-                                                              //               .danger
-                                                              //           : Colors.grey,
-                                                              //     );
-                                                              //   },
-                                                              //   likeCount: 6,
-                                                              //   onTap:
-                                                              //       (onLikeButtonTapped),
-                                                              // ),
                                                             ],
                                                           ),
                                                           Divider(

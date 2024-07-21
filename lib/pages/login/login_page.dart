@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         fontSize: 16.0);
     if (result['info'] == '登录成功') {
       Get.offNamed(Routes.ROOT);
-      Get.find<UserController>().login(result['token'],result['uid']);
+      Get.find<UserController>().login(result['token'],result['uid'],false);
     }
   }
   @override

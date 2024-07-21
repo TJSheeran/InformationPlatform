@@ -7,26 +7,30 @@ class UserController extends GetxController {
   var token = "".obs;
   var loginState = false.obs;
   var uid = 0.obs;
+  var isAdmin = false.obs;
   logout(){
     loginState.value = false;
     UserTokenManager.instance.logout();
     update();
   }
-  login(String tempToken,int tempUid){
+  login(String tempToken,int tempUid,bool tempAdmin){
     token.value = tempToken;
     uid.value = tempUid;
     loginState.value = true;
-    UserTokenManager.instance.saveUserToken(tempToken,tempUid);
+    isAdmin.value = tempAdmin;
+    UserTokenManager.instance.saveUserToken(tempToken,tempUid,tempAdmin);
     update();
   }
   localUserToken(){
     String? tempToken = UserTokenManager.instance.loadLocalToken();
     int? tempUid = UserTokenManager.instance.loadUid();
+    bool? tempAdmin = UserTokenManager.instance.loadAdmin();
     if(tempToken!="")
       {
         token.value = tempToken!;
         loginState.value = true;
         uid.value = tempUid!;
+        isAdmin.value = tempAdmin!;
         update();
         //loadNetUserInfo();//登录态验证
       }

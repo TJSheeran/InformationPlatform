@@ -27,11 +27,12 @@ class _LocatePageState extends State<LocatePage> {
   final location = Get.find<Location>();
   var _cityList = [
     {"location":"嘉定校区","long":'121.21416',"lati":'31.286012'},
-    {"location":"南翔镇","long":'121.308228',"lati":'31.291233'},
-    {"location":"马陆镇","long":'121.28379',"lati":'31.333048'},
+    // {"location":"南翔镇","long":'121.308228',"lati":'31.291233'},
+    // {"location":"马陆镇","long":'121.28379',"lati":'31.333048'},
     {"location":"四平路校区","long":'121.502085',"lati":'31.282588'},
-    {"location":"江川路","long":'121.436882',"lati":'31.025626'},
-    {"location":"五角场","long":'121.519728',"lati":'31.30507'},];
+    // {"location":"江川路","long":'121.436882',"lati":'31.025626'},
+    // {"location":"五角场","long":'121.519728',"lati":'31.30507'},
+];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

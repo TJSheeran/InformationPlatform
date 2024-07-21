@@ -14,8 +14,10 @@ import 'package:tongxinbaike/pages/mytest/head.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:tongxinbaike/gexControl/location.dart';
-
 import '../../gexControl/userController.dart';
+import 'package:flutter/services.dart';
+import 'package:tongxinbaike/pages/publish/publish_page.dart';
+import 'package:tongxinbaike/pages/root/root_page.dart';
 class NiceplayPage extends StatefulWidget {
   NiceplayPage({Key? key}) : super(key: key);
 
@@ -23,7 +25,8 @@ class NiceplayPage extends StatefulWidget {
   State<NiceplayPage> createState() => _NiceplayPageState();
 }
 final location = Get.find<Location>();
-
+double _drawerIconSize = 24;
+double _drawerFontSize = 17;
 String defaultAvator =
     "https://wx2.sinaimg.cn/large/005ZZktegy1gvndtv7ic9j62bc2bbhdt02.jpg";
 Widget renderCover() {
@@ -453,24 +456,9 @@ class _NiceplayPageState extends State<NiceplayPage> {
           ),
           elevation: 0.5,
           iconTheme: IconThemeData(color: Colors.white),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Get.toNamed(Routes.TEST);// 处理返回操作
-            },
-          ),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               color: AppColor.bluegreen,
-              // gradient: LinearGradient(
-              //     begin: Alignment.topLeft,
-              //     end: Alignment.bottomRight,
-              //     colors: <Color>[
-              //   Theme.of(context).primaryColor,
-              //   Theme.of(context).accentColor,
-              // ]
-
-              // )
             ),
           ),
           actions: [
@@ -479,36 +467,6 @@ class _NiceplayPageState extends State<NiceplayPage> {
                 top: 14,
                 right: 16,
               ),
-              // child: Stack(
-              //   children: <Widget>[
-              //     Icon(
-              //       Icons.notifications,
-              //       size: 30,
-              //     ),
-              //     Positioned(
-              //       right: 0,
-              //       child: Container(
-              //         padding: EdgeInsets.all(1),
-              //         decoration: BoxDecoration(
-              //           color: Colors.red,
-              //           borderRadius: BorderRadius.circular(6),
-              //         ),
-              //         constraints: BoxConstraints(
-              //           minWidth: 14,
-              //           minHeight: 14,
-              //         ),
-              //         child: Text(
-              //           '6',
-              //           style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 12,
-              //           ),
-              //           textAlign: TextAlign.center,
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // ),
             )
           ],
         ),
@@ -520,7 +478,94 @@ class _NiceplayPageState extends State<NiceplayPage> {
             backgroundColor: AppColor.bluegreen
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      // floatingActionButton: floatButton,
+        drawer: Drawer(
+          child: Container(
+            decoration: BoxDecoration(
+              color: AppColor.page,
+            ),
+            child: ListView(
+              padding: const EdgeInsets.all(0.0),
+              children: [
+                DrawerHeader(
+                  // padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 8.0),
+                  decoration: BoxDecoration(
+                    color: AppColor.bluegreen,
+                  ),
+                  child: Container(
+                    alignment: Alignment.bottomLeft,
+                    child: Text(
+                      "设 置",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: AppColor.page,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.screen_lock_landscape_rounded,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '回到首页',
+                    style: TextStyle(
+                        fontSize: 17,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RootPage()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.login_rounded,
+                      size: _drawerIconSize, color: AppColor.active),
+                  title: Text(
+                    '发布词条',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => RootPage()),
+                    // );
+                    showBarModalBottomSheet(
+                        context: context,
+                        builder: (context) => PublishPage(),
+                        enableDrag: true,
+                        expand: true,
+                        duration: const Duration(milliseconds: 400),
+                        backgroundColor: Colors.transparent);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.logout_rounded,
+                    size: _drawerIconSize,
+                    color: AppColor.active,
+                  ),
+                  title: Text(
+                    '退出登录',
+                    style: TextStyle(
+                        fontSize: _drawerFontSize,
+                        color: AppColor.active,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    SystemNavigator.pop();
+                    Get.find<UserController>().logout();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         body:FutureBuilder(
             future: _ReadHandle(),

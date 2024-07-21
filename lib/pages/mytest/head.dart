@@ -26,7 +26,7 @@ class RootPageHead extends StatefulWidget {
 
 class _RootPageHeadState extends State<RootPageHead> {
   Map<String, Object>? _locationResult;
-  final location = Get.put(Location());
+
 
   FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController = TextEditingController()
@@ -94,7 +94,7 @@ class _RootPageHeadState extends State<RootPageHead> {
 
     Get.arguments==null?_startLocation():_stopLocation();
   }
-
+  final location = Get.put(Location());
   Future<String> _locatehandle() async {
     var result = await DioUtil().request(
       "/getAddress/"+location.longitude.value+','+location.latitude.value,
