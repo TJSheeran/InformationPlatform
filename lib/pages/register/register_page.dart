@@ -12,6 +12,7 @@ import 'package:tongxinbaike/dio_util/dio_method.dart';
 import 'package:tongxinbaike/dio_util/dio_util.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_colors.dart';
 import '../../dio_util/dio_method.dart';
@@ -124,17 +125,24 @@ class _RegisterPageState extends State<RegisterPage> {
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
-
+    _launchURL() async {
+      const url = 'https://www.tongxinshequ.com/';
+      if (await canLaunchUrl(Uri.parse(url))) {
+        launchUrl(Uri.parse(url));
+      } else {
+        throw '无法打开 $url';
+      }
+    }
     //新用户注册提醒行
     const fronttext = Text(
-      "请您阅读",
+      "注册前须知",
       style: TextStyle(fontStyle: FontStyle.normal, fontSize: 18),
       textAlign: TextAlign.center,
     );
     final register = TextButton(
-      onPressed: () {},
+      onPressed: () {_launchURL();},
       child: const Text(
-        '用户条例政策',
+        '用户条例与隐私政策',
         style: TextStyle(color: AppColor.bluegreen, fontSize: 18),
       ),
     );
