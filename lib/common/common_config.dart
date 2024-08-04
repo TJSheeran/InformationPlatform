@@ -32,5 +32,9 @@ final levelMap = <String, List<String>>{
 };
 final List<String> defaultTalk = [
   "吐槽",
-  "其他"
+  "美食",
+  "休闲",
+  "二手",
+  "社区服务",
+  "交通出行",
 ];

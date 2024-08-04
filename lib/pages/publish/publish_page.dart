@@ -334,7 +334,7 @@ class _PublishPageState extends State<PublishPage> {
                                                       '') {
                                                 Get.back(result: true);
                                                 imageUpload(
-                                                    firstLevelLabel!='吐槽'?null:firstLevelLabel,
+                                                    firstLevelLabel,
                                                     secondLevelLabel,
                                                     titleController.text,
                                                     contentController.text);
