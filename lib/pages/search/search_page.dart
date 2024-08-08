@@ -213,6 +213,14 @@ class _SearchPageState extends State<SearchPage> {
              .request("/search", method: DioMethod.post, data: formData);
     return result;
   }
+  Future<List> _SearchIn(content) async {
+    var formData = FormDataA.FormData.fromMap({
+      'baikeSearch': content,
+    });
+    var result = await DioUtil()
+        .request("/search", method: DioMethod.post, data: formData);
+    return result;
+  }
   _searchHandle() async {
     var content = searchController.text;
     if (content == '') {
@@ -227,7 +235,10 @@ class _SearchPageState extends State<SearchPage> {
           fontSize: 16.0);
       return;
     } else {
-      Get.toNamed(Routes.SEARCH, arguments: content);
+     setState(() {
+       flist = _SearchIn(content);
+     });
+     searchFocusNode.unfocus();
     }
     //更改登陆发送网址，为了方便测试用的cupcakes，有返回值即可登陆
   }

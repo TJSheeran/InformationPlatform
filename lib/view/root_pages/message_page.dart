@@ -42,19 +42,33 @@ class _MessagePageState extends State<MessagePage> {
       method: DioMethod.get,
     );
     Get.toNamed(Routes.DETAIL, arguments: result[0])?.then((value) {
-      if (value != null && value) {
+      if (result[0]!=null) {
         setState(() {
-          _ReadHandle();
+          futureMessage = _ReadHandle();
         });
       }
-    });
+    }
+    );
   }
+
   RefreshController _refreshController = RefreshController(
       initialRefresh: false);
 
-  void _onRefresh() async {
+  Future<List>? futureMessage;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    futureMessage = _ReadHandle();
+    super.initState();
+  }
+
+  void _onRefresh()  {
     // monitor network fetch
-    await _ReadHandle();
+    setState(() {
+      futureMessage = _ReadHandle();
+    });
     // if failed,use refreshFailed()
     _refreshController.refreshCompleted();
   }
@@ -424,7 +438,7 @@ class _MessagePageState extends State<MessagePage> {
             ),
           ),
         body: FutureBuilder(
-            future: _ReadHandle(),
+            future: futureMessage,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.hasData) {
                 return SmartRefresher(
