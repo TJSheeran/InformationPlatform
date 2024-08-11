@@ -126,7 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
     _launchURL() async {
-      const url = 'https://www.tongxinshequ.com/';
+      const url = 'https://www.tongxinshequ.com/?is=agreement';
       if (await canLaunchUrl(Uri.parse(url))) {
         launchUrl(Uri.parse(url));
       } else {
